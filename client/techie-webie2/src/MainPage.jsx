@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './MainPage.css';
 import NavPanel from "./NavPanel";
 import CreateDiscussion from "./CreateDiscussion"
 import DiscussionList from "./DiscussionList"
@@ -20,16 +21,16 @@ function MainPage ({ onLogout }) {
 
     return (
         <div className="forum">
-			<NavPanel onLogout={onLogout} onSearch={handleSearch}/>
-            <section>
+			<NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
+            <section  className='CreateDisc'>
                 <CreateDiscussion onCreate={addDiscussion}/>
             </section>
 
-            <section>
+            <section  className='DiscussionList'>
                 <DiscussionList discussions={discussions} />
             </section>
 
-            <aside>
+            <aside className='Information'>
               <Information /> {/* Add the Information component here */}
             </aside>
         </div>

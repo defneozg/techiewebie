@@ -1,0 +1,83 @@
+.forum {
+    display: flex;
+    grid-template-columns: 200px 1fr; /* Left: 200px, Right: 1fr */
+    grid-template-rows: auto auto 1fr;  /* Top: auto, Mid: auto, Bottom: 1fr */
+    height: 100vh; /* Optional: Set full viewport height */
+  }
+
+  aside {
+	width: 20%;
+	height: 550px;
+	background-color: red
+}
+
+section {
+	display: flex;
+	width: 80%;
+	flex-direction: column;
+}
+  
+  .NavPan {
+    display: flex;
+    grid-row: 1; /* Occupies first row (Top) */
+    grid-column: 1 / span 2; /* Spans across both columns (Full width) */
+    background-color: #f0f0f0; /* Optional: Background color for NavPanel */
+    padding: 10px; /* Optional: Padding for NavPanel */
+  }
+  
+  .CreateDisc {
+    grid-row: 2; /* Occupies second row (Mid) */
+    grid-column: 1 / span 2; /* Spans across both columns (Full width) */
+    padding: 10px; /* Optional: Padding for CreateDiscussion */
+  }
+  
+  .Information {
+    grid-row: 1 / span 3; /* Occupies all rows (Full height) */
+    grid-column: 1; /* Occupies first column (Left) */
+    background-color: #e0e0e0; /* Optional: Background color for Information */
+    padding: 10px; /* Optional: Padding for Information */
+  }
+  
+  .DiscussionList {
+    grid-row: 3; /* Occupies third row (Bottom) */
+    grid-column: 2; /* Occupies second column (Right) */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+  }
+
+  .nav-panel {
+    display: flex; /* Arrange elements horizontally */
+    justify-content: space-between; /* Space elements evenly */
+    align-items: center; /* Align elements vertically in center */
+    padding: 10px 20px; /* Optional padding for spacing */
+    background-color: #f0f0f0; /* Optional background color */
+    /* Add a border or shadow for visual separation (optional) */
+    /* border: 1px solid #ddd; */
+    /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); */
+  }
+  
+  .logo {
+    flex: 1; /* Flexible width to fill available space */
+    font-size: 18px; /* Adjust font size for your logo */
+    font-weight: bold; /* Optional: Make the logo text bold */
+  }
+  
+  .search-bar,
+  .logout-button {
+    flex: 0 0 auto; /* Fixed width for search and logout elements */
+  }
+  
+  .search-bar {
+    margin-right: 10px; /* Optional spacing between search and logout */
+  }
+  
+  .search-bar input {
+    padding: 5px 10px; /* Adjust padding for input field */
+    border: 1px solid #ccc; /* Border for the input field */
+    border-radius: 3px; /* Rounded corners for the input field */
+    font-size: 14px; /* Adjust font size for the search text */
+  }
+  
+  .logout-button button:hover {
+    background-color: #ddd; /* Button background color on hover */
+  }
+  

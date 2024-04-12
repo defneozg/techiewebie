@@ -14,6 +14,7 @@
 }
 
 body {
+	background-color: pink;
     margin: 0;
     padding: 0;
     display: flex;
@@ -56,14 +57,20 @@ a {
 	flex-direction: column;
 }
 
+.button-container {
+	display: flex;
+}
+
 .SignUpBtn,
 .submitBtn,
 .cancelBtn,
-.createBtn
+.createBtn,
+.logout-button button
 {
 	display: flexbox;
 	width: 100px;
 	padding: 15px;
+	margin-right: 10px;
 	cursor: pointer;
 	outline: none;
 	border: none;
@@ -74,3 +81,4 @@ a {
 	background-color: #ea5399;
 	margin-bottom: 15px;
 }
+
