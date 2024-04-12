@@ -1,0 +1,76 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Space Grotesk", sans-serif;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+}
+  
+.container {
+    text-align: center; 
+}
+
+input {
+	padding: 10px 20px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	margin-bottom: 15px;
+}
+a {
+	text-decoration: none;
+}
+.SignInForm,
+.LoginPage,
+.MainPage
+{
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	padding: 30px;
+}
+
+.registerForm,
+.loginForm
+{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.SignUpBtn,
+.submitBtn,
+.cancelBtn,
+.createBtn
+{
+	display: flexbox;
+	width: 100px;
+	padding: 15px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fffbf5;
+	background-color: #ea5399;
+	margin-bottom: 15px;
+}
