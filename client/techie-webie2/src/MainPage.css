@@ -1,40 +1,34 @@
 .forum {
-    display: flex;
+    display: grid;
     grid-template-columns: 200px 1fr; /* Left: 200px, Right: 1fr */
     grid-template-rows: auto auto 1fr;  /* Top: auto, Mid: auto, Bottom: 1fr */
     height: 100vh; /* Optional: Set full viewport height */
   }
-
-  aside {
-	width: 20%;
-	height: 550px;
-	background-color: red
-}
-
-section {
-	display: flex;
-	width: 80%;
-	flex-direction: column;
-}
   
   .NavPan {
     display: flex;
     grid-row: 1; /* Occupies first row (Top) */
-    grid-column: 1 / span 2; /* Spans across both columns (Full width) */
-    background-color: #f0f0f0; /* Optional: Background color for NavPanel */
+    grid-column: 1 / span 3; /* Spans across both columns (Full width) */
+    background-color: #f96398; /* Optional: Background color for NavPanel */
     padding: 10px; /* Optional: Padding for NavPanel */
+  }
+
+  .discCont {
+    display: grid;
   }
   
   .CreateDisc {
+    justify-content: center; 
+    align-items: center; 
     grid-row: 2; /* Occupies second row (Mid) */
     grid-column: 1 / span 2; /* Spans across both columns (Full width) */
     padding: 10px; /* Optional: Padding for CreateDiscussion */
   }
   
-  .Information {
-    grid-row: 1 / span 3; /* Occupies all rows (Full height) */
+  .Information { 
+    grid-row: 2 / span 3; /* Occupies all rows (Full height) */
     grid-column: 1; /* Occupies first column (Left) */
-    background-color: #e0e0e0; /* Optional: Background color for Information */
+    background-color: #f96398; /* Optional: Background color for Information */
     padding: 10px; /* Optional: Padding for Information */
   }
   
@@ -46,10 +40,12 @@ section {
 
   .nav-panel {
     display: flex; /* Arrange elements horizontally */
+    grid-row: 1; /* Occupies first row (Top) */
+    grid-column: 1 / span 3; /* Spans across both columns (Full width) */
     justify-content: space-between; /* Space elements evenly */
     align-items: center; /* Align elements vertically in center */
     padding: 10px 20px; /* Optional padding for spacing */
-    background-color: #f0f0f0; /* Optional background color */
+    background-color: #f96398;; /* Optional background color */
     /* Add a border or shadow for visual separation (optional) */
     /* border: 1px solid #ddd; */
     /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); */

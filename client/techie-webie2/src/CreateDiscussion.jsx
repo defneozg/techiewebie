@@ -23,10 +23,10 @@ function CreateDiscussion({ onCreate }) {
     return (
       <div>
         <h2>Create Discussion</h2>
-        <form onSubmit={handleSubmit}>
+        <form className="discCont" onSubmit={handleSubmit}>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Discussion Title" required />
           <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Discussion Content" required />
-          <button type="submit">Send</button>
+          <button className="SendBtn" type="submit">Send</button>
         </form>
       </div>
     );

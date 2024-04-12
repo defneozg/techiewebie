@@ -20,7 +20,7 @@ function MainPage ({ onLogout }) {
 
 
     return (
-        <div className="forum">
+      <div className="forum">
 			<NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
             <section  className='CreateDisc'>
                 <CreateDiscussion onCreate={addDiscussion}/>
