@@ -18,13 +18,11 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
     height: 100vh;
 }
   
 .container {
-    text-align: center; 
+    text-align: center;
 }
 
 input {
@@ -37,8 +35,7 @@ a {
 	text-decoration: none;
 }
 .SignInForm,
-.LoginPage,
-.MainPage
+.LoginPage
 {
 	display: flex;
 	width: 100%;
@@ -55,6 +52,9 @@ a {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: center; 
+    align-items: center; 
+	height: 100vh;
 }
 
 .button-container {
@@ -70,7 +70,7 @@ a {
 {
 	display: flexbox;
 	width: 100px;
-	padding: 15px;
+	padding: 12px;
 	margin-right: 10px;
 	cursor: pointer;
 	outline: none;
@@ -82,4 +82,3 @@ a {
 	background-color: #ea5399;
 	margin-bottom: 15px;
 }
-

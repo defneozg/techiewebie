@@ -20,20 +20,24 @@ function MainPage ({ onLogout }) {
 
 
     return (
+    <div>
+      <div className="header">
+        <NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
+      </div>
       <div className="forum">
-			<NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
-            <section  className='CreateDisc'>
-                <CreateDiscussion onCreate={addDiscussion}/>
-            </section>
-
-            <section  className='DiscussionList'>
-                <DiscussionList discussions={discussions} />
-            </section>
-
-            <aside className='Information'>
-              <Information /> {/* Add the Information component here */}
-            </aside>
-        </div>
+        <aside className='Information'>
+          <Information /> {/* Add the Information component here */}
+        </aside>
+        <section  className='Disc'>
+          <div className="CreateDisc">
+            <CreateDiscussion onCreate={addDiscussion}/>
+          </div>
+          <article  className='DiscussionList'>
+            <DiscussionList discussions={discussions} />
+          </article>
+        </section>
+      </div>
+    </div>
     );
 }
 

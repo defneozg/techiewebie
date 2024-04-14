@@ -1,44 +1,25 @@
-.forum {
-    display: grid;
-    grid-template-columns: 200px 1fr; /* Left: 200px, Right: 1fr */
-    grid-template-rows: auto auto 1fr;  /* Top: auto, Mid: auto, Bottom: 1fr */
-    height: 100vh; /* Optional: Set full viewport height */
-  }
-  
-  .NavPan {
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: pink;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+}
+
+.NavPan {
     display: flex;
     grid-row: 1; /* Occupies first row (Top) */
     grid-column: 1 / span 3; /* Spans across both columns (Full width) */
     background-color: #f96398; /* Optional: Background color for NavPanel */
     padding: 10px; /* Optional: Padding for NavPanel */
-  }
+}
 
-  .discCont {
-    display: grid;
-  }
-  
-  .CreateDisc {
-    justify-content: center; 
-    align-items: center; 
-    grid-row: 2; /* Occupies second row (Mid) */
-    grid-column: 1 / span 2; /* Spans across both columns (Full width) */
-    padding: 10px; /* Optional: Padding for CreateDiscussion */
-  }
-  
-  .Information { 
-    grid-row: 2 / span 3; /* Occupies all rows (Full height) */
-    grid-column: 1; /* Occupies first column (Left) */
-    background-color: #f96398; /* Optional: Background color for Information */
-    padding: 10px; /* Optional: Padding for Information */
-  }
-  
-  .DiscussionList {
-    grid-row: 3; /* Occupies third row (Bottom) */
-    grid-column: 2; /* Occupies second column (Right) */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-
-  .nav-panel {
+.nav-panel {
     display: flex; /* Arrange elements horizontally */
     grid-row: 1; /* Occupies first row (Top) */
     grid-column: 1 / span 3; /* Spans across both columns (Full width) */
@@ -49,31 +30,73 @@
     /* Add a border or shadow for visual separation (optional) */
     /* border: 1px solid #ddd; */
     /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); */
-  }
+}
   
-  .logo {
+.logo {
     flex: 1; /* Flexible width to fill available space */
     font-size: 18px; /* Adjust font size for your logo */
     font-weight: bold; /* Optional: Make the logo text bold */
-  }
+}
   
-  .search-bar,
-  .logout-button {
+.search-bar,
+.logout-button {
     flex: 0 0 auto; /* Fixed width for search and logout elements */
-  }
+}
   
-  .search-bar {
+.search-bar {
     margin-right: 10px; /* Optional spacing between search and logout */
-  }
+}
   
-  .search-bar input {
+.search-bar input {
     padding: 5px 10px; /* Adjust padding for input field */
     border: 1px solid #ccc; /* Border for the input field */
     border-radius: 3px; /* Rounded corners for the input field */
     font-size: 14px; /* Adjust font size for the search text */
-  }
+}
   
-  .logout-button button:hover {
-    background-color: #ddd; /* Button background color on hover */
-  }
+.logout-button button:hover {
+    background-color: #ddd; 
+}
+
+.forum {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 600px;
+    
+}
+
+.Information { 
+    width: 20%;
+    height: 550px;
+    background-color: #f96398; /* Optional: Background color for Information */
+    padding: 10px; /* Optional: Padding for Information */
+}
+
+.Disc {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+}
+
+.CreateDisc {
+    width: 100%;
+    height: 100px;
+    background-color: yellow;
+    margin-bottom: 16%;
+}
+
+.discCont {
+    display: flex;
+    flex-direction: column;
+}
+
+.discTitle {
+    margin-bottom: 1%;
+}
   
+.DiscussionList {
+    width: 100%;
+    height: 450px;
+    background-color: cyan;
+}
