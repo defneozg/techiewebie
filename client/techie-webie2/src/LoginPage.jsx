@@ -18,10 +18,12 @@ function LoginPage ({ onLogin, onCreateAccount }) {
 
   return (
     <form className='loginForm' onSubmit={handleLoginClick} method="POST" action="">
+	<div className='EspacesLogin'>
       <label htmlFor="username">Username</label>
       <input id="user" onChange={getUsername} value={username} />
       <label htmlFor="pass">Password</label>
       <input type="password" id="pass" onChange={getPassword} value={password} />
+	</div>
       <div className="button-container">
         <button className='submitBtn' type="submit">Log In</button>
         <button className='cancelBtn' type="button" onClick={handleCancelClick}>Cancel</button>

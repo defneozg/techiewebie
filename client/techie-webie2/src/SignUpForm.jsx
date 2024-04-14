@@ -24,11 +24,13 @@ function SignUpForm (props) {
 	return (
 	<div>
 		<form className='registerForm'>
-			<label htmlFor="firstname">First name</label><input id="firstname" onChange={getFirstName}/>
-			<label htmlFor="lastname">Last name</label><input id="lastname" onChange={getLastName}/>
-			<label htmlFor="signin_username">Username</label><input id="signin_username" onChange={getUsername}/>
-			<label htmlFor="signin_mdp1">Password</label><input type="password" id="signin_mdp1" onChange={getPass1}/>
-			<label htmlFor="signin_mdp2">Confirm Password</label><input type="password" id="signin_mdp2" onChange={getPass2}/>
+			<div className='EspacesSign'>
+				<label htmlFor="firstname">First name</label><input id="firstname" onChange={getFirstName}/>
+				<label htmlFor="lastname">Last name</label><input id="lastname" onChange={getLastName}/>
+				<label htmlFor="signin_username">Username</label><input id="signin_username" onChange={getUsername}/>
+				<label htmlFor="signin_mdp1">Password</label><input type="password" id="signin_mdp1" onChange={getPass1}/>
+				<label htmlFor="signin_mdp2">Confirm Password</label><input type="password" id="signin_mdp2" onChange={getPass2}/>
+			</div>
 			<button className='SignUpBtn' onClick={submissionHandler}>Sign Up</button>			
 		{passOK || pass1==="" || pass2==="" ? <p></p>:<p style={{color:"red"}}>Error: passwords do not match</p>}
 		</form>

@@ -82,3 +82,10 @@ a {
 	background-color: #ea5399;
 	margin-bottom: 15px;
 }
+
+.EspacesLogin,
+.EspacesSign {
+	display: flex;
+	flex-direction: column;
+	align-items: left; 
+}

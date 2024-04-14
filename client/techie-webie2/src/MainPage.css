@@ -12,6 +12,7 @@ body {
 }
 
 .NavPan {
+    width: 100%;
     display: flex;
     grid-row: 1; /* Occupies first row (Top) */
     grid-column: 1 / span 3; /* Spans across both columns (Full width) */
@@ -20,6 +21,7 @@ body {
 }
 
 .nav-panel {
+    width: 100%;
     display: flex; /* Arrange elements horizontally */
     grid-row: 1; /* Occupies first row (Top) */
     grid-column: 1 / span 3; /* Spans across both columns (Full width) */
@@ -38,17 +40,13 @@ body {
     font-weight: bold; /* Optional: Make the logo text bold */
 }
   
-.search-bar,
-.logout-button {
-    flex: 0 0 auto; /* Fixed width for search and logout elements */
-}
-  
 .search-bar {
-    margin-right: 10px; /* Optional spacing between search and logout */
+    margin-right: 250px; /* Optional spacing between search and logout */
+
 }
   
 .search-bar input {
-    padding: 5px 10px; /* Adjust padding for input field */
+    padding: 5px 400px; /* Adjust padding for input field */
     border: 1px solid #ccc; /* Border for the input field */
     border-radius: 3px; /* Rounded corners for the input field */
     font-size: 14px; /* Adjust font size for the search text */
@@ -62,28 +60,28 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 600px;
+    height: 100hv;
     
 }
 
 .Information { 
     width: 20%;
-    height: 550px;
+    min-height: 100hv;
     background-color: #f96398; /* Optional: Background color for Information */
     padding: 10px; /* Optional: Padding for Information */
 }
 
 .Disc {
     display: flex;
-    width: 80%;
+    width: 70%;
     flex-direction: column;
+    margin-left: 3%;
 }
 
 .CreateDisc {
-    width: 100%;
+    width: 60%;
     height: 100px;
-    background-color: yellow;
-    margin-bottom: 16%;
+    margin-bottom: 5%;
 }
 
 .discCont {
@@ -97,6 +95,5 @@ body {
   
 .DiscussionList {
     width: 100%;
-    height: 450px;
-    background-color: cyan;
+    min-height: 100hv;
 }
