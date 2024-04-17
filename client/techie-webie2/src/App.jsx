@@ -27,6 +27,7 @@ function App() {
       setIsLoggedIn(true) // Set isLoggedIn state to true upon successful authentication
     } else {
       alert('Invalid username or password. Please try again.') // Show an alert for unsuccessful login
+      setCurrentPage('LoginPage')
     }
   }
 
