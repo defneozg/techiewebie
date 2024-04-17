@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpForm from './SignUpForm';
 import DiscussionPage from './DiscussionPage';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('LoginPage');
@@ -28,6 +30,14 @@ function App() {
     }
   }
 
+  const handleLogin = (loggedIn) => {
+    setIsLoggedIn(loggedIn); // Update isLoggedIn state upon login
+    // Optionally navigate to MainPage after login (if desired)
+    // navigateTo('/MainPage'); 
+    console.log('Login true?');
+  };
+  
+
   let content;
   if (currentPage === 'LoginPage' && !isLoggedIn) {
     content = <LoginPage onLogin={handleLoginClick} onCreateAccount={() => navigateTo('signup')} />;
@@ -39,11 +49,12 @@ function App() {
 
   return (
     <div>
-        {content}
-        <Routes>
-          <Route path='/' element={<></>} />
-          <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
-        </Routes>
+      {content}
+      <Routes>
+        <Route path="/" element={<></> } />
+        <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
+      </Routes>
+
       </div>
   )
 }

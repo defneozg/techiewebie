@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUpForm (props) {
 	
@@ -16,8 +17,37 @@ function SignUpForm (props) {
 	const getLastName = (evt) => {setLastName(evt.target.value)};
 	const getPass1 = (evt) => {setPass1(evt.target.value)};
 	const getPass2 = (evt) => {setPass2(evt.target.value)};
+
+	const navigate = useNavigate();
+
+	const signUp = () => {
+		fetch("http://localhost:4000/api/SignUpForm", {
+			method: "POST",
+			body: JSON.stringify({
+				password,
+				username,
+				firstName,
+				lastName,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+		.then((res) => res.json())
+        .then((data) => {
+            if (data.error_message) {
+                alert(data.error_message);
+            } else {
+                alert("Account created successfully!");
+                navigate("/");
+            }
+        })
+        .catch((err) => console.error(err));
+};
 	
 	const submissionHandler = (evt) => {
+		e.preventDefault();
+		signUp();
 		if (pass1 === pass2) setPassOK(true);
 	}
 		

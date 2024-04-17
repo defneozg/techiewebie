@@ -14,7 +14,8 @@ function NavPanel({ onLogout, onSearch }) {
   const handleLogout = () => {
     // Call the onLogout function passed from the parent component
     if (onLogout) {
-	  console.log('Logout button clicked');
+	    console.log('Logout button clicked');
+      localStorage.removeItem("_id");
       onLogout();
     }
   };
