@@ -1,5 +1,6 @@
 const express = require("express");
 const Users = require("./entites/users.js");
+const session = require('express-session');
 
 function init(db) {
     const router = express.Router();

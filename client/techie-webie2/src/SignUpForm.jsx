@@ -66,7 +66,7 @@ function SignUpForm() {
   };
 
   const submissionHandler = (event) => {
-	console.log(event)
+	  console.log(event)
     event.preventDefault();
     handleRegistration();
   };

@@ -4,7 +4,7 @@ class Users {
       // suite plus tard avec la BD
     }
   
-    create(login, password, lastname, firstname) {
+    create(username, password, lastname, firstname) {
       return new Promise((resolve, reject) => {
         let userid = 1; // À remplacer par une requête bd
         if(false) {
@@ -19,7 +19,7 @@ class Users {
     get(userid) {
       return new Promise((resolve, reject) => {
         const user = {
-           login: "pikachu",
+           username: "pikachu",
            password: "1234",
            lastname: "chu",
            firstname: "pika"
