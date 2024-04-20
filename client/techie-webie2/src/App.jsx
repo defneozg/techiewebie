@@ -6,7 +6,7 @@ import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpForm from './SignUpForm';
 import DiscussionPage from './DiscussionPage';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute'; // ????
 
 function App() {
   const [currentPage, setCurrentPage] = useState('LoginPage');
@@ -52,7 +52,14 @@ function App() {
     <div>
       {content}
       <Routes>
-        <Route path="/" element={<></> } />
+        <Route path="/" element={<LoginPage />} /> {/* Login page is always accessible */}
+        <Route path="/signup" element={<SignUpForm />} /> {/* Signup page is always accessible */}
+        <Route path="/MainPage" element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <MainPage onLogout={setLogout} />
+          </ProtectedRoute>
+        }
+        />
         <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
       </Routes>
 

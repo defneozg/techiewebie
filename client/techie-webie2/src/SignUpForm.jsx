@@ -22,17 +22,19 @@ function SignUpForm() {
   const navigate = useNavigate();
 
   const handleRegistration = async (event) => {
-    event.preventDefault();
 
     // Basic validation (replace with more robust validation)
-    if (username.length < 3 || password.length < 6) {
-      alert("Username must be at least 3 characters and password must be at least 6 characters.");
+    if (username.length < 3 || pass1.length < 4) {
+      alert("Username must be at least 3 characters and password must be at least 4 characters.");
       return;
     }
 
     if (pass1 !== pass2) {
       setPassOK(false);
       return;
+    } else {
+      setPassOK(true);
+      setPassword(pass1); // Update password state after successful validation
     }
 
     const newUser = {
@@ -54,7 +56,7 @@ function SignUpForm() {
         setPassword("");
         setPassOK(false);
         alert("Account registered successfully!");
-        navigate("/LoginPage");
+        navigate("/LoginPage"); // Redirect to login page after successful registration
       } else {
         // Registration failed (handle specific errors from server)
         alert("Registration failed. Please try again later.");
@@ -66,8 +68,8 @@ function SignUpForm() {
   };
 
   const submissionHandler = (event) => {
-	  console.log(event)
     event.preventDefault();
+    console.log(event);
     handleRegistration();
   };
 
@@ -86,7 +88,7 @@ function SignUpForm() {
           <label htmlFor="signin_mdp2">Confirm Password</label>
           <input type="password" id="signin_mdp2" onChange={getPass2} />
         </div>
-        <button className="SignUpBtn" type="submit" onClick={(event) => submissionHandler(event)}>
+        <button className="SignUpBtn" type="submit" onClick={submissionHandler}>
           Sign Up
         </button>
         {passOK || pass1 === "" || pass2 === "" ? (

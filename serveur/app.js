@@ -1,7 +1,7 @@
 const express = require('express');
-const routeur = express.Router;
 const api = require('./api.js');
 const { MongoClient } = require('mongodb');
+var db = {};
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
     console.log('Connected to MongoDB');
 
     // Use the client for database operations (if needed)
-    app.locals.db = client.db('dbMaChere'); // Replace with your database name
+    db = client.db('Projet_Christine_Defne'); // Replace with your database name
 
     // Start the server after successful connection
   } catch (error) {
@@ -25,8 +25,7 @@ app.use(express.json());
 })();
 
 // Route Mounting
-
-app.use('/api', routeur);
+app.use('/api', api.default(db));
 
 // Error Handling
 app.use((err, req, res, next) => {
