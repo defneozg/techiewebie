@@ -64,5 +64,3 @@ class Users {
   }
   
   exports.default = Users;
-  
-  

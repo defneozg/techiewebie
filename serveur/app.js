@@ -8,21 +8,6 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB (asynchronous)
-(async () => {
-  try {
-    const client = await MongoClient.connect('mongodb://localhost:27017');
-    console.log('Connected to MongoDB');
-
-    // Use the client for database operations (if needed)
-    db = client.db('Projet_Christine_Defne'); // Replace with your database name
-
-    // Start the server after successful connection
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Exit the application on error
-  }
-})();
 
 // Route Mounting
 app.use('/api', api.default(db));

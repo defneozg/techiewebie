@@ -21,17 +21,17 @@ function MainPage ({ onLogout }) {
 
     return (
     <div>
-      <div className="header">
+      <section className="header">
         <NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
-      </div>
+      </section>
       <div className="forum">
-        <aside className='Information'>
-          <Information /> {/* Add the Information component here */}
-        </aside>
+        <section className='Information'>
+          <Information />
+        </section>
         <section  className='Disc'>
-          <div className="CreateDisc">
+          <section className="CreateDisc">
             <CreateDiscussion onCreate={addDiscussion}/>
-          </div>
+          </section>
           <article  className='DiscussionList'>
             <DiscussionList discussions={discussions} />
           </article>

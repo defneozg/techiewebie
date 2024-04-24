@@ -4,34 +4,15 @@ body {
     background-color: pink;
     margin: 0;
     padding: 0;
-    height: 100vh;
-}
-
-.header {
-    display: flex;
-}
-
-.NavPan {
-    width: 100%;
-    display: flex;
-    grid-row: 1; /* Occupies first row (Top) */
-    grid-column: 1 / span 3; /* Spans across both columns (Full width) */
-    background-color: #f96398; /* Optional: Background color for NavPanel */
-    padding: 10px; /* Optional: Padding for NavPanel */
 }
 
 .nav-panel {
     width: 100%;
-    display: flex; /* Arrange elements horizontally */
-    grid-row: 1; /* Occupies first row (Top) */
-    grid-column: 1 / span 3; /* Spans across both columns (Full width) */
-    justify-content: space-between; /* Space elements evenly */
-    align-items: center; /* Align elements vertically in center */
-    padding: 10px 20px; /* Optional padding for spacing */
-    background-color: #f96398;; /* Optional background color */
-    /* Add a border or shadow for visual separation (optional) */
-    /* border: 1px solid #ddd; */
-    /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    grid-row: 1;
+    grid-column: 1 / span 3;
+    padding: 10px 20px;
+    background-color: #f96398;
 }
   
 .logo {
@@ -51,7 +32,11 @@ body {
     border-radius: 3px; /* Rounded corners for the input field */
     font-size: 14px; /* Adjust font size for the search text */
 }
-  
+
+.search-bar input::placeholder {
+    text-align: left;
+}
+
 .logout-button button:hover {
     background-color: #ddd; 
 }
@@ -60,13 +45,11 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100hv;
     
 }
 
 .Information { 
     width: 20%;
-    min-height: 100hv;
     background-color: #f96398; /* Optional: Background color for Information */
     padding: 10px; /* Optional: Padding for Information */
 }
@@ -79,9 +62,9 @@ body {
 }
 
 .CreateDisc {
-    width: 60%;
-    height: 100px;
+    width: 100%;
     margin-bottom: 5%;
+    min-height: 100px;
 }
 
 .discCont {
@@ -95,5 +78,5 @@ body {
   
 .DiscussionList {
     width: 100%;
-    min-height: 100hv;
+    height: 100vh;
 }

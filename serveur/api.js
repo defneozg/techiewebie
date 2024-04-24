@@ -1,5 +1,6 @@
 const express = require("express");
 const Users = require("./entites/users.js");
+const Discussion = require('./entites/discussions');
 const session = require('express-session');
 
 function init(db) {
@@ -13,6 +14,21 @@ function init(db) {
         console.log('Body', req.body);
         next();
     });
+
+    router.get('', async (req, res) => {
+        const locals = {
+            title: "techie-webie",
+            description: "projet de techno web yippie"
+        }
+
+        try {
+        const data = await Discussion.find();
+        res.render('./client/MainPage', { locals, data });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     const users = new Users.default(db);
     router.post("/client/LoginPage", async (req, res) => {
         try {
@@ -100,5 +116,5 @@ function init(db) {
 
     return router;
 }
-exports.default = init;
 
+exports.default = init;

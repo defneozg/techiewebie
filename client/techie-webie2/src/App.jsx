@@ -52,7 +52,7 @@ function App() {
     <div>
       {content}
       <Routes>
-        <Route path="/" element={<LoginPage />} /> {/* Login page is always accessible */}
+        <Route path="/" element={<></>} /> {/* Login page is always accessible */}
         <Route path="/signup" element={<SignUpForm />} /> {/* Signup page is always accessible */}
         <Route path="/MainPage" element={
           <ProtectedRoute isLoggedIn={isLoggedIn}>
