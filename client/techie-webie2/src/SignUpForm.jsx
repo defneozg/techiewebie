@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
 function SignUpForm() {
@@ -22,7 +23,6 @@ function SignUpForm() {
   const navigate = useNavigate();
 
   const handleRegistration = async (event) => {
-
     // Basic validation (replace with more robust validation)
     if (username.length < 3 || pass1.length < 4) {
       alert("Username must be at least 3 characters and password must be at least 4 characters.");
@@ -46,20 +46,23 @@ function SignUpForm() {
 
     try {
       // Simulate API call with delay (replace with actual fetch)
-      const response = await new Promise((resolve) =>
-        setTimeout(() => resolve({ success: true }), 1000)
-      );
+      const response = await axios.post("http://localhost:4000/api/user/register", {
+        username,
+        password,
+        firstName,
+        lastName
+      });
 
-      if (response.success) {
-        // Registration successful
+      const data = response.data;
+
+      if (data.error_message) {
+        alert(data.error_message);
+      } else {
         setUsername("");
         setPassword("");
         setPassOK(false);
         alert("Account registered successfully!");
         navigate("/LoginPage"); // Redirect to login page after successful registration
-      } else {
-        // Registration failed (handle specific errors from server)
-        alert("Registration failed. Please try again later.");
       }
     } catch (error) {
       console.error("Error during registration:", error);

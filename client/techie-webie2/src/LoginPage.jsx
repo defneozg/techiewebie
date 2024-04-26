@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage ({ onLogin, onCreateAccount }) {
@@ -11,37 +12,38 @@ function LoginPage ({ onLogin, onCreateAccount }) {
   const navigate = useNavigate();
 
   const loginUser = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/LoginPage", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-  
-      const data = await response.json();
-  
-      if (data.error_message) {
-        alert(data.error_message);
-      } else {
-        setIsLoggedIn(true);
-        onLogin(true);
-        // Fetch user data after successful login
-        const userResponse = await fetch(`http://localhost:4000/api/user/${data.id}`);
-        const userData = await userResponse.json();
-        // Store user data (e.g., in state or localStorage)
-        setUserData(userData); // Assuming a setter function for user data
-        navigate("/MainPage"); // Assuming navigate function for routing
-      }
-    } catch (error) {
-      console.error("Error during login or user data fetch:", error);
-      alert("An error occurred. Please try again later.");
-    }
-  };
-  
+      try {
+          // Post request to login
+          console.log("hey1");
+          const response = await axios.get("http://localhost:4000/api/user/login", {
+              username,  // assuming `username` is defined in the scope
+              password   // assuming `password` is defined in the scope
+          });
+          console.log("hey2");
 
-  const handleLoginClick = () => {
-    //e.preventDefault();
-		//loginUser();
+          const data = response.data;
+
+          if (data.error_message) {
+              alert(data.error_message);
+          } else {
+              setIsLoggedIn(true);
+              onLogin(true);  // Assuming an `onLogin` function that updates login status
+              // Fetch user data after successful login
+              const userResponse = await axios.get("http://localhost:4000/api/user/${data.id}");
+              const userData = userResponse.data;
+              // Store user data (e.g., in state or localStorage)
+              setUserData(userData); // Assuming a setter function for user data
+              navigate("/MainPage"); // Assuming navigate function for routing
+          }
+      } catch (error) {
+          console.error("Error during login or user data fetch:", error);
+          alert("An error occurred. Please try again later.");
+      }
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+		loginUser();
     onLogin(username, password);
   };
 
@@ -63,7 +65,7 @@ function LoginPage ({ onLogin, onCreateAccount }) {
         <button className='cancelBtn' type="button" onClick={handleCancelClick}>Cancel</button>
       </div>
       <p>
-        Don't have an account? 
+        Don't have an account?
       </p>
       <button className='createBtn' onClick={onCreateAccount}>Create Account</button>
     </form>

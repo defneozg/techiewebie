@@ -1,22 +1,31 @@
 const express = require('express');
 const api = require('./api.js');
-const { MongoClient } = require('mongodb');
-var db = {};
+const { MongoClient, connectionDB } = require('./db.js')
+const cors = require('cors');
 
 const app = express();
+const db = connectionDB();
 
 // Middleware
 app.use(express.json());
 
+//Cors middleware 
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], 
+  credentials: true // cookies ?? 
+}));
 
-// Route Mounting
+
+// Routage
 app.use('/api', api.default(db));
 
-// Error Handling
+// Gestion d'erreurs
 app.use((err, req, res, next) => {
-  console.error(err.stack); // Log the error for debugging
+  console.error(err.stack);
 
-  // Provide a more informative error message in development
+  
   if (process.env.NODE_ENV === 'development') {
     res.status(err.status || 500).json({ error: err.message });
   } else {
@@ -24,7 +33,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-// Close MongoDB connection on application exit (optional)
+// Fermeture de MongoDB
 // process.on('SIGINT', async () => {
 //   await client.close();
 //   console.log('MongoDB connection closed');

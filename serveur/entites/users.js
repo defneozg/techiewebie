@@ -1,66 +1,86 @@
 class Users {
-    constructor(db) {
-      this.db = db
-      // suite plus tard avec la BD
-    }
-  
-    create(username, password, lastname, firstname) {
-      return new Promise((resolve, reject) => {
-        let userid = 1; // À remplacer par une requête bd
-        if(false) {
-          //erreur
-          reject();
-        } else {
-          resolve(userid);
-        }
-      });
-    }
-  
-    get(userid) {
-      return new Promise((resolve, reject) => {
-        const user = {
-           username: "pikachu",
-           password: "1234",
-           lastname: "chu",
-           firstname: "pika"
-        }; // À remplacer par une requête bd
-  
-        if(false) {
-          //erreur
-          reject();
-        } else {
-          if(userid == 1) {
-            resolve(user);
-          } else {
-            resolve(null);
-          }
-        }
-      });
-    }
-  
-    async exists(login) {
-      return new Promise((resolve, reject) => {
-        if(false) {
-          //erreur
-          reject();
-        } else {
-          resolve(true);
-        }
-      });
-    }
-  
-    checkpassword(login, password) {
-      return new Promise((resolve, reject) => {
-        let userid = 1; // À remplacer par une requête bd
-        if(false) {
-          //erreur
-          reject();
-        } else {
-          resolve(userid);
-        }
-      });
-    }
-  
+  constructor(db) {
+    this.db = db;
   }
-  
-  exports.default = Users;
+
+  async createUser(username, password, firstName, lastName) {
+    try {
+      const collection = db.collection('users'); 
+      const user = {
+        username,
+        password,
+        firstName,
+        lastName,
+      };
+
+      const result = await collection.insertOne(user);
+      return result.insertedId; //Retour de userId de l'utilisateur créé
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error; 
+    }
+  }
+
+  async get(userid) {
+    const client = await this.db.connectionDB(); 
+    try {
+      const collection = client.db().collection('users');
+      const user = await collection.findOne({ _id: userid });
+      return user;
+    } catch (error) {
+      console.error('Error getting user:', error);
+      throw error;
+    } finally {
+      await client.close();
+    }
+  }
+
+  async exists(login) {
+    const client = await this.db.connectionDB();
+    try {
+      const collection = client.db().collection('users');
+      const count = await collection.countDocuments({ username: login });
+      return count > 0; // Check if at least one document exists
+    } catch (error) {
+      console.error('Error checking user existence:', error);
+      throw error; // Re-throw for handling in calling code
+    } finally {
+      await client.close();
+    }
+  }
+
+  async checkpassword(login, password) {
+    const client = await this.db.connect(); // Assuming `db` has a connect method
+    try {
+      const collection = client.db().collection('users');
+      const user = await collection.findOne({ username: login });
+      if (!user) {
+        return null; // User not found
+      }
+
+      // Implement secure password comparison (replace with your hashing library)
+      const isPasswordValid = await comparePassword(password, user.password);
+
+      return isPasswordValid ? user._id : null;
+    } catch (error) {
+      console.error('Error checking password:', error);
+      throw error; // Re-throw for handling in calling code
+    } finally {
+      await client.close();
+    }
+  }
+}
+
+async function hashPassword(password) {
+  // Use bcrypt to hash the password securely
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+}
+
+async function comparePassword(password, hashedPassword) {
+  // Use bcrypt to compare the provided password with the hashed password
+  return await bcrypt.compare(password, hashedPassword);
+}
+
+
+exports.default = Users;

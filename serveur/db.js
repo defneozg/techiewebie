@@ -1,22 +1,21 @@
 const { MongoClient } = require('mongodb');
 
-const url = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/";
-const client = new MongoClient(url);
-
-// Connect to MongoDB (asynchronous)
+// Connexion à MongoDB
 const connectionDB = (async () => {
     try {
       const client = await MongoClient.connect('mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db');
       console.log('Connected to MongoDB');
-  
-      // Use the client for database operations (if needed)
-      db = client.db('techie_webie_db'); // Replace with your database name
-  
-      // Start the server after successful connection
+
+      db = client.db('techie_webie_db');
+
+      return db;
+
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
-      process.exit(1); // Exit the application on error
+      process.exit(1); 
     }
   });
 
-  module.exports = connectionDB;
+  module.exports = { MongoClient, connectionDB };
+
+  

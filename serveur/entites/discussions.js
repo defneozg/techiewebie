@@ -1,7 +1,7 @@
 const { MongoClient, ObjectID } = require('mongodb');
 
 // Connection URI
-const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/"; // Assuming MongoDB is running locally
+const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db"; 
 
 // Database Name
 const dbName = 'techie_webie_db';

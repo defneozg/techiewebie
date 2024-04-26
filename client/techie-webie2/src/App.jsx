@@ -21,16 +21,6 @@ function App() {
 		navigateTo('LoginPage');
 	}
 
-  function handleLoginClick(username, password) {
-    // Simulate authentication logic (replace with actual authentication)
-    if (username === 'def' && password === 'pass') {
-      setIsLoggedIn(true) // Set isLoggedIn state to true upon successful authentication
-    } else {
-      alert('Invalid username or password. Please try again.') // Show an alert for unsuccessful login
-      setCurrentPage('LoginPage')
-    }
-  }
-
   const handleLogin = (loggedIn) => {
     setIsLoggedIn(loggedIn); // Update isLoggedIn state upon login
     // Optionally navigate to MainPage after login (if desired)
@@ -38,10 +28,9 @@ function App() {
     console.log('Login true?');
   };
   
-
   let content;
   if (currentPage === 'LoginPage' && !isLoggedIn) {
-    content = <LoginPage onLogin={handleLoginClick} onCreateAccount={() => navigateTo('signup')} />;
+    content = <LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />;
   } else if (currentPage === 'signup') {
     content = <SignUpForm />;
   } else if (currentPage === 'LoginPage' && isLoggedIn) {
