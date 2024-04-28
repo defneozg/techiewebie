@@ -1,6 +1,7 @@
 const express = require("express");
 const Users = require("./entites/users.js");
 const Discussion = require('./entites/discussions');
+const Message = require("./entites/messages.js");
 const session = require('express-session');
 
 function init(db) {
@@ -28,6 +29,61 @@ function init(db) {
         }
       });
 
+    // GET discussions
+    router.get('/discussions', async (req, res) => {
+        try {
+            const discussions = await Discussion.getAllDiscussions(); // Define getAllDiscussions method in your discussions entity
+            res.status(200).json(discussions);
+        } catch (error) {
+            console.error('Error fetching discussions:', error);
+            res.status(500).json({ message: 'Error fetching discussions' });
+        }
+    });
+
+    // GET messages
+    router.get('/messages', async (req, res) => {
+        const { discussionId } = req.query;
+        // Fetch messages based on discussionId
+        try {
+            const messages = await Message.getAllMessagesByDiscussionId(discussionId);
+            res.json(messages);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+
+    // POST messages
+    router.post('/messages', async (req, res) => {
+        const { discussionId, message } = req.body;
+        // Create a new message
+        try {
+            const newMessage = await Message.create({ discussionId, message });
+            res.status(201).json(newMessage);
+        } catch (error) {
+            console.error('Error creating message:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+    // GET discussion par son id
+    router.get('/discussions/:discussionId', async (req, res) => {
+        const { discussionId } = req.params;
+        try {
+            // Fetch discussion data based on discussionId
+            const discussion = await Discussion.findDiscussionById(discussionId);
+            if (!discussion) {
+                res.status(404).json({ error: 'Discussion not found' });
+                return;
+            }
+            res.json(discussion);
+        } catch (error) {
+            console.error('Error fetching discussion:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+    
     // POST login
     const users = new Users.default(db);
     router.use(session({

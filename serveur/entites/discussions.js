@@ -1,7 +1,7 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 // Connection URI
-const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db"; 
+const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db";
 
 // Database Name
 const dbName = 'techie_webie_db';
@@ -43,4 +43,50 @@ async function insertDiscussion(discussion) {
   }
 }
 
-module.exports = { insertDiscussion };
+// Function to get all discussions
+async function getAllDiscussions() {
+  try {
+    // Connect to MongoDB
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Query all discussions from the collection
+    const discussions = await collection.find().toArray();
+    return discussions;
+  } catch (error) {
+    // Handle errors
+    console.error('Error fetching discussions:', error.message);
+    throw error; // Rethrow the error for the caller to handle
+  } finally {
+    // Close the MongoDB client connection
+    await client.close();
+  }
+}
+
+// Function to find a discussion by ID
+async function findDiscussionById(discussionId) {
+  try {
+    // Connect to MongoDB
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Query the discussion by its ID
+    console.log(discussionId);
+    const id = new ObjectId(discussionId);
+    const discussion = await collection.findOne({ _id: id });
+    console.log(discussion);
+    return discussion;
+  } catch (error) {
+    // Handle errors
+    console.error('Error finding discussion by ID:', error.message);
+    throw error; // Rethrow the error for the caller to handle
+  } finally {
+    // Close the MongoDB client connection
+    await client.close();
+  }
+}
+
+
+module.exports = { insertDiscussion, getAllDiscussions, findDiscussionById };

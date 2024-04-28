@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 function NavPanel({ onLogout, onSearch }) {
   const [searchQuery, setSearchQuery] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value); // Update search query state
@@ -16,6 +19,7 @@ function NavPanel({ onLogout, onSearch }) {
     if (onLogout) {
 	    console.log('Logout button clicked');
       localStorage.removeItem("_id");
+      navigate("/");
       onLogout();
     }
   };

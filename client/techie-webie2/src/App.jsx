@@ -6,7 +6,6 @@ import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpForm from './SignUpForm';
 import DiscussionPage from './DiscussionPage';
-import ProtectedRoute from './ProtectedRoute'; // ????
 
 function App() {
   const [currentPage, setCurrentPage] = useState('LoginPage');
@@ -18,13 +17,13 @@ function App() {
 
   const setLogout = () => {
 		setIsLoggedIn(false);
-		navigateTo('LoginPage');
+		navigateTo('/');
 	}
 
   const handleLogin = (loggedIn) => {
     setIsLoggedIn(loggedIn); // Update isLoggedIn state upon login
     // Optionally navigate to MainPage after login (if desired)
-    // navigateTo('/MainPage'); 
+    //navigateTo('/main'); 
     console.log('Login true?');
   };
   
@@ -35,24 +34,17 @@ function App() {
     content = <SignUpForm />;
   } else if (currentPage === 'LoginPage' && isLoggedIn) {
     content = <MainPage onLogout={setLogout} />;
-  } 
+  }
 
   return (
     <div>
-      {content}
-      <Routes>
-        <Route path="/" element={<></>} /> {/* Login page is always accessible */}
-        <Route path="/signup" element={<SignUpForm />} /> {/* Signup page is always accessible */}
-        <Route path="/MainPage" element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
-          <MainPage onLogout={setLogout} />
-          </ProtectedRoute>
-        }
-        />
-        <Route path="/discussion/:discussionId" component={DiscussionPage} />
-      </Routes>
-
-      </div>
+        <Routes>
+          <Route path="/" element={<LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
+          <Route path="/main" element={<MainPage onLogout={setLogout} />} />
+        </Routes>
+    </div>
   )
 }
 

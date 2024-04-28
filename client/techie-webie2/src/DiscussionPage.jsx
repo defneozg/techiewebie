@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import CreateMessage from './CreateMessage';
+import MessageList from './MessageList';
 
 function DiscussionPage() {
   const { discussionId } = useParams();
@@ -8,6 +10,23 @@ function DiscussionPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Define createMessage function to handle message creation
+  const createMessage = async (newMessage) => {
+    try {
+      // Send POST request to create a new message
+      await axios.post(`http://localhost:4000/api/messages`, {
+        discussionId,
+        text: newMessage
+      });
+
+      // After successfully creating the message, fetch the updated list of messages
+      const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
+      setMessages(messagesResponse.data);
+    } catch (error) {
+      console.error('Error creating message:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchDiscussionAndMessages = async () => {
@@ -35,6 +54,7 @@ function DiscussionPage() {
   }
 
   if (error || !discussion) {
+    console.error('Error fetching discussion data:', error); // Log error to console
     return <div>Error fetching discussion data.</div>; // Show error message if there's an error
   }
 
@@ -42,14 +62,9 @@ function DiscussionPage() {
     <div className="discussion-page">
       <h2>{discussion.title}</h2>
       <p>{discussion.content}</p>
-      <h3>Messages</h3>
-      <ul>
-        {messages.map((message) => (
-          <li key={message.id}>
-            <strong>{message.author}</strong>: {message.text}
-          </li>
-        ))}
-      </ul>
+      {/* Pass createMessage function as prop to CreateMessage component */}
+      <CreateMessage onCreate={createMessage} />
+      <MessageList messages={messages} />
     </div>
   );
 }
