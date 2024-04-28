@@ -62,7 +62,7 @@ function SignUpForm() {
         setPassword("");
         setPassOK(false);
         alert("Account registered successfully!");
-        navigate("/LoginPage"); // Redirect to login page after successful registration
+        navigate("/login"); // Redirect to login page after successful registration
       }
     } catch (error) {
       console.error("Error during registration:", error);

@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 class Users {
   constructor(db) {
     this.db = db;
@@ -22,9 +23,9 @@ class Users {
   }
 
   async get(userid) {
-    const client = await this.db.connectionDB(); 
+    const client = await this.db;
     try {
-      const collection = client.db().collection('users');
+      const collection = client.collection('users');
       const user = await collection.findOne({ _id: userid });
       return user;
     } catch (error) {
@@ -35,38 +36,40 @@ class Users {
     }
   }
 
-  async exists(login) {
-    const client = await this.db.connectionDB();
+  async exists(username) {
+    const client = await this.db;
     try {
-      const collection = client.db().collection('users');
-      const count = await collection.countDocuments({ username: login });
+      const collection = client.collection('users');
+      const count = await collection.countDocuments({ username: username });
       return count > 0; // Check if at least one document exists
     } catch (error) {
       console.error('Error checking user existence:', error);
       throw error; // Re-throw for handling in calling code
     } finally {
-      await client.close();
+      //await client.close();
     }
   }
 
-  async checkpassword(login, password) {
-    const client = await this.db.connect(); // Assuming `db` has a connect method
+  async checkpassword(username, password) {
+    const client = await this.db; // Assuming `db` has a connect method
     try {
-      const collection = client.db().collection('users');
-      const user = await collection.findOne({ username: login });
+      const collection = client.collection('users');
+      const user = await collection.findOne({ username: username });
+      console.log(user);
       if (!user) {
         return null; // User not found
       }
 
       // Implement secure password comparison (replace with your hashing library)
       const isPasswordValid = await comparePassword(password, user.password);
+      console.log(isPasswordValid);
 
       return isPasswordValid ? user._id : null;
     } catch (error) {
       console.error('Error checking password:', error);
       throw error; // Re-throw for handling in calling code
     } finally {
-      await client.close();
+      //await client.close();
     }
   }
 }
@@ -79,7 +82,8 @@ async function hashPassword(password) {
 
 async function comparePassword(password, hashedPassword) {
   // Use bcrypt to compare the provided password with the hashed password
-  return await bcrypt.compare(password, hashedPassword);
+  return password === hashedPassword ;
+  //return await bcrypt.compare(password, hashedPassword);
 }
 
 

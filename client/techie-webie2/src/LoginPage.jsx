@@ -14,26 +14,20 @@ function LoginPage ({ onLogin, onCreateAccount }) {
   const loginUser = async () => {
       try {
           // Post request to login
-          console.log("hey1");
-          const response = await axios.get("http://localhost:4000/api/user/login", {
-              username,  // assuming `username` is defined in the scope
-              password   // assuming `password` is defined in the scope
+          const response = await axios.post("http://localhost:4000/api/user/login", {
+              username,
+              password
           });
-          console.log("hey2");
 
           const data = response.data;
 
           if (data.error_message) {
               alert(data.error_message);
           } else {
-              setIsLoggedIn(true);
-              onLogin(true);  // Assuming an `onLogin` function that updates login status
-              // Fetch user data after successful login
-              const userResponse = await axios.get("http://localhost:4000/api/user/${data.id}");
-              const userData = userResponse.data;
-              // Store user data (e.g., in state or localStorage)
-              setUserData(userData); // Assuming a setter function for user data
-              navigate("/MainPage"); // Assuming navigate function for routing
+              if (response.status === 200) {
+                onLogin(true);
+                navigate("/MainPage"); 
+              }
           }
       } catch (error) {
           console.error("Error during login or user data fetch:", error);
@@ -44,7 +38,6 @@ function LoginPage ({ onLogin, onCreateAccount }) {
   const handleLoginClick = (e) => {
     e.preventDefault();
 		loginUser();
-    onLogin(username, password);
   };
 
   const handleCancelClick = () => {

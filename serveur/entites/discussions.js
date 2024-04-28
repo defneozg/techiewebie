@@ -1,4 +1,4 @@
-const { MongoClient, ObjectID } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 // Connection URI
 const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db"; 
@@ -12,31 +12,33 @@ const collectionName = 'discussions';
 // Create a MongoDB client
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Define the schema
-const DiscussionSchema = {
-  title: {
-    type: 'string',
-    required: true
-  },
-  body: {
-    type: 'string',
-    required: true
-  },
-  createdAt: {
-    type: 'date',
-    default: Date.now
-  }
-};
-
-// Function to insert a new post
+// Function to insert a new discussion
 async function insertDiscussion(discussion) {
   try {
+    // Validate discussion data
+    if (!discussion.title || !discussion.content) {
+      throw new Error('Discussion title and body are required.');
+    }
+    // Add createdAt field if not provided
+    if (!discussion.createdAt) {
+      discussion.createdAt = new Date();
+    }
+
+    // Connect to MongoDB
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
+
+    // Insert discussion into the collection
     const result = await collection.insertOne(discussion);
-    return result.ops[0];
+    console.log(result);
+    return result.insertedId;
+  } catch (error) {
+    // Handle errors
+    console.error('Error inserting discussion:', error.message);
+    throw error; // Rethrow the error for the caller to handle
   } finally {
+    // Close the MongoDB client connection
     await client.close();
   }
 }

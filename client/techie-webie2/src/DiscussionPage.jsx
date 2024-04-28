@@ -1,52 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function DiscussionPage() {
   const { discussionId } = useParams();
   const [discussion, setDiscussion] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch the discussion and its messages based on discussionId
-    // Replace the fetchDiscussion and fetchMessages functions with your actual data fetching logic
-
-    // Example fetch functions (replace with your actual implementation)
-    const fetchDiscussion = async () => {
+    const fetchDiscussionAndMessages = async () => {
       try {
         // Fetch discussion data based on discussionId
-        const response = await fetch(`/api/discussions/${discussionId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setDiscussion(data);
-        } else {
-          throw new Error('Failed to fetch discussion');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/${discussionId}`);
+        setDiscussion(discussionResponse.data);
 
-    const fetchMessages = async () => {
-      try {
         // Fetch messages associated with the discussion
-        const response = await fetch(`/api/messages?discussionId=${discussionId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setMessages(data);
-        } else {
-          throw new Error('Failed to fetch messages');
-        }
+        const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
+        setMessages(messagesResponse.data);
+
+        setLoading(false); // Data fetching complete
       } catch (error) {
-        console.error(error);
+        setError(error); // Set error state if there's an error
+        setLoading(false); // Data fetching complete (even if there's an error)
       }
     };
 
-    fetchDiscussion();
-    fetchMessages();
+    fetchDiscussionAndMessages();
   }, [discussionId]);
 
-  if (!discussion) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message while fetching data
+  }
+
+  if (error || !discussion) {
+    return <div>Error fetching discussion data.</div>; // Show error message if there's an error
   }
 
   return (

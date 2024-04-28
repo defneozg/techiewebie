@@ -49,7 +49,7 @@ function App() {
           </ProtectedRoute>
         }
         />
-        <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
+        <Route path="/discussion/:discussionId" component={DiscussionPage} />
       </Routes>
 
       </div>
