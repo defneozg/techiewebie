@@ -41,7 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/discussion/:discussionId" element={<DiscussionPage />} />
+          <Route path="/discussion/:discussionId" element={<DiscussionPage onLogout={setLogout}/>} />
           <Route path="/main" element={<MainPage onLogout={setLogout} />} />
         </Routes>
     </div>

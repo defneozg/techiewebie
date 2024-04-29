@@ -1,7 +1,7 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
 // Connection URI
-const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db";
+const uri = "mongodb://localhost:27017";
 
 // Database Name
 const dbName = 'techie_webie_db';
@@ -39,7 +39,7 @@ async function insertDiscussion(discussion) {
     throw error; // Rethrow the error for the caller to handle
   } finally {
     // Close the MongoDB client connection
-    await client.close();
+    //await client.close();
   }
 }
 
@@ -60,7 +60,7 @@ async function getAllDiscussions() {
     throw error; // Rethrow the error for the caller to handle
   } finally {
     // Close the MongoDB client connection
-    await client.close();
+    //await client.close();
   }
 }
 
@@ -84,7 +84,7 @@ async function findDiscussionById(discussionId) {
     throw error; // Rethrow the error for the caller to handle
   } finally {
     // Close the MongoDB client connection
-    await client.close();
+    //await client.close();
   }
 }
 

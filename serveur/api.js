@@ -56,10 +56,10 @@ function init(db) {
 
     // POST messages
     router.post('/messages', async (req, res) => {
-        const { discussionId, message } = req.body;
+        const { discussionId, msg } = req.body;
         // Create a new message
         try {
-            const newMessage = await Message.create({ discussionId, message });
+            const newMessage = await Message.insertMessage({ discussionId, msg });
             res.status(201).json(newMessage);
         } catch (error) {
             console.error('Error creating message:', error);

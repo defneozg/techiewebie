@@ -1,9 +1,11 @@
 const { MongoClient } = require('mongodb');
 
+//mongodb://localhost:27017
+
 // Connexion à MongoDB
 const connectionDB = (async () => {
     try {
-      const client = await MongoClient.connect('mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db');
+      const client = await MongoClient.connect('mongodb://localhost:27017');
       console.log('Connected to MongoDB');
 
       db = client.db('techie_webie_db');

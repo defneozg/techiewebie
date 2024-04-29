@@ -2,7 +2,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: pink;
-    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -49,30 +48,26 @@ body {
     width: 100%;
 }
 
-.Information {
-    height: 100vh; /* Set the height of Information to 100% of the viewport height */
+.Information { 
     width: 20%;
-    display: flex;
-    flex-direction: column;
     background-color: #f96398; /* Optional: Background color for Information */
     padding: 10px; /* Optional: Padding for Information */
-    overflow-y: auto; /* Add scrollbar when content exceeds height */
 }
 
-.Disc {
+.Msg {
     display: flex;
     width: 70%;
     flex-direction: column;
     margin-left: 3%;
 }
 
-.CreateDisc {
+.CreateMsg {
     width: 100%;
     margin-bottom: 5%;
     min-height: 100px;
 }
 
-.discCont {
+.msgContenu {
     display: flex;
     flex-direction: column;
 }
@@ -81,7 +76,7 @@ body {
     margin-bottom: 1%;
 }
 
-.DiscussionList {
+.MessageList {
     width: 100%;
     height: 100vh;
 }

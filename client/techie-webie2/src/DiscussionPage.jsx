@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CreateMessage from './CreateMessage';
 import MessageList from './MessageList';
+import NavPanel from "./NavPanel";
+import Information from './Information';
+import './DiscussionPage.css';
 
-function DiscussionPage() {
+function DiscussionPage({ onLogout }) {
   const { discussionId } = useParams();
   const [discussion, setDiscussion] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -17,7 +20,7 @@ function DiscussionPage() {
       // Send POST request to create a new message
       await axios.post(`http://localhost:4000/api/messages`, {
         discussionId,
-        text: newMessage
+        msg: newMessage
       });
 
       // After successfully creating the message, fetch the updated list of messages
@@ -49,6 +52,10 @@ function DiscussionPage() {
     fetchDiscussionAndMessages();
   }, [discussionId]);
 
+  const addMessages = (newMessage) => {
+    setMessages([...messages, newMessage]);
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Show loading message while fetching data
   }
@@ -58,13 +65,31 @@ function DiscussionPage() {
     return <div>Error fetching discussion data.</div>; // Show error message if there's an error
   }
 
+  const handleSearch = (searchQuery) => {
+    // Implement search functionality here
+    console.log('Search query:', searchQuery);
+  };
+
   return (
     <div className="discussion-page">
-      <h2>{discussion.title}</h2>
-      <p>{discussion.content}</p>
-      {/* Pass createMessage function as prop to CreateMessage component */}
-      <CreateMessage onCreate={createMessage} />
-      <MessageList messages={messages} />
+      <section className="header">
+        <NavPanel className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
+      </section>
+      <div className="forum">
+        <section className='Information'>
+            <Information />
+        </section>
+          <h2>{discussion.title}</h2>
+          <p>{discussion.content}</p>
+        <section className='Msg'>
+          <section className="CreateMsg">
+            <CreateMessage onCreate={addMessages} discussionId={discussionId} />
+          </section>
+          <article className='MessageList'>
+            <MessageList messages={messages} />
+          </article>
+        </section>
+      </div>
     </div>
   );
 }

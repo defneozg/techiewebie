@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios'; // Import axios
 
-function CreateMessage({ onCreate }) {
+function CreateMessage({ onCreate, discussionId }) {
   const [msg, setMsg] = useState('');
 
   const handleMsg = (e) => {
@@ -13,9 +13,13 @@ function CreateMessage({ onCreate }) {
     if (msg.trim()) { // Check if msg is not empty
       try {
         // Send POST request to create a new message
-        const response = await axios.post('http://localhost:4000/api/messages', { msg });
+        const response = await axios.post('http://localhost:4000/api/messages', { 
+          discussionId, // Include discussionId in the request body
+          msg 
+        });
+        console.log(response.msg);
         // Call onCreate function with the newly created message
-        onCreate(response.data);
+        //onCreate(response.msg);
         // Reset form fields
         setMsg('');
       } catch (error) {

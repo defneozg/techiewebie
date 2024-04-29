@@ -5,8 +5,7 @@ function MessageList({ messages }) {
       <ul>
         {messages.map((message, index) => (
           <li key={index}>
-            <h3>{message.title}</h3>
-            <p>{message.content}</p>
+            <p>{message.msg}</p>
           </li>
         ))}
       </ul>

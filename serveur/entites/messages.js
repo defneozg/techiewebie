@@ -1,7 +1,7 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
 // Connection URI
-const uri = "mongodb+srv://defneozg:BbTfpypQLwTaAAgS@cluster0.uxgeglj.mongodb.net/techie_webie_db";
+const uri = "mongodb://localhost:27017";
 
 // Database Name
 const dbName = 'techie_webie_db';
@@ -16,7 +16,9 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function insertMessage(message) {
   try {
     // Validate message data
-    if (!message.discussionId || !message.text) {
+    console.log(message.msg);
+    console.log(message.discussionId);
+    if (!message.discussionId || !message.msg) {
       throw new Error('Discussion ID and message text are required.');
     }
     // Add createdAt field if not provided
@@ -52,8 +54,7 @@ async function getAllMessagesByDiscussionId(discussionId) {
     const collection = db.collection(collectionName);
 
     // Query messages by discussionId from the collection
-    const messages = await collection.find({ discussionId: new ObjectId(discussionId) }).toArray();
-    console.log(messages);
+    const messages = await collection.find({ discussionId: discussionId }).toArray();
     return messages;
   } catch (error) {
     // Handle errors
@@ -61,7 +62,7 @@ async function getAllMessagesByDiscussionId(discussionId) {
     throw error; // Rethrow the error for the caller to handle
   } finally {
     // Close the MongoDB client connection
-    await client.close();
+    //await client.close();
   }
 }
 
