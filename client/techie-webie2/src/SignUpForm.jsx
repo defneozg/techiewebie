@@ -42,16 +42,12 @@ function SignUpForm() {
       password,
       firstName,
       lastName,
+      isAdmin,
     };
 
     try {
       // Simulate API call with delay (replace with actual fetch)
-      const response = await axios.post("http://localhost:4000/api/user/register", {
-        username,
-        password,
-        firstName,
-        lastName
-      });
+      const response = await axios.post("http://localhost:4000/api/user/register", newUser);
 
       const data = response.data;
 

@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpForm from './SignUpForm';
 import DiscussionPage from './DiscussionPage';
+import AdminPage from './AdminPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('LoginPage');
@@ -38,14 +38,15 @@ function App() {
 
   return (
     <div>
-        <Routes>
-          <Route path="/" element={<LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/discussion/:discussionId" element={<DiscussionPage onLogout={setLogout}/>} />
-          <Route path="/main" element={<MainPage onLogout={setLogout} />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />} />
+        <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/discussion/:discussionId" element={<DiscussionPage onLogout={setLogout}/>} />
+        <Route path="/main" element={<MainPage onLogout={setLogout} />} />
+        <Route path="/admin" element={<AdminPage onLogout={setLogout} />} /> {/* Add this route */}
+      </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

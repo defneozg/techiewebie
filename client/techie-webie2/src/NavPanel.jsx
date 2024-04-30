@@ -1,27 +1,29 @@
+import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 function NavPanel({ onLogout, onSearch }) {
   const [searchQuery, setSearchQuery] = useState('');
-
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value); // Update search query state
-    // Call the onSearch function passed from the parent component
+    setSearchQuery(event.target.value);
     if (onSearch) {
-      onSearch(event.target.value); // Pass the search query as an argument
+      onSearch(event.target.value);
     }
   };
 
   const handleLogout = () => {
-    // Call the onLogout function passed from the parent component
     if (onLogout) {
-	    console.log('Logout button clicked');
       localStorage.removeItem("_id");
       navigate("/");
       onLogout();
     }
+  };
+
+  const handleTogglePage = () => {
+    // Assuming /admin route is used for the AdminPage
+    navigate("/admin");
   };
 
   return (
@@ -32,8 +34,11 @@ function NavPanel({ onLogout, onSearch }) {
           type="text"
           placeholder="Search..."
           value={searchQuery}
-          onChange={handleSearchChange} // Call handleSearchChange on input change
+          onChange={handleSearchChange}
         />
+      </div>
+      <div className="page-toggle">
+        <button onClick={handleTogglePage}>Switch to Admin Page</button>
       </div>
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>

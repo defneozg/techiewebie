@@ -4,7 +4,7 @@ class Users {
     this.db = db;
   }
 
-  async createUser(username, password, firstName, lastName) {
+  async createUser(username, password, firstName, lastName, isAdmin = false) {
     try {
       const collection = db.collection('users'); 
       const user = {
@@ -12,6 +12,7 @@ class Users {
         password,
         firstName,
         lastName,
+        isAdmin,
       };
 
       const result = await collection.insertOne(user);
@@ -67,6 +68,20 @@ class Users {
       return isPasswordValid ? user._id : null;
     } catch (error) {
       console.error('Error checking password:', error);
+      throw error; // Re-throw for handling in calling code
+    } finally {
+      //await client.close();
+    }
+  }
+
+  async isAdmin(userId) {
+    const client = await this.db; // Assuming `db` has a connect method
+    try {
+      const collection = client.collection('users');
+      const user = await collection.findOne({ _id: userId });
+      return user.isAdmin === true; // Return true if user is admin
+    } catch (error) {
+      console.error('Error checking admin status:', error);
       throw error; // Re-throw for handling in calling code
     } finally {
       //await client.close();
