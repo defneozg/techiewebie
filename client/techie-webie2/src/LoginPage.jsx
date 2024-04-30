@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-function LoginPage ({ onLogin }) {
+axios.defaults.withCredentials = true;
+
+function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,10 +16,13 @@ function LoginPage ({ onLogin }) {
   const loginUser = async () => {
     try {
       // Post request to login
-      const response = await axios.post("http://localhost:4000/api/user/login", {
-        username,
-        password
-      });
+      const response = await axios.post(
+        "http://localhost:4000/api/user/login",
+        {
+          username,
+          password,
+        }
+      );
 
       const data = response.data;
 
@@ -26,7 +31,7 @@ function LoginPage ({ onLogin }) {
       } else {
         if (response.status === 200) {
           onLogin(true);
-          navigate("/main"); 
+          navigate("/main");
         }
       }
     } catch (error) {
@@ -46,22 +51,36 @@ function LoginPage ({ onLogin }) {
   };
 
   return (
-    <form className='loginForm' onSubmit={handleLoginClick} method="POST" action="">
-      <div className='EspacesLogin'>
+    <form
+      className="loginForm"
+      onSubmit={handleLoginClick}
+      method="POST"
+      action=""
+    >
+      <div className="EspacesLogin">
         <label htmlFor="username">Username</label>
         <input id="user" onChange={getUsername} value={username} />
         <label htmlFor="pass">Password</label>
-        <input type="password" id="pass" onChange={getPassword} value={password} />
+        <input
+          type="password"
+          id="pass"
+          onChange={getPassword}
+          value={password}
+        />
       </div>
       <div className="button-container">
-        <button className='submitBtn' type="submit">Log In</button>
-        <button className='cancelBtn' type="button" onClick={handleCancelClick}>Cancel</button>
+        <button className="submitBtn" type="submit">
+          Log In
+        </button>
+        <button className="cancelBtn" type="button" onClick={handleCancelClick}>
+          Cancel
+        </button>
       </div>
-      <p>
-        Don't have an account?
-      </p>
+      <p>Don't have an account?</p>
       {/* Use Link component to navigate to SignUpForm */}
-      <Link to="/signup" className='createBtn'>Create Account</Link>
+      <Link to="/signup" className="createBtn">
+        Create Account
+      </Link>
     </form>
   );
 }

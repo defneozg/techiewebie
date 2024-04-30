@@ -1,23 +1,27 @@
-const { MongoClient } = require('mongodb');
-
-//mongodb://localhost:27017
+const { MongoClient } = require("mongodb");
+let client;
 
 // Connexion à MongoDB
-const connectionDB = (async () => {
-    try {
-      const client = await MongoClient.connect('mongodb://localhost:27017');
-      console.log('Connected to MongoDB');
+const connectionDB = async () => {
+  try {
+    client = await MongoClient.connect("mongodb://localhost:27017");
+    console.log("Connected to MongoDB");
+    db = client.db("techie_webie_db");
+    return db;
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1);
+  }
+};
 
-      db = client.db('techie_webie_db');
+const getClient = () => {
+  if (!client) {
+    console.error(
+      "MongoDB client is not initialized. Make sure connectionDB() is called first."
+    );
+    return null;
+  }
+  return client;
+};
 
-      return db;
-
-    } catch (error) {
-      console.error('Error connecting to MongoDB:', error);
-      process.exit(1); 
-    }
-  });
-
-  module.exports = { MongoClient, connectionDB };
-
-  
+module.exports = { getClient, connectionDB };
