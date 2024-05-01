@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignUpForm() {
@@ -25,7 +25,9 @@ function SignUpForm() {
   const handleRegistration = async (event) => {
     // Basic validation (replace with more robust validation)
     if (username.length < 3 || pass1.length < 4) {
-      alert("Username must be at least 3 characters and password must be at least 4 characters.");
+      alert(
+        "Username must be at least 3 characters and password must be at least 4 characters."
+      );
       return;
     }
 
@@ -37,6 +39,7 @@ function SignUpForm() {
       setPassword(pass1); // Update password state after successful validation
     }
 
+    const isAdmin = false;
     const newUser = {
       username,
       password,
@@ -47,7 +50,10 @@ function SignUpForm() {
 
     try {
       // Simulate API call with delay (replace with actual fetch)
-      const response = await axios.post("http://localhost:4000/api/user/register", newUser);
+      const response = await axios.post(
+        "http://localhost:4000/api/user/register",
+        newUser
+      );
 
       const data = response.data;
 

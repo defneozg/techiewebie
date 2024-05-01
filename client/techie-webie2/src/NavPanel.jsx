@@ -1,9 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function NavPanel({ onLogout, onSearch }) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {

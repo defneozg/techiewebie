@@ -1,4 +1,5 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
+const { ObjectId } = require("mongodb");
 class Users {
   constructor(db) {
     this.db = db;
@@ -6,7 +7,7 @@ class Users {
 
   async createUser(username, password, firstName, lastName, isAdmin = false) {
     try {
-      const collection = db.collection('users'); 
+      const collection = db.collection("users");
       const user = {
         username,
         password,
@@ -18,19 +19,19 @@ class Users {
       const result = await collection.insertOne(user);
       return result.insertedId; //Retour de userId de l'utilisateur créé
     } catch (error) {
-      console.error('Error creating user:', error);
-      throw error; 
+      console.error("Error creating user:", error);
+      throw error;
     }
   }
 
   async get(userid) {
     const client = await this.db;
     try {
-      const collection = client.collection('users');
+      const collection = client.collection("users");
       const user = await collection.findOne({ _id: userid });
       return user;
     } catch (error) {
-      console.error('Error getting user:', error);
+      console.error("Error getting user:", error);
       throw error;
     } finally {
       await client.close();
@@ -38,13 +39,12 @@ class Users {
   }
 
   async exists(username) {
-    const client = await this.db;
     try {
-      const collection = client.collection('users');
+      const collection = db.collection("users");
       const count = await collection.countDocuments({ username: username });
       return count > 0; // Check if at least one document exists
     } catch (error) {
-      console.error('Error checking user existence:', error);
+      console.error("Error checking user existence:", error);
       throw error; // Re-throw for handling in calling code
     } finally {
       //await client.close();
@@ -52,9 +52,8 @@ class Users {
   }
 
   async checkpassword(username, password) {
-    const client = await this.db; // Assuming `db` has a connect method
     try {
-      const collection = client.collection('users');
+      const collection = db.collection("users");
       const user = await collection.findOne({ username: username });
       console.log(user);
       if (!user) {
@@ -67,7 +66,7 @@ class Users {
 
       return isPasswordValid ? user._id : null;
     } catch (error) {
-      console.error('Error checking password:', error);
+      console.error("Error checking password:", error);
       throw error; // Re-throw for handling in calling code
     } finally {
       //await client.close();
@@ -75,13 +74,12 @@ class Users {
   }
 
   async isAdmin(userId) {
-    const client = await this.db; // Assuming `db` has a connect method
     try {
-      const collection = client.collection('users');
-      const user = await collection.findOne({ _id: userId });
+      const collection = db.collection("users");
+      const user = await collection.findOne({ _id: new ObjectId(userId) });
       return user.isAdmin === true; // Return true if user is admin
     } catch (error) {
-      console.error('Error checking admin status:', error);
+      console.error("Error checking admin status:", error);
       throw error; // Re-throw for handling in calling code
     } finally {
       //await client.close();
@@ -97,9 +95,8 @@ async function hashPassword(password) {
 
 async function comparePassword(password, hashedPassword) {
   // Use bcrypt to compare the provided password with the hashed password
-  return password === hashedPassword ;
+  return password === hashedPassword;
   //return await bcrypt.compare(password, hashedPassword);
 }
-
 
 exports.default = Users;
