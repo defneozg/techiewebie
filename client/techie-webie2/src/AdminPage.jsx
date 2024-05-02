@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./MainPage.css";
 import NavPanel from "./NavPanel";
-import CreateDiscussion from "./CreateDiscussion";
-import DiscussionList from "./DiscussionList";
+import CreateAdminDiscussion from "./CreateAdminDiscussion";
+import AdminDiscussionList from "./AdminDiscussionList";
 import Information from "./Information";
 import axios from "axios";
 
@@ -12,12 +12,11 @@ function AdminPage({ onLogout }) {
   const [discussions, setDiscussions] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
 
-  // Fetch discussions from the backend when the component mounts
   useEffect(() => {
     const fetchDiscussions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/discussions"
+          "http://localhost:4000/api/admindiscussions"
         );
         if (response.status === 200) {
           setDiscussions(response.data);
@@ -83,10 +82,10 @@ function AdminPage({ onLogout }) {
         </section>
         <section className="Disc">
           <section className="CreateDisc">
-            <CreateDiscussion onCreate={addDiscussion} />
+            <CreateAdminDiscussion onCreate={addDiscussion} />
           </section>
           <article className="DiscussionList">
-            <DiscussionList discussions={discussions} />
+            <AdminDiscussionList discussions={discussions} />
           </article>
         </section>
       </div>

@@ -7,17 +7,17 @@ const uri = "mongodb://localhost:27017";
 const dbName = 'techie_webie_db';
 
 // Collection Name
-const collectionName = 'discussions';
+const collectionName = 'discussionsAdmin';
 
 // Create a MongoDB client
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Function to insert a new discussion
-async function insertDiscussion(discussion) {
+async function insertAdminDiscussion(discussion) {
   try {
     // Validate discussion data
-    if (!discussion.title || !discussion.content || !discussion.username) {
-      throw new Error('Discussion title, content and username are required.');
+    if (!discussion.title || !discussion.content) {
+      throw new Error('Discussion title and body are required.');
     }
     // Add createdAt field if not provided
     if (!discussion.createdAt) {
@@ -43,9 +43,8 @@ async function insertDiscussion(discussion) {
   }
 }
 
-
 // Function to get all discussions
-async function getAllDiscussions() {
+async function getAllAdminDiscussions() {
   try {
     // Connect to MongoDB
     await client.connect();
@@ -66,7 +65,7 @@ async function getAllDiscussions() {
 }
 
 // Function to find a discussion by ID
-async function findDiscussionById(discussionId) {
+async function findAdminDiscussionById(discussionId) {
   try {
     // Connect to MongoDB
     await client.connect();
@@ -90,4 +89,4 @@ async function findDiscussionById(discussionId) {
 }
 
 
-module.exports = { insertDiscussion, getAllDiscussions, findDiscussionById };
+module.exports = { insertAdminDiscussion, getAllAdminDiscussions, findAdminDiscussionById };

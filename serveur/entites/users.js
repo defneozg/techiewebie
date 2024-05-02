@@ -28,13 +28,13 @@ class Users {
     const client = await this.db;
     try {
       const collection = client.collection("users");
-      const user = await collection.findOne({ _id: userid });
+      const user = await collection.findOne({ _id: new ObjectId(userid) });
       return user;
     } catch (error) {
       console.error("Error getting user:", error);
       throw error;
     } finally {
-      await client.close();
+      //await client.close();
     }
   }
 
@@ -83,6 +83,15 @@ class Users {
       throw error; // Re-throw for handling in calling code
     } finally {
       //await client.close();
+    }
+  }
+
+  async findByUsername(username) {
+    try {
+      const user = await this.collection.findOne({ username });
+      return user;
+    } catch (error) {
+      throw new Error(`Error finding user by username: ${error.message}`);
     }
   }
 }

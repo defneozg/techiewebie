@@ -30,7 +30,8 @@ function LoginPage({ onLogin }) {
         alert(data.error_message);
       } else {
         if (response.status === 200) {
-          onLogin(true);
+          // Pass the username to the onLogin function
+          onLogin(true, username); // <- Pass username here
           navigate("/main");
         }
       }
@@ -59,7 +60,12 @@ function LoginPage({ onLogin }) {
     >
       <div className="EspacesLogin">
         <label htmlFor="username">Username</label>
-        <input id="user" onChange={getUsername} value={username} />
+        <input
+          id="user"
+          name="username" // Add the name attribute
+          onChange={getUsername}
+          value={username}
+        />
         <label htmlFor="pass">Password</label>
         <input
           type="password"
@@ -79,10 +85,11 @@ function LoginPage({ onLogin }) {
       <p>Don't have an account?</p>
       {/* Use Link component to navigate to SignUpForm */}
       <Link to="/signup" className="createBtn">
-        Create Account
+        Create Account  
       </Link>
     </form>
   );
 }
 
 export default LoginPage;
+

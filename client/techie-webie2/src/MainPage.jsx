@@ -6,29 +6,40 @@ import DiscussionList from "./DiscussionList"
 import Information from './Information';
 import axios from 'axios';
 
-function MainPage ({ onLogout }) {
+function MainPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
 
-  // Fetch discussions from the backend when the component mounts
-  useEffect(() => {
-    const fetchDiscussions = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/api/discussions');
-        if (response.status === 200) {
-          setDiscussions(response.data);
-        } else {
-          throw new Error('Failed to fetch discussions');
-        }
-      } catch (error) {
-        console.error('Error fetching discussions:', error);
+  // Function to fetch discussions from the backend
+  const fetchDiscussions = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/discussions');
+      if (response.status === 200) {
+        setDiscussions(response.data);
+      } else {
+        throw new Error('Failed to fetch discussions');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching discussions:', error);
+    }
+  };
 
-    fetchDiscussions();
+  // Function to periodically fetch discussions
+  useEffect(() => {
+    const interval = setInterval(fetchDiscussions, 2000); // Fetch every 5 seconds
+    return () => clearInterval(interval); // Clean up on unmount
   }, []);
 
-  const addDiscussion = (newDiscussion) => {
-    setDiscussions([...discussions, newDiscussion]);
+  const addDiscussion = async (newDiscussion) => {
+    try {
+      // Include the username when creating a new discussion
+      const response = await axios.post('http://localhost:4000/api/discussions', {
+        ...newDiscussion,
+        username: username
+      });
+      setDiscussions([...discussions, response.data]);
+    } catch (error) {
+      console.error('Error adding discussion:', error);
+    }
   };
 
   const handleSearch = (searchQuery) => {
@@ -47,7 +58,8 @@ function MainPage ({ onLogout }) {
         </section>
         <section className='Disc'>
           <section className="CreateDisc">
-            <CreateDiscussion onCreate={addDiscussion}/>
+            {/* Pass the username prop to CreateDiscussion */}
+            <CreateDiscussion onCreate={addDiscussion} username={username} />
           </section>
           <article className='DiscussionList'>
             <DiscussionList discussions={discussions} />

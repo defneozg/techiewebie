@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios'; // Import axios
 
-function CreateMessage({ onCreate, discussionId }) {
+function CreateMessage({ onCreate, discussionId, username }) {
   const [msg, setMsg] = useState('');
 
   const handleMsg = (e) => {
@@ -15,7 +15,8 @@ function CreateMessage({ onCreate, discussionId }) {
         // Send POST request to create a new message
         const response = await axios.post('http://localhost:4000/api/messages', { 
           discussionId, // Include discussionId in the request body
-          msg 
+          msg,
+          username
         });
         console.log(response.msg);
         // Call onCreate function with the newly created message

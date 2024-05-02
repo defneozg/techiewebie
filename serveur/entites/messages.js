@@ -18,8 +18,8 @@ async function insertMessage(message) {
     // Validate message data
     console.log(message.msg);
     console.log(message.discussionId);
-    if (!message.discussionId || !message.msg) {
-      throw new Error('Discussion ID and message text are required.');
+    if (!message.discussionId || !message.msg || !message.username) { // Ensure username is provided
+      throw new Error('Discussion ID, message text, and username are required.');
     }
     // Add createdAt field if not provided
     if (!message.createdAt) {

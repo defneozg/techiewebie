@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import CreateMessage from './CreateMessage';
 import MessageList from './MessageList';
-import axios from 'axios'; 
+import axios from 'axios';
 
 function Discussion() {
     const { discussionId } = useParams();
@@ -56,7 +56,7 @@ function Discussion() {
             <h2>{selectedDiscussion.title}</h2>
             <CreateMessage onCreate={addMessage} />
             <MessageList messages={discussionMessages} />
-            <small>By {selectedDiscussion.author}</small><br />
+            <small>By {selectedDiscussion.username}</small><br />
             <small>{selectedDiscussion.date.toLocaleDateString()}</small>
             <hr />
             <p>{selectedDiscussion.text}</p>

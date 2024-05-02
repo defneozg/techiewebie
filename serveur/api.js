@@ -3,6 +3,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const Users = require("./entites/users.js");
 const Discussion = require("./entites/discussions");
+const AdminDiscussion = require("./entites/discussionsAdmin.js");
 const Message = require("./entites/messages.js");
 
 function init(db) {
@@ -10,20 +11,19 @@ function init(db) {
 
   const store = new MongoDBStore({
     uri: "mongodb://localhost:27017/techie_webie_db",
-    collection: "sessions", // Changed collection name to 'sessions'
+    collection: "sessions",
   });
 
   store.on("error", function (error) {
     console.error("Session store error:", error);
   });
 
-  // Create an instance of Users class
   const users = new Users.default(db);
 
-  // Middleware for session management
+  // session middleware
   router.use(
     session({
-      secret: "i_luv_techie_webie", // Ensure this secret is kept secure
+      secret: "i_luv_techie_webie", 
       resave: false,
       saveUninitialized: false,
       store: store,
@@ -44,17 +44,19 @@ function init(db) {
   });
 
   // POST discussions
-  router.post("/discussions", async (req, res) => {
-    try {
-      const discussion = req.body; // Assuming the request body contains title and content fields
-      console.log("Creating discussion:", discussion);
-      const newDiscussion = await Discussion.insertDiscussion(discussion);
-      res.status(201).json(newDiscussion);
-    } catch (error) {
-      console.error("Error creating discussion:", error);
-      res.status(500).json({ message: "Error creating discussion" });
-    }
-  });
+    router.post("/discussions", async (req, res) => {
+        try {
+        const { title, content, username } = req.body; // Assuming the request body contains title, content, and userId fields
+        console.log("Creating discussion:", { title, content, username });
+        const newDiscussion = await Discussion.insertDiscussion({ title, content, username });
+        console.log("yippie new disc");
+        res.status(201).json(newDiscussion);
+        } catch (error) {
+        console.error("Error creating discussion:", error);
+        res.status(500).json({ message: "Error creating discussion" });
+        }
+    });
+  
 
   // GET discussions
   router.get("/discussions", async (req, res) => {
@@ -67,22 +69,12 @@ function init(db) {
     }
   });
 
-  // POST discussions - Admin Only
-  router.post("/discussions", async (req, res) => {
+  // POST discussions - AdminPage
+  router.post("/admindiscussions", async (req, res) => {
     try {
-      // Check if the user is an admin
-      if (
-        !req.session ||
-        !req.session.userid ||
-        !(await users.isAdmin(req.session.userid))
-      ) {
-        res.status(403).json({ error: "Unauthorized" });
-        return;
-      }
-
-      const discussion = req.body;
-      console.log("Creating discussion:", discussion);
-      const newDiscussion = await Discussion.insertDiscussion(discussion);
+      const admindiscussion = req.body; // Assuming the request body contains title and content fields
+      console.log("Creating discussion:", admindiscussion);
+      const newDiscussion = await AdminDiscussion.insertAdminDiscussion(admindiscussion);
       res.status(201).json(newDiscussion);
     } catch (error) {
       console.error("Error creating discussion:", error);
@@ -90,23 +82,34 @@ function init(db) {
     }
   });
 
-  // GET messages
-  router.get("/messages", async (req, res) => {
-    const { discussionId } = req.query;
+  // GET discussions - AdminPage
+  router.get("/admindiscussions", async (req, res) => {
     try {
-      const messages = await Message.getAllMessagesByDiscussionId(discussionId);
-      res.json(messages);
+      const admindiscussions = await AdminDiscussion.getAllAdminDiscussions();
+      res.status(200).json(admindiscussions);
     } catch (error) {
-      console.error("Error fetching messages:", error);
-      res.status(500).json({ error: "Internal server error" });
+      console.error("Error fetching discussions:", error);
+      res.status(500).json({ message: "Error fetching discussions" });
     }
   });
 
+    // GET messages
+    router.get("/messages", async (req, res) => {
+        const { discussionId } = req.query;
+        try {
+        const messages = await Message.getAllMessagesByDiscussionId(discussionId);
+        res.json(messages);
+        } catch (error) {
+        console.error("Error fetching messages:", error);
+        res.status(500).json({ error: "Internal server error" });
+        }
+    });
+
   // POST messages
   router.post("/messages", async (req, res) => {
-    const { discussionId, msg } = req.body;
+    const { discussionId, msg, username } = req.body;
     try {
-      const newMessage = await Message.insertMessage({ discussionId, msg });
+      const newMessage = await Message.insertMessage({ discussionId, msg, username });
       res.status(201).json(newMessage);
     } catch (error) {
       console.error("Error creating message:", error);
@@ -124,6 +127,22 @@ function init(db) {
         return;
       }
       res.json(discussion);
+    } catch (error) {
+      console.error("Error fetching discussion:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // GET discussion by its id
+  router.get("/admindiscussions/:discussionId", async (req, res) => {
+    const { discussionId } = req.params;
+    try {
+      const admindiscussion = await AdminDiscussion.findAdminDiscussionById(discussionId);
+      if (!admindiscussion) {
+        res.status(404).json({ error: "Discussion not found" });
+        return;
+      }
+      res.json(admindiscussion);
     } catch (error) {
       console.error("Error fetching discussion:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -222,6 +241,58 @@ function init(db) {
         .createUser(username, password, firstName, lastName, isAdmin)
         .then((user_id) => res.status(201).send({ id: user_id }))
         .catch((err) => res.status(500).send(err));
+    }
+  });
+
+  // GET user profile by ID
+  router.get('/user/:userId', async (req, res) => {
+    try {
+      const user = await Users.findById(req.params.userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json(user);
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  // GET user profile by username
+    router.get('/user/:username', async (req, res) => {
+        try {
+        const { username } = req.params;
+        const user = await users.findByUsername(username);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+        } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ message: 'Internal server error' });
+        }
+    });
+  
+  
+  // GET discussions posted by a user
+  router.get('/user/:userId/discussions', async (req, res) => {
+    try {
+      const discussions = await Discussion.find({ userId: req.params.userId });
+      res.json(discussions);
+    } catch (error) {
+      console.error('Error fetching discussions:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+  // GET messages posted by a user
+  router.get('/user/:userId/messages', async (req, res) => {
+    try {
+      const messages = await Message.find({ userId: req.params.userId });
+      res.json(messages);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
   });
 

@@ -7,7 +7,7 @@ import NavPanel from "./NavPanel";
 import Information from './Information';
 import './DiscussionPage.css';
 
-function DiscussionPage({ onLogout, username }) {
+function AdminDiscussionPage({ onLogout }) {
   const { discussionId } = useParams();
   const [discussion, setDiscussion] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -19,7 +19,7 @@ function DiscussionPage({ onLogout, username }) {
     const fetchDiscussionAndMessages = async () => {
       try {
         // Fetch discussion data based on discussionId
-        const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/${discussionId}`);
+        const discussionResponse = await axios.get(`http://localhost:4000/api/admindiscussions/${discussionId}`);
         setDiscussion(discussionResponse.data);
 
         // Fetch messages associated with the discussion
@@ -65,10 +65,9 @@ function DiscussionPage({ onLogout, username }) {
         </section>
           <h2>{discussion.title}</h2>
           <p>{discussion.content}</p>
-          <p>{discussion.username }</p>
         <section className='Msg'>
           <section className="CreateMsg">
-            <CreateMessage onCreate={addMessages} discussionId={discussionId} username={username} />
+            <CreateMessage onCreate={addMessages} discussionId={discussionId} />
           </section>
           <article className='MessageList'>
             <MessageList messages={messages} />
@@ -79,4 +78,4 @@ function DiscussionPage({ onLogout, username }) {
   );
 }
 
-export default DiscussionPage;
+export default AdminDiscussionPage;

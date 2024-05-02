@@ -6,6 +6,7 @@ function MessageList({ messages }) {
         {messages.map((message, index) => (
           <li key={index}>
             <p>{message.msg}</p>
+            <p>{message.username}</p>
           </li>
         ))}
       </ul>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-function CreateDiscussion({ onCreate, username }) {
+function CreateAdminDiscussion({ onCreate }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -10,7 +10,7 @@ function CreateDiscussion({ onCreate, username }) {
         if (title.trim() && content.trim()) {
             try {
                 // Send POST request to create a new discussion
-                const response = await axios.post('http://localhost:4000/api/discussions', { title, content, username });
+                const response = await axios.post('http://localhost:4000/api/admindiscussions', { title, content });
                 // Call onCreate function with the newly created discussion
                 onCreate(response.data);
                 // Reset form fields
@@ -35,4 +35,4 @@ function CreateDiscussion({ onCreate, username }) {
     );
 }
 
-export default CreateDiscussion;
+export default CreateAdminDiscussion;
