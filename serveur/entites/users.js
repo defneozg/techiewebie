@@ -1,10 +1,7 @@
 const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
-class Users {
-  constructor(db) {
-    this.db = db;
-  }
 
+class Users {
   async createUser(username, password, firstName, lastName, isAdmin = false) {
     try {
       const collection = db.collection("users");
@@ -15,9 +12,8 @@ class Users {
         lastName,
         isAdmin,
       };
-
       const result = await collection.insertOne(user);
-      return result.insertedId; //Retour de userId de l'utilisateur créé
+      return result.insertedId;
     } catch (error) {
       console.error("Error creating user:", error);
       throw error;
@@ -25,16 +21,13 @@ class Users {
   }
 
   async get(userid) {
-    const client = await this.db;
     try {
-      const collection = client.collection("users");
+      const collection = db.collection("users");
       const user = await collection.findOne({ _id: new ObjectId(userid) });
       return user;
     } catch (error) {
       console.error("Error getting user:", error);
       throw error;
-    } finally {
-      //await client.close();
     }
   }
 
@@ -42,12 +35,10 @@ class Users {
     try {
       const collection = db.collection("users");
       const count = await collection.countDocuments({ username: username });
-      return count > 0; // Check if at least one document exists
+      return count > 0;
     } catch (error) {
       console.error("Error checking user existence:", error);
-      throw error; // Re-throw for handling in calling code
-    } finally {
-      //await client.close();
+      throw error;
     }
   }
 
@@ -57,7 +48,7 @@ class Users {
       const user = await collection.findOne({ username: username });
       console.log(user);
       if (!user) {
-        return null; // User not found
+        return null;
       }
 
       // Implement secure password comparison (replace with your hashing library)
@@ -67,9 +58,7 @@ class Users {
       return isPasswordValid ? user._id : null;
     } catch (error) {
       console.error("Error checking password:", error);
-      throw error; // Re-throw for handling in calling code
-    } finally {
-      //await client.close();
+      throw error;
     }
   }
 
@@ -77,21 +66,20 @@ class Users {
     try {
       const collection = db.collection("users");
       const user = await collection.findOne({ _id: new ObjectId(userId) });
-      return user.isAdmin === true; // Return true if user is admin
+      return user.isAdmin === true;
     } catch (error) {
       console.error("Error checking admin status:", error);
-      throw error; // Re-throw for handling in calling code
-    } finally {
-      //await client.close();
+      throw error;
     }
   }
 
   async findByUsername(username) {
     try {
-      const user = await this.collection.findOne({ username });
+      const collection = db.collection("users");
+      const user = await collection.findOne({ username });
       return user;
     } catch (error) {
-      throw new Error(`Error finding user by username: ${error.message}`);
+      throw new Error("Error finding user by username: ${error.message}");
     }
   }
 }

@@ -4,11 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [passOK, setPassOK] = useState(false);
-
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
 
@@ -18,38 +16,33 @@ function SignUpForm() {
   const getPass1 = (evt) => setPass1(evt.target.value);
   const getPass2 = (evt) => setPass2(evt.target.value);
 
-  const [allUsernames, setAllUsernames] = useState([]); // Assuming initial empty array
-
   const navigate = useNavigate();
 
   const handleRegistration = async (event) => {
-    // Basic validation (replace with more robust validation)
-    if (username.length < 3 || pass1.length < 4) {
-      alert(
-        "Username must be at least 3 characters and password must be at least 4 characters."
-      );
-      return;
-    }
-
-    if (pass1 !== pass2) {
-      setPassOK(false);
-      return;
-    } else {
-      setPassOK(true);
-      setPassword(pass1); // Update password state after successful validation
-    }
-
-    const isAdmin = false;
-    const newUser = {
-      username,
-      password,
-      firstName,
-      lastName,
-      isAdmin,
-    };
-
+    event.preventDefault();
     try {
-      // Simulate API call with delay (replace with actual fetch)
+      if (username.length < 3 || pass1.length < 4) {
+        alert(
+          "Username must be at least 3 characters and password must be at least 4 characters."
+        );
+        return;
+      }
+
+      if (pass1 !== pass2) {
+        alert("The passwords do not match. Please try again.");
+        setPassOK(false);
+        return;
+      }
+
+      setPassOK(true);
+      const newUser = {
+        username,
+        password: pass1,
+        firstName,
+        lastName,
+        isAdmin: false,
+      };
+
       const response = await axios.post(
         "http://localhost:4000/api/user/register",
         newUser
@@ -61,21 +54,18 @@ function SignUpForm() {
         alert(data.error_message);
       } else {
         setUsername("");
-        setPassword("");
+        setFirstName("");
+        setLastName("");
         setPassOK(false);
+        setPass1("");
+        setPass2("");
         alert("Account registered successfully!");
-        navigate("/"); // Redirect to login page after successful registration
+        navigate("/");
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      alert("Registration failed due to an error. Please try again later.");
+      alert("Registration failed due to an error. Please try again.");
     }
-  };
-
-  const submissionHandler = (event) => {
-    event.preventDefault();
-    console.log(event);
-    handleRegistration();
   };
 
   return (
@@ -93,7 +83,11 @@ function SignUpForm() {
           <label htmlFor="signin_mdp2">Confirm Password</label>
           <input type="password" id="signin_mdp2" onChange={getPass2} />
         </div>
-        <button className="SignUpBtn" type="submit" onClick={submissionHandler}>
+        <button
+          className="SignUpBtn"
+          type="submit"
+          onClick={handleRegistration}
+        >
           Sign Up
         </button>
         {passOK || pass1 === "" || pass2 === "" ? (
