@@ -1,18 +1,21 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId } = require("mongodb");
 
 const uri = "mongodb://localhost:27017";
 
-const dbName = 'techie_webie_db';
+const dbName = "techie_webie_db";
 
-const collectionName = 'discussionsAdmin';
+const collectionName = "discussionsAdmin";
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // insérer discussion
 async function insertAdminDiscussion(discussion) {
   try {
     if (!discussion.title || !discussion.content) {
-      throw new Error('Discussion title and body are required.');
+      throw new Error("Discussion title and body are required.");
     }
     if (!discussion.createdAt) {
       discussion.createdAt = new Date();
@@ -26,10 +29,8 @@ async function insertAdminDiscussion(discussion) {
     console.log(result);
     return result.insertedId;
   } catch (error) {
-    console.error('Error inserting discussion:', error.message);
-    throw error; 
-  } finally {
-    //await client.close();
+    console.error("Error inserting discussion:", error.message);
+    throw error;
   }
 }
 
@@ -43,10 +44,8 @@ async function getAllAdminDiscussions() {
     const discussions = await collection.find().toArray();
     return discussions;
   } catch (error) {
-    console.error('Error fetching discussions:', error.message);
-    throw error; 
-  } finally {
-    //await client.close();
+    console.error("Error fetching discussions:", error.message);
+    throw error;
   }
 }
 
@@ -63,12 +62,13 @@ async function findAdminDiscussionById(discussionId) {
     console.log(discussion);
     return discussion;
   } catch (error) {
-    console.error('Error finding discussion by ID:', error.message);
-    throw error; 
-  } finally {
-    //await client.close();
+    console.error("Error finding discussion by ID:", error.message);
+    throw error;
   }
 }
 
-
-module.exports = { insertAdminDiscussion, getAllAdminDiscussions, findAdminDiscussionById };
+module.exports = {
+  insertAdminDiscussion,
+  getAllAdminDiscussions,
+  findAdminDiscussionById,
+};

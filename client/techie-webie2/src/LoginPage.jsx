@@ -15,7 +15,6 @@ function LoginPage({ onLogin }) {
 
   const loginUser = async () => {
     try {
-      // POST req à login
       const response = await axios.post(
         "http://localhost:4000/api/user/login",
         {
@@ -30,7 +29,7 @@ function LoginPage({ onLogin }) {
         alert(data.error_message);
       } else {
         if (response.status === 200) {
-          onLogin(true, username); 
+          onLogin(true, username);
           navigate("/main");
         }
       }
@@ -61,7 +60,7 @@ function LoginPage({ onLogin }) {
         <label htmlFor="username">Username</label>
         <input
           id="user"
-          name="username" 
+          name="username"
           onChange={getUsername}
           value={username}
         />
@@ -83,11 +82,10 @@ function LoginPage({ onLogin }) {
       </div>
       <p>Don't have an account?</p>
       <Link to="/signup" className="createBtn">
-        Create Account  
+        Create Account
       </Link>
     </form>
   );
 }
 
 export default LoginPage;
-

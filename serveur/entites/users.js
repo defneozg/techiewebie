@@ -51,7 +51,6 @@ class Users {
         return null;
       }
 
-      // secure password comparison 
       const isPasswordValid = await comparePassword(password, user.password);
       console.log(isPasswordValid);
 
@@ -85,13 +84,11 @@ class Users {
 }
 
 async function hashPassword(password) {
-  // Use bcrypt to hash the password securely
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 }
 
 async function comparePassword(password, hashedPassword) {
-  // Use bcrypt to compare the provided password with the hashed password
   return password === hashedPassword;
   //return await bcrypt.compare(password, hashedPassword);
 }
