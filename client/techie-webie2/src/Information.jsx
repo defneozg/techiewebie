@@ -4,8 +4,7 @@ function Information() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // Fetch news data from the API
-    // Update the news state with the fetched data
+    // TODO get les nouvelles informations de API
   }, []);
 
   return (

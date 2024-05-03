@@ -51,7 +51,7 @@ class Users {
         return null;
       }
 
-      // Implement secure password comparison (replace with your hashing library)
+      // secure password comparison 
       const isPasswordValid = await comparePassword(password, user.password);
       console.log(isPasswordValid);
 

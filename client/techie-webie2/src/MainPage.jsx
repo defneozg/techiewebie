@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 function MainPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
 
-  // Function to fetch discussions from the backend
+  // GET discussions
   const fetchDiscussions = async () => {
     try {
       const response = await axios.get("http://localhost:4000/api/discussions");
@@ -25,10 +25,10 @@ function MainPage({ onLogout, username }) {
     }
   };
 
-  // Function to periodically fetch discussions
+  // GET discussions périodiquement
   useEffect(() => {
-    const interval = setInterval(fetchDiscussions, 2000); // Fetch every 5 seconds
-    return () => clearInterval(interval); // Clean up on unmount
+    const interval = setInterval(fetchDiscussions, 2000); // GET les discussions chaque 2s
+    return () => clearInterval(interval); 
   }, []);
 
   const addDiscussion = async (newDiscussion) => {
@@ -40,7 +40,7 @@ function MainPage({ onLogout, username }) {
   };
 
   const handleSearch = (searchQuery) => {
-    // Implement search functionality here
+    // TODO search
     console.log("Search query:", searchQuery);
   };
 
@@ -59,7 +59,6 @@ function MainPage({ onLogout, username }) {
         </section>
         <section className="Disc">
           <section className="CreateDisc">
-            {/* Pass the username prop to CreateDiscussion */}
             <CreateDiscussion onCreate={addDiscussion} username={username} />
           </section>
           <article className="DiscussionList">

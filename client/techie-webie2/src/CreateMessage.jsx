@@ -10,21 +10,18 @@ function CreateMessage({ onCreate, discussionId, username }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (msg.trim()) { // Check if msg is not empty
+    if (msg.trim()) { // Voir si msg est vide
       try {
-        // Send POST request to create a new message
+        // POST message
         const response = await axios.post('http://localhost:4000/api/messages', { 
-          discussionId, // Include discussionId in the request body
+          discussionId,
           msg,
           username
         });
         console.log(response.msg);
-        // Call onCreate function with the newly created message
         //onCreate(response.msg);
-        // Reset form fields
         setMsg('');
       } catch (error) {
-        // Handle errors (e.g., display an error message)
         console.error('Error creating message:', error);
       }
     }

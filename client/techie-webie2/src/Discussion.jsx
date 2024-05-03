@@ -14,11 +14,11 @@ function Discussion() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch selected discussion based on discussionId
+                // GET discussion selon discussionId
                 const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/${discussionId}`);
                 setSelectedDiscussion(discussionResponse.data);
                 
-                // Fetch messages associated with the discussion
+                // GET messages d'une discussion
                 const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
                 setDiscussionMessages(messagesResponse.data);
 
@@ -34,9 +34,9 @@ function Discussion() {
 
     const addMessage = async (newMessage) => {
         try {
-            // Send POST request to add a new message
+            // POST message
             const response = await axios.post('http://localhost:4000/api/messages', newMessage);
-            // Update discussionMessages state with the newly added message
+            // ajout du nouveau message dans la liste
             setDiscussionMessages([...discussionMessages, response.data]);
         } catch (error) {
             console.error('Error adding message:', error);

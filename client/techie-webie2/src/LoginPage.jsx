@@ -15,7 +15,7 @@ function LoginPage({ onLogin }) {
 
   const loginUser = async () => {
     try {
-      // Post request to login
+      // POST req à login
       const response = await axios.post(
         "http://localhost:4000/api/user/login",
         {
@@ -30,8 +30,7 @@ function LoginPage({ onLogin }) {
         alert(data.error_message);
       } else {
         if (response.status === 200) {
-          // Pass the username to the onLogin function
-          onLogin(true, username); // <- Pass username here
+          onLogin(true, username); 
           navigate("/main");
         }
       }
@@ -62,7 +61,7 @@ function LoginPage({ onLogin }) {
         <label htmlFor="username">Username</label>
         <input
           id="user"
-          name="username" // Add the name attribute
+          name="username" 
           onChange={getUsername}
           value={username}
         />
@@ -83,7 +82,6 @@ function LoginPage({ onLogin }) {
         </button>
       </div>
       <p>Don't have an account?</p>
-      {/* Use Link component to navigate to SignUpForm */}
       <Link to="/signup" className="createBtn">
         Create Account  
       </Link>

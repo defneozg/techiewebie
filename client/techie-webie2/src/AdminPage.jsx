@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./MainPage.css";
+import "./MainPage.css"; // A CHANGER !!!
 import NavPanel from "./NavPanel";
 import CreateAdminDiscussion from "./CreateAdminDiscussion";
 import AdminDiscussionList from "./AdminDiscussionList";
@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 
 function AdminPage({ onLogout }) {
   const [discussions, setDiscussions] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
+  const [isAdmin, setIsAdmin] = useState(false); // admin status
 
   useEffect(() => {
     const fetchDiscussions = async () => {
@@ -30,7 +30,7 @@ function AdminPage({ onLogout }) {
 
     fetchDiscussions();
 
-    // Check if the user is an admin
+    // Voir si l'utilisateur est un administrateur
     const checkAdminStatus = async () => {
       try {
         const response = await axios.get(
@@ -54,7 +54,7 @@ function AdminPage({ onLogout }) {
   };
 
   const handleSearch = (searchQuery) => {
-    // Implement search functionality here
+    // TODO search
     console.log("Search query:", searchQuery);
   };
 
@@ -62,7 +62,7 @@ function AdminPage({ onLogout }) {
     return (
       <div>
         <p>Access Denied. You must be an admin to view this page.</p>
-        {/* You can add a redirect here or display a login button */}
+        {/*TODO redirect button */}
       </div>
     );
   }

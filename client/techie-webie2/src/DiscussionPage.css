@@ -9,29 +9,29 @@ body {
 .nav-panel {
     width: 100%;
     display: flex;
-    flex: 0 0 auto; /* Allow the nav-panel to grow and shrink based on content */
+    flex: 0 0 auto; /* rendre dynamique */
     padding: 10px 20px;
     background-color: #f96398;
-    box-sizing: border-box; /* Include padding in the width calculation */
+    box-sizing: border-box; 
 }
 
 .logo {
-    flex: 1; /* Flexible width to fill available space */
-    font-size: 18px; /* Adjust font size for your logo */
-    font-weight: bold; /* Optional: Make the logo text bold */
+    flex: 1; 
+    font-size: 18px; 
+    font-weight: bold; 
 }
 
 .search-bar {
-    flex: 1; /* Allow the search bar to grow and shrink */
-    margin-right: 20px; /* Optional spacing between search and logout */
+    flex: 1;
+    margin-right: 20px; 
 }
 
 .search-bar input {
-    width: 100%; /* Take up the full width of the search bar */
-    padding: 5px; /* Adjust padding for input field */
-    border: 1px solid #ccc; /* Border for the input field */
-    border-radius: 3px; /* Rounded corners for the input field */
-    font-size: 14px; /* Adjust font size for the search text */
+    width: 100%; 
+    padding: 5px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    font-size: 14px; 
 }
 
 .search-bar input::placeholder {
@@ -50,8 +50,8 @@ body {
 
 .Information { 
     width: 20%;
-    background-color: #f96398; /* Optional: Background color for Information */
-    padding: 10px; /* Optional: Padding for Information */
+    background-color: #f96398; 
+    padding: 10px; 
 }
 
 .Msg {

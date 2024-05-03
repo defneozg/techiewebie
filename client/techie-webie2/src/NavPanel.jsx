@@ -22,13 +22,12 @@ function NavPanel({ onLogout, onSearch }) {
   };
 
   const handleTogglePage = () => {
-    // Assuming /admin route is used for the AdminPage
     navigate("/admin");
   };
 
   return (
     <div className="nav-panel">
-      <div className="logo">Your Site Logo</div>
+      <div className="logo"> Organiz Asso</div>
       <div className="search-bar">
         <input
           type="text"

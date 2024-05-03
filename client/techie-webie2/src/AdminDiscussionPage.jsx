@@ -18,18 +18,18 @@ function AdminDiscussionPage({ onLogout }) {
   useEffect(() => {
     const fetchDiscussionAndMessages = async () => {
       try {
-        // Fetch discussion data based on discussionId
+        // GET discussion selon discussionId
         const discussionResponse = await axios.get(`http://localhost:4000/api/admindiscussions/${discussionId}`);
         setDiscussion(discussionResponse.data);
 
-        // Fetch messages associated with the discussion
+        // GET messages d'une discussion
         const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
         setMessages(messagesResponse.data);
 
-        setLoading(false); // Data fetching complete
+        setLoading(false);
       } catch (error) {
-        setError(error); // Set error state if there's an error
-        setLoading(false); // Data fetching complete (even if there's an error)
+        setError(error);
+        setLoading(false); 
       }
     };
 
@@ -41,16 +41,16 @@ function AdminDiscussionPage({ onLogout }) {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading message while fetching data
+    return <div>Loading...</div>; 
   }
 
   if (error || !discussion) {
-    console.error('Error fetching discussion data:', error); // Log error to console
-    return <div>Error fetching discussion data.</div>; // Show error message if there's an error
+    console.error('Error fetching discussion data:', error); 
+    return <div>Error fetching discussion data.</div>; 
   }
 
   const handleSearch = (searchQuery) => {
-    // Implement search functionality here
+    // TODO search
     console.log('Search query:', searchQuery);
   };
 

@@ -12,18 +12,15 @@ function CreateDiscussion({ onCreate, username }) {
     console.log(username);
     if (title.trim() && content.trim()) {
       try {
-        // Send POST request to create a new discussion
+        // POST discussion
         const response = await axios.post(
           "http://localhost:4000/api/discussions",
           { title, content, username }
         );
-        // Call onCreate function with the newly created discussion
         onCreate(response.data);
-        // Reset form fields
         setTitle("");
         setContent("");
       } catch (error) {
-        // Handle errors (e.g., display an error message)
         console.error("Error creating discussion:", error);
       }
     }

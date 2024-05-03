@@ -14,22 +14,22 @@ function ProfilePage({ userId }) {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // Fetch user profile data based on userId
+        // GET data sur l'utilisateur selon userid
         const userProfileResponse = await axios.get(`http://localhost:4000/api/user/${userId}`);
         setUserProfile(userProfileResponse.data);
         
-        // Fetch discussions posted by the user
+        // GET discussions postées par l'utilisateur
         const discussionsResponse = await axios.get(`http://localhost:4000/api/discussions?userId=${userId}`);
         setDiscussions(discussionsResponse.data);
         
-        // Fetch messages posted by the user
+        // GET messages postées par l'utilisateur
         const messagesResponse = await axios.get(`http://localhost:4000/api/messages?userId=${userId}`);
         setMessages(messagesResponse.data);
 
-        setLoading(false); // Data fetching complete
+        setLoading(false); 
       } catch (error) {
-        setError(error); // Set error state if there's an error
-        setLoading(false); // Data fetching complete (even if there's an error)
+        setError(error); 
+        setLoading(false); 
       }
     };
 
@@ -37,12 +37,12 @@ function ProfilePage({ userId }) {
   }, [userId]);
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading message while fetching data
+    return <div>Loading...</div>; 
   }
 
   if (error || !userProfile) {
-    console.error('Error fetching user profile:', error); // Log error to console
-    return <div>Error fetching user profile.</div>; // Show error message if there's an error
+    console.error('Error fetching user profile:', error); 
+    return <div>Error fetching user profile.</div>; 
   }
 
   // <ProfilePicture imageUrl={userProfile.profilePictureUrl} />

@@ -172,7 +172,7 @@ function init(db) {
   // POST discussions - AdminPage
   router.post("/admindiscussions", async (req, res) => {
     try {
-      const admindiscussion = req.body; // Assuming the request body contains title and content fields
+      const admindiscussion = req.body; 
       console.log("Creating discussion:", admindiscussion);
       const newDiscussion = await AdminDiscussion.insertAdminDiscussion(
         admindiscussion
