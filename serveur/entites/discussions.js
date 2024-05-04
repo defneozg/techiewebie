@@ -1,11 +1,18 @@
 const { MongoClient, ObjectId } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const uri = "mongodb://localhost:27017";
 
 const dbName = "techie_webie_db";
+const dbName = "techie_webie_db";
 
 const collectionName = "discussions";
+const collectionName = "discussions";
 
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -15,6 +22,7 @@ const client = new MongoClient(uri, {
 async function insertDiscussion(discussion) {
   try {
     if (!discussion.title || !discussion.content || !discussion.username) {
+      throw new Error("Discussion title, content and username are required.");
       throw new Error("Discussion title, content and username are required.");
     }
     if (!discussion.createdAt) {
@@ -29,6 +37,8 @@ async function insertDiscussion(discussion) {
     console.log(result);
     return result.insertedId;
   } catch (error) {
+    console.error("Error inserting discussion:", error.message);
+    throw error;
     console.error("Error inserting discussion:", error.message);
     throw error;
   } finally {
@@ -46,6 +56,8 @@ async function getAllDiscussions() {
     const discussions = await collection.find().toArray();
     return discussions;
   } catch (error) {
+    console.error("Error fetching discussions:", error.message);
+    throw error;
     console.error("Error fetching discussions:", error.message);
     throw error;
   } finally {
@@ -66,6 +78,7 @@ async function findDiscussionById(discussionId) {
     console.log(discussion);
     return discussion;
   } catch (error) {
+    console.error("Error finding discussion by ID:", error.message);
     console.error("Error finding discussion by ID:", error.message);
     throw error;
   }
