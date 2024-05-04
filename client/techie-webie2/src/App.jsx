@@ -28,8 +28,6 @@ function App() {
   const handleLogin = (loggedIn, username) => {
     setIsLoggedIn(loggedIn);
     setUsername(username);
-    console.log("Login true");
-    console.log("user", username);
   };
 
   /*let content;
@@ -55,11 +53,11 @@ function App() {
         />
         <Route path="/signup" element={<SignUpForm />} />
         <Route
-          path="/discussion/:discussionId"
+          path="/discussion/discussionId/:discussionId"
           element={<DiscussionPage onLogout={setLogout} username={username} />}
         />
         <Route
-          path="/admindiscussion/:discussionId"
+          path="/admindiscussion/discussionId/:discussionId"
           element={<AdminDiscussionPage onLogout={setLogout} />}
         />
         <Route
@@ -69,7 +67,7 @@ function App() {
         <Route path="/admin" element={<AdminPage onLogout={setLogout} />} />
         <Route
           path="/user/:username"
-          element={<ProfilePage userId={userId} />}
+          element={<ProfilePage username={username} />}
         />
       </Routes>
     </div>

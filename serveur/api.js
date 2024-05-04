@@ -154,7 +154,7 @@ function init(db) {
   });
 
   // GET Discussion par id
-  router.get("/discussions/:discussionId", async (req, res) => {
+  router.get("/discussions/discussionId/:discussionId", async (req, res) => {
     const { discussionId } = req.params;
     try {
       const discussion = await Discussion.findDiscussionById(discussionId);
@@ -169,10 +169,26 @@ function init(db) {
     }
   });
 
+  // GET Discussion par username
+  router.get("/discussions/username/:username", async (req, res) => {
+    const { username } = req.params;
+    try {
+      const discussion = await Discussion.findDiscussionByUsername(username);
+      if (!discussion) {
+        res.status(404).json({ error: "Discussion not found" });
+        return;
+      }
+      res.json(discussion);
+    } catch (error) {
+      console.error("Error fetching discussion:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   // POST discussions - AdminPage
   router.post("/admindiscussions", async (req, res) => {
     try {
-      const admindiscussion = req.body; 
+      const admindiscussion = req.body;
       console.log("Creating discussion:", admindiscussion);
       const newDiscussion = await AdminDiscussion.insertAdminDiscussion(
         admindiscussion
@@ -196,22 +212,25 @@ function init(db) {
   });
 
   // GET Discussion par id - AdminPage
-  router.get("/admindiscussions/:discussionId", async (req, res) => {
-    const { discussionId } = req.params;
-    try {
-      const admindiscussion = await AdminDiscussion.findAdminDiscussionById(
-        discussionId
-      );
-      if (!admindiscussion) {
-        res.status(404).json({ error: "Discussion not found" });
-        return;
+  router.get(
+    "/admindiscussions/discussionId/:discussionId",
+    async (req, res) => {
+      const { discussionId } = req.params;
+      try {
+        const admindiscussion = await AdminDiscussion.findAdminDiscussionById(
+          discussionId
+        );
+        if (!admindiscussion) {
+          res.status(404).json({ error: "Discussion not found" });
+          return;
+        }
+        res.json(admindiscussion);
+      } catch (error) {
+        console.error("Error fetching discussion:", error);
+        res.status(500).json({ error: "Internal server error" });
       }
-      res.json(admindiscussion);
-    } catch (error) {
-      console.error("Error fetching discussion:", error);
-      res.status(500).json({ error: "Internal server error" });
     }
-  });
+  );
 
   // POST messages
   router.post("/messages", async (req, res) => {
@@ -233,10 +252,8 @@ function init(db) {
   router.get("/messages", async (req, res) => {
     const { discussionId } = req.query;
     try {
-      const messages = await messages.getAllMessagesByDiscussionId(
-        discussionId
-      );
-      res.json(messages);
+      const msg = await messages.getAllMessagesByDiscussionId(discussionId);
+      res.json(msg);
     } catch (error) {
       console.error("Error fetching messages:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -244,6 +261,7 @@ function init(db) {
   });
 
   // GET User par id
+  /*
   router.get("/user/:userId", async (req, res) => {
     try {
       const user = await Users.findById(req.params.userId);
@@ -255,10 +273,10 @@ function init(db) {
       console.error("Error fetching user profile:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  });
+  });*/
 
   // GET User par username
-  router.get("/user/:username", async (req, res) => {
+  router.get("/user/username/:username", async (req, res) => {
     try {
       const { username } = req.params;
       const user = await users.findByUsername(username);

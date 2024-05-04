@@ -10,7 +10,7 @@ function DiscussionList({ discussions }) {
             <h3>{discussion.title}</h3>
             <p>{discussion.content}</p>
             <Link to={`/user/${discussion.username}`}>{discussion.username}</Link>
-            <Link to={`/discussion/${discussion._id}`}>View Discussion</Link>
+            <Link to={`/discussions/discussionId/${discussion._id}`}>View Discussion</Link>
           </li>
         ))}
       </ul>

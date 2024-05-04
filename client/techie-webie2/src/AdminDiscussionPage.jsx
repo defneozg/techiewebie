@@ -19,7 +19,7 @@ function AdminDiscussionPage({ onLogout }) {
     const fetchDiscussionAndMessages = async () => {
       try {
         // GET discussion selon discussionId
-        const discussionResponse = await axios.get(`http://localhost:4000/api/admindiscussions/${discussionId}`);
+        const discussionResponse = await axios.get(`http://localhost:4000/api/admindiscussions/discussionId/${discussionId}`);
         setDiscussion(discussionResponse.data);
 
         // GET messages d'une discussion

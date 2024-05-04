@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import DiscussionList from './DiscussionList';
-import MessageList from './MessageList';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import DiscussionList from "./DiscussionList";
+import MessageList from "./MessageList";
 //import ProfilePicture from './ProfilePicture';
 
-function ProfilePage({ userId }) {
+function ProfilePage({ username }) {
   const [userProfile, setUserProfile] = useState(null);
   const [discussions, setDiscussions] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -14,44 +14,49 @@ function ProfilePage({ userId }) {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // GET data sur l'utilisateur selon userid
-        const userProfileResponse = await axios.get(`http://localhost:4000/api/user/${userId}`);
+        const userProfileResponse = await axios.get(
+          `http://localhost:4000/api/user/username/${username}`
+        );
         setUserProfile(userProfileResponse.data);
-        
-        // GET discussions postées par l'utilisateur
-        const discussionsResponse = await axios.get(`http://localhost:4000/api/discussions?userId=${userId}`);
+
+        const discussionsResponse = await axios.get(
+          `http://localhost:4000/api/discussions/username/${username}`
+        );
         setDiscussions(discussionsResponse.data);
-        
-        // GET messages postées par l'utilisateur
-        const messagesResponse = await axios.get(`http://localhost:4000/api/messages?userId=${userId}`);
+
+        const messagesResponse = await axios.get(
+          `http://localhost:4000/api/messages?username=${username}`
+        );
         setMessages(messagesResponse.data);
 
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
-        setError(error); 
-        setLoading(false); 
+        setError(error);
+        setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, [userId]);
+  }, [username]);
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   if (error || !userProfile) {
-    console.error('Error fetching user profile:', error); 
-    return <div>Error fetching user profile.</div>; 
+    console.error("Error fetching user profile:", error);
+    return <div>Error fetching user profile.</div>;
   }
 
   // <ProfilePicture imageUrl={userProfile.profilePictureUrl} />
-  
+
   return (
     <div className="profile-page">
       <div className="profile-header">
-        <h2>About {userProfile.firstName} {userProfile.lastName}</h2>
-        
+        <h2>
+          About {userProfile.firstName} {userProfile.lastName}
+        </h2>
+
         <p>{userProfile.about}</p>
       </div>
       <div className="profile-content">

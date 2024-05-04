@@ -15,7 +15,7 @@ function Discussion() {
         const fetchData = async () => {
             try {
                 // GET discussion selon discussionId
-                const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/${discussionId}`);
+                const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/discussionId/${discussionId}`);
                 setSelectedDiscussion(discussionResponse.data);
                 
                 // GET messages d'une discussion

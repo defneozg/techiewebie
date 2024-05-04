@@ -77,7 +77,7 @@ class Users {
     try {
       const collection = db.collection("users");
       const user = await collection.findOne({ username });
-      return user;
+      return user.username;
     } catch (error) {
       throw new Error("Error finding user by username: ${error.message}");
     }

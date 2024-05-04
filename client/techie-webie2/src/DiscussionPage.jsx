@@ -14,12 +14,28 @@ function DiscussionPage({ onLogout, username }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const createMessage = async (newMessage) => {
+    try {
+      // Send POST request to create a new message
+      await axios.post(`http://localhost:4000/api/messages`, {
+        discussionId,
+        msg: newMessage
+      });
+
+      // After successfully creating the message, fetch the updated list of messages
+      const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
+      setMessages(messagesResponse.data);
+    } catch (error) {
+      console.error('Error creating message:', error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchDiscussionAndMessages = async () => {
       try {
         // GET discussion selon discussionId
-        const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/${discussionId}`);
+        const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/discussionId/${discussionId}`);
         setDiscussion(discussionResponse.data);
 
         // GET messages d'une discussion
