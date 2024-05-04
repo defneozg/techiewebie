@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import CreateMessage from './CreateMessage';
-import MessageList from './MessageList';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CreateMessage from "./CreateMessage";
+import MessageList from "./MessageList";
 import NavPanel from "./NavPanel";
-import Information from './Information';
-import './DiscussionPage.css';
+import Information from "./Information";
+import "./DiscussionPage.css";
+
+axios.defaults.withCredentials = true;
 
 function DiscussionPage({ onLogout, username }) {
   const { discussionId } = useParams();
@@ -19,33 +21,38 @@ function DiscussionPage({ onLogout, username }) {
       // Send POST request to create a new message
       await axios.post(`http://localhost:4000/api/messages`, {
         discussionId,
-        msg: newMessage
+        msg: newMessage,
       });
 
       // After successfully creating the message, fetch the updated list of messages
-      const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
+      const messagesResponse = await axios.get(
+        `http://localhost:4000/api/messages?discussionId=${discussionId}`
+      );
       setMessages(messagesResponse.data);
     } catch (error) {
-      console.error('Error creating message:', error);
+      console.error("Error creating message:", error);
     }
   };
-
 
   useEffect(() => {
     const fetchDiscussionAndMessages = async () => {
       try {
         // GET discussion selon discussionId
-        const discussionResponse = await axios.get(`http://localhost:4000/api/discussions/discussionId/${discussionId}`);
+        const discussionResponse = await axios.get(
+          `http://localhost:4000/api/discussions/discussionId/${discussionId}`
+        );
         setDiscussion(discussionResponse.data);
 
         // GET messages d'une discussion
-        const messagesResponse = await axios.get(`http://localhost:4000/api/messages?discussionId=${discussionId}`);
+        const messagesResponse = await axios.get(
+          `http://localhost:4000/api/messages?discussionId=${discussionId}`
+        );
         setMessages(messagesResponse.data);
 
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
         setError(error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -57,36 +64,44 @@ function DiscussionPage({ onLogout, username }) {
   };
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   if (error || !discussion) {
-    console.error('Error fetching discussion data:', error); 
-    return <div>Error fetching discussion data.</div>; 
+    console.error("Error fetching discussion data:", error);
+    return <div>Error fetching discussion data.</div>;
   }
 
   const handleSearch = (searchQuery) => {
     // TODO search
-    console.log('Search query:', searchQuery);
+    console.log("Search query:", searchQuery);
   };
 
   return (
     <div className="discussion-page">
       <section className="header">
-        <NavPanel className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
+        <NavPanel
+          className="NavPan"
+          onLogout={onLogout}
+          onSearch={handleSearch}
+        />
       </section>
       <div className="forum">
-        <section className='Information'>
-            <Information />
+        <section className="Information">
+          <Information />
         </section>
-          <h2>{discussion.title}</h2>
-          <p>{discussion.content}</p>
-          <p>{discussion.username }</p>
-        <section className='Msg'>
+        <h2>{discussion.title}</h2>
+        <p>{discussion.content}</p>
+        <p>{discussion.username}</p>
+        <section className="Msg">
           <section className="CreateMsg">
-            <CreateMessage onCreate={addMessages} discussionId={discussionId} username={username} />
+            <CreateMessage
+              onCreate={addMessages}
+              discussionId={discussionId}
+              username={username}
+            />
           </section>
-          <article className='MessageList'>
+          <article className="MessageList">
             <MessageList messages={messages} />
           </article>
         </section>

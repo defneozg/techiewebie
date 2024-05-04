@@ -1,6 +1,6 @@
+const { getClient, connectionDB } = require("./db.js");
 const express = require("express");
 const api = require("./api.js");
-const { getClient, connectionDB } = require("./db.js");
 const cors = require("cors");
 
 const app = express();

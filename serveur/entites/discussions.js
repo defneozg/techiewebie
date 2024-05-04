@@ -1,97 +1,96 @@
-const { MongoClient, ObjectId } = require("mongodb");
-
-const uri = "mongodb://localhost:27017";
-
-const dbName = "techie_webie_db";
-
-const collectionName = "discussions";
-
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-// insérer nouvelle discussion
-async function insertDiscussion(discussion) {
-  try {
-    if (!discussion.title || !discussion.content || !discussion.username) {
-      throw new Error("Discussion title, content and username are required.");
+class Discussions {
+  async insertDiscussion(discussion) {
+    try {
+      if (!discussion.title || !discussion.content || !discussion.username) {
+        throw new Error("Discussion title, content and username are required.");
+      }
+      if (!discussion.createdAt) {
+        discussion.createdAt = new Date();
+      }
+      const collection = db.collection("discussions");
+      const result = await collection.insertOne(discussion);
+      return result.insertedId;
+    } catch (error) {
+      console.error("Error inserting discussion:", error.message);
+      throw error;
     }
-    if (!discussion.createdAt) {
-      discussion.createdAt = new Date();
+  }
+
+  async insertAdminDiscussion(discussion) {
+    try {
+      //if (!discussion.title || !discussion.content || !discussion.username) {
+      if (!discussion.title || !discussion.content) {
+        throw new Error("Discussion title, content and username are required.");
+      }
+      if (!discussion.createdAt) {
+        discussion.createdAt = new Date();
+      }
+      const collection = db.collection("discussionsAdmin");
+      const result = await collection.insertOne(discussion);
+      return result.insertedId;
+    } catch (error) {
+      console.error("Error inserting discussion:", error.message);
+      throw error;
     }
+  }
 
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
+  async getAllDiscussions() {
+    try {
+      const collection = db.collection("discussions");
+      const discussions = await collection.find().toArray();
+      return discussions;
+    } catch (error) {
+      console.error("Error fetching discussions:", error.message);
+      throw error;
+    }
+  }
 
-    const result = await collection.insertOne(discussion);
-    console.log(result);
-    return result.insertedId;
-  } catch (error) {
-    console.error("Error inserting discussion:", error.message);
-    throw error;
-  } finally {
-    //await client.close();
+  async getAllAdminDiscussions() {
+    try {
+      const collection = db.collection("discussionsAdmin");
+      const discussions = await collection.find().toArray();
+      return discussions;
+    } catch (error) {
+      console.error("Error fetching discussions:", error.message);
+      throw error;
+    }
+  }
+
+  async findDiscussionById(discussionId) {
+    try {
+      const collection = db.collection("discussions");
+      const id = new ObjectId(discussionId);
+      const discussion = await collection.findOne({ _id: id });
+      return discussion;
+    } catch (error) {
+      console.error("Error finding discussion by ID:", error.message);
+      throw error;
+    }
+  }
+
+  async findAdminDiscussionById(discussionId) {
+    try {
+      const collection = db.collection("discussionsAdmin");
+      const id = new ObjectId(discussionId);
+      const discussion = await collection.findOne({ _id: id });
+      return discussion;
+    } catch (error) {
+      console.error("Error finding discussion by ID:", error.message);
+      throw error;
+    }
+  }
+
+  async findDiscussionByUsername(username) {
+    try {
+      const collection = db.collection("discussions");
+      const user = username;
+      const discussion = await collection.find({ username: user }).toArray();
+      return discussion;
+    } catch (error) {
+      console.error("Error finding discussion by username:", error.message);
+      throw error;
+    }
   }
 }
 
-// GET toutes les discussions
-async function getAllDiscussions() {
-  try {
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-
-    const discussions = await collection.find().toArray();
-    return discussions;
-  } catch (error) {
-    console.error("Error fetching discussions:", error.message);
-    throw error;
-  } finally {
-    //await client.close();
-  }
-}
-
-// GET discussion par discussionid
-async function findDiscussionById(discussionId) {
-  try {
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-
-    console.log(discussionId);
-    const id = new ObjectId(discussionId);
-    const discussion = await collection.findOne({ _id: id });
-    console.log(discussion);
-    return discussion;
-  } catch (error) {
-    console.error("Error finding discussion by ID:", error.message);
-    console.error("Error finding discussion by ID:", error.message);
-    throw error;
-  }
-}
-
-// GET discussion par username
-async function findDiscussionByUsername(username) {
-  try {
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-
-    console.log("hey", username);
-    const user = username;
-    const discussion = await collection.find({ username: user }).toArray();
-    console.log(discussion);
-    return discussion;
-  } catch (error) {
-    console.error("Error finding discussion by username:", error.message);
-    throw error;
-  }
-}
-
-module.exports = {
-  insertDiscussion,
-  getAllDiscussions,
-  findDiscussionById,
-  findDiscussionByUsername,
-};
+exports.default = Discussions;

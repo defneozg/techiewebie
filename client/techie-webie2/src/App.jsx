@@ -58,7 +58,9 @@ function App() {
         />
         <Route
           path="/admindiscussion/discussionId/:discussionId"
-          element={<AdminDiscussionPage onLogout={setLogout} />}
+          element={
+            <AdminDiscussionPage onLogout={setLogout} username={username} />
+          }
         />
         <Route
           path="/main"
