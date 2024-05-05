@@ -1,7 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
+import axios from "./axiosConfig.js";
 
 function CreateDiscussion({ onCreate, username }) {
   const [title, setTitle] = useState("");

@@ -4,9 +4,7 @@ import NavPanel from "./NavPanel";
 import CreateAdminDiscussion from "./CreateAdminDiscussion";
 import AdminDiscussionList from "./AdminDiscussionList";
 import Information from "./Information";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
+import axios from "./axiosConfig.js";
 
 function AdminPage({ onLogout }) {
   const [discussions, setDiscussions] = useState([]);

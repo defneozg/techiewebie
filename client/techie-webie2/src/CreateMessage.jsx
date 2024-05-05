@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import axios from 'axios'; // Import axios
+import { useState } from "react";
+import axios from "./axiosConfig.js";
 
 function CreateMessage({ onCreate, discussionId, username }) {
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
 
   const handleMsg = (e) => {
     setMsg(e.target.value);
@@ -10,26 +10,35 @@ function CreateMessage({ onCreate, discussionId, username }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (msg.trim()) { // Voir si msg est vide
+    if (msg.trim()) {
+      // Voir si msg est vide
       try {
         // POST message
-        const response = await axios.post('http://localhost:4000/api/messages', { 
-          discussionId,
-          msg,
-          username
-        });
+        const response = await axios.post(
+          "http://localhost:4000/api/messages",
+          {
+            discussionId,
+            msg,
+            username,
+          }
+        );
         console.log(response.msg);
         //onCreate(response.msg);
-        setMsg('');
+        setMsg("");
       } catch (error) {
-        console.error('Error creating message:', error);
+        console.error("Error creating message:", error);
       }
     }
   };
 
   return (
     <div>
-      <textarea className="msgContenu" value={msg} onChange={handleMsg} placeholder="Sent Message" />
+      <textarea
+        className="msgContenu"
+        value={msg}
+        onChange={handleMsg}
+        placeholder="Sent Message"
+      />
       <button onClick={handleSubmit}>Send</button>
     </div>
   );

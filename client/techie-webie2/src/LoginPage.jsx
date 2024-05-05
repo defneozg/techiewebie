@@ -1,8 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
-axios.defaults.withCredentials = true;
+import { useState } from "react";
+import axios from "./axiosConfig.js";
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");

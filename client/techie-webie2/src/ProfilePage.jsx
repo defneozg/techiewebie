@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "./axiosConfig.js";
 import DiscussionList from "./DiscussionList";
 import MessageList from "./MessageList";
 //import ProfilePicture from './ProfilePicture';

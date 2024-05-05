@@ -1,75 +1,77 @@
-import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./App.css";
-import MainPage from "./MainPage";
 import LoginPage from "./LoginPage";
 import SignUpForm from "./SignUpForm";
+import MainPage from "./MainPage";
+import AdminPage from "./AdminPage";
 import DiscussionPage from "./DiscussionPage";
 import AdminDiscussionPage from "./AdminDiscussionPage";
-import AdminPage from "./AdminPage";
 import ProfilePage from "./ProfilePage";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("LoginPage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState("");
 
-  const navigateTo = (page) => {
-    setCurrentPage(page);
+  const handleLogin = (loggedIn, username) => {
+    setIsLoggedIn(loggedIn);
+    setUsername(username);
+    localStorage.setItem("isLoggedIn", loggedIn);
+    localStorage.setItem("username", username);
   };
 
   const setLogout = () => {
     setIsLoggedIn(false);
     setUsername("");
-    navigateTo("/");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
   };
 
-  const handleLogin = (loggedIn, username) => {
-    setIsLoggedIn(loggedIn);
-    setUsername(username);
-  };
-
-  /*let content;
-  if (currentPage === 'LoginPage' && !isLoggedIn) {
-    content = <LoginPage onLogin={handleLogin} onCreateAccount={() => navigateTo('signup')} />;
-  } else if (currentPage === 'signup') {
-    content = <SignUpForm />;
-  } else if (currentPage === 'LoginPage' && isLoggedIn) {
-    content = <MainPage onLogout={setLogout} username={username} />; // Pass username to MainPage
-  }*/
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const storedUsername = localStorage.getItem("username");
+    if (storedIsLoggedIn) {
+      setIsLoggedIn(storedIsLoggedIn);
+      setUsername(storedUsername || "");
+    }
+  }, []);
 
   return (
     <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <LoginPage
-              onLogin={handleLogin}
-              onCreateAccount={() => navigateTo("signup")}
-            />
-          }
-        />
+        <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/signup" element={<SignUpForm />} />
         <Route
+          path="/main"
+          element={
+            isLoggedIn && <MainPage onLogout={setLogout} username={username} />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            isLoggedIn && <AdminPage onLogout={setLogout} username={username} />
+          }
+        />
+        <Route
           path="/discussion/discussionId/:discussionId"
-          element={<DiscussionPage onLogout={setLogout} username={username} />}
+          element={
+            isLoggedIn && (
+              <DiscussionPage onLogout={setLogout} username={username} />
+            )
+          }
         />
         <Route
           path="/admindiscussion/discussionId/:discussionId"
           element={
-            <AdminDiscussionPage onLogout={setLogout} username={username} />
+            isLoggedIn && (
+              <AdminDiscussionPage onLogout={setLogout} username={username} />
+            )
           }
         />
         <Route
-          path="/main"
-          element={<MainPage onLogout={setLogout} username={username} />}
-        />
-        <Route path="/admin" element={<AdminPage onLogout={setLogout} />} />
-        <Route
           path="/user/:username"
-          element={<ProfilePage username={username} />}
+          element={isLoggedIn && <ProfilePage username={username} />}
         />
       </Routes>
     </div>

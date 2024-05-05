@@ -4,9 +4,7 @@ import NavPanel from "./NavPanel";
 import CreateDiscussion from "./CreateDiscussion";
 import DiscussionList from "./DiscussionList";
 import Information from "./Information";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
+import axios from "./axiosConfig.js";
 
 function MainPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
@@ -28,7 +26,7 @@ function MainPage({ onLogout, username }) {
   // GET discussions périodiquement
   useEffect(() => {
     const interval = setInterval(fetchDiscussions, 2000); // GET les discussions chaque 2s
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, []);
 
   const addDiscussion = async (newDiscussion) => {

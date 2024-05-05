@@ -189,6 +189,7 @@ function init(db) {
   router.post("/admindiscussions", async (req, res) => {
     try {
       const { title, content, username } = req.body;
+      console.log("user", username);
       console.log("Creating discussion:", { title, content, username });
       const newDiscussion = discussions.insertAdminDiscussion({
         title,

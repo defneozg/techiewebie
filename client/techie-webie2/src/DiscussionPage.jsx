@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "./axiosConfig.js";
 import CreateMessage from "./CreateMessage";
 import MessageList from "./MessageList";
 import NavPanel from "./NavPanel";
 import Information from "./Information";
 import "./DiscussionPage.css";
-
-axios.defaults.withCredentials = true;
 
 function DiscussionPage({ onLogout, username }) {
   const { discussionId } = useParams();
