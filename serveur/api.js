@@ -206,7 +206,6 @@ function init(db) {
   router.post("/admindiscussions", async (req, res) => {
     try {
       const { title, content, username } = req.body;
-      console.log("user", username);
       console.log("Creating discussion:", { title, content, username });
       const newDiscussion = discussions.insertAdminDiscussion({
         title,
@@ -299,6 +298,7 @@ function init(db) {
   router.get("/user/username/:username", async (req, res) => {
     try {
       const { username } = req.params;
+      console.log(username);
       const user = await users.findByUsername(username);
       if (!user) {
         return res.status(404).json({ message: "User not found" });

@@ -8,11 +8,11 @@ import AdminPage from "./AdminPage";
 import DiscussionPage from "./DiscussionPage";
 import AdminDiscussionPage from "./AdminDiscussionPage";
 import ProfilePage from "./ProfilePage";
+import SearchResultsPage from "./SearchResultsPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  //const [clickedUser, setClikedUser] = useState("");
 
   const handleLogin = (loggedIn, username) => {
     setIsLoggedIn(loggedIn);
@@ -71,6 +71,7 @@ function App() {
           }
         />
         <Route path="/user" element={isLoggedIn && <ProfilePage />} />
+        <Route path="/search" element={isLoggedIn && <SearchResultsPage />} />
       </Routes>
     </div>
   );

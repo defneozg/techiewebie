@@ -22,8 +22,6 @@ function CreateMessage({ onCreate, discussionId, username }) {
             username,
           }
         );
-        console.log(response.msg);
-        //onCreate(response.msg);
         setMsg("");
       } catch (error) {
         console.error("Error creating message:", error);

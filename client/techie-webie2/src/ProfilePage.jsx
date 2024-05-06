@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "./axiosConfig.js";
 import DiscussionList from "./DiscussionList";
 import MessageList from "./MessageList";
@@ -22,7 +22,6 @@ function ProfilePage() {
           `http://localhost:4000/api/user/username/${username}`
         );
         setUserProfile(userProfileResponse.data);
-        //console.log(userProfileResponse.data);
 
         const discussionsResponse = await axios.get(
           `http://localhost:4000/api/discussions/username/${username}`

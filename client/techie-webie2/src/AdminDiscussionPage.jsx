@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "./axiosConfig.js";
 import CreateMessage from "./CreateMessage";
@@ -17,13 +17,12 @@ function AdminDiscussionPage({ onLogout, username }) {
   useEffect(() => {
     const fetchDiscussionAndMessages = async () => {
       try {
-        // GET discussion selon discussionId
+        console.log(discussionId);
         const discussionResponse = await axios.get(
           `http://localhost:4000/api/admindiscussions/discussionId/${discussionId}`
         );
         setDiscussion(discussionResponse.data);
 
-        // GET messages d'une discussion
         const messagesResponse = await axios.get(
           `http://localhost:4000/api/messages?discussionId=${discussionId}`
         );
@@ -35,7 +34,6 @@ function AdminDiscussionPage({ onLogout, username }) {
         setLoading(false);
       }
     };
-
     fetchDiscussionAndMessages();
   }, [discussionId]);
 

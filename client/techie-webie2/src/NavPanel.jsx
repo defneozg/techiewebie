@@ -1,16 +1,28 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SearchResultsPage from "./SearchResultsPage";
 
-function NavPanel({ onLogout, onSearch }) {
+function NavPanel({ onLogout }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [visibilite, setVisibilite] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-    if (onSearch) {
-      onSearch(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && searchQuery.trim()) {
+      setVisibilite(true);
+      navigate("/search");
     }
+  };
+
+  const hideSearchResults = () => {
+    setVisibilite(false);
+    setSearchQuery("");
   };
 
   const handleLogout = () => {
@@ -31,9 +43,11 @@ function NavPanel({ onLogout, onSearch }) {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search"
           value={searchQuery}
           onChange={handleSearchChange}
+          onKeyPress={handleKeyPress}
+          onClose={hideSearchResults}
         />
       </div>
       <div className="page-toggle">
@@ -42,6 +56,7 @@ function NavPanel({ onLogout, onSearch }) {
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>
       </div>
+      {visibilite && <SearchResultsPage searchQuery={searchQuery} />}
     </div>
   );
 }

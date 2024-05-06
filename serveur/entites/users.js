@@ -76,7 +76,11 @@ class Users {
     try {
       const collection = db.collection("users");
       const user = await collection.findOne({ username });
-      return user.username;
+      return {
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      };
     } catch (error) {
       throw new Error("Error finding user by username: ${error.message}");
     }

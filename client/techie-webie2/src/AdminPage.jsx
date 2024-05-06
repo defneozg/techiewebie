@@ -6,7 +6,7 @@ import AdminDiscussionList from "./AdminDiscussionList";
 import Information from "./Information";
 import axios from "./axiosConfig.js";
 
-function AdminPage({ onLogout }) {
+function AdminPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false); // admin status
 
@@ -80,7 +80,10 @@ function AdminPage({ onLogout }) {
         </section>
         <section className="Disc">
           <section className="CreateDisc">
-            <CreateAdminDiscussion onCreate={addDiscussion} />
+            <CreateAdminDiscussion
+              onCreate={addDiscussion}
+              username={username}
+            />
           </section>
           <article className="DiscussionList">
             <AdminDiscussionList discussions={discussions} />

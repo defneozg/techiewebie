@@ -32,30 +32,36 @@ function DiscussionPage({ onLogout, username }) {
     }
   };
 
+  const fetchDiscussionAndMessages = async () => {
+    try {
+      // GET discussion selon discussionId
+      const discussionResponse = await axios.get(
+        `http://localhost:4000/api/discussions/discussionId/${discussionId}`
+      );
+      setDiscussion(discussionResponse.data);
+
+      // GET messages d'une discussion
+      const messagesResponse = await axios.get(
+        `http://localhost:4000/api/messages?discussionId=${discussionId}`
+      );
+      setMessages(messagesResponse.data);
+
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchDiscussionAndMessages = async () => {
-      try {
-        // GET discussion selon discussionId
-        const discussionResponse = await axios.get(
-          `http://localhost:4000/api/discussions/discussionId/${discussionId}`
-        );
-        setDiscussion(discussionResponse.data);
-
-        // GET messages d'une discussion
-        const messagesResponse = await axios.get(
-          `http://localhost:4000/api/messages?discussionId=${discussionId}`
-        );
-        setMessages(messagesResponse.data);
-
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-
     fetchDiscussionAndMessages();
   }, [discussionId]);
+
+  // Affiche les messages périodiquement (chaque 2 secondes)
+  useEffect(() => {
+    const interval = setInterval(fetchDiscussionAndMessages, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const addMessages = (newMessage) => {
     setMessages([...messages, newMessage]);

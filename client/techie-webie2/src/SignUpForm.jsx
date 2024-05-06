@@ -13,8 +13,17 @@ function SignUpForm() {
   const getUsername = (evt) => setUsername(evt.target.value);
   const getFirstName = (evt) => setFirstName(evt.target.value);
   const getLastName = (evt) => setLastName(evt.target.value);
-  const getPass1 = (evt) => setPass1(evt.target.value);
-  const getPass2 = (evt) => setPass2(evt.target.value);
+  const getPass1 = (evt) => {
+    const newPassword1 = evt.target.value;
+    setPass1(newPassword1);
+    setPassOK(newPassword1 === pass2);
+  };
+
+  const getPass2 = (evt) => {
+    const newPassword2 = evt.target.value;
+    setPass2(newPassword2);
+    setPassOK(pass1 === newPassword2);
+  };
 
   const navigate = useNavigate();
 
@@ -90,10 +99,10 @@ function SignUpForm() {
         >
           Sign Up
         </button>
-        {passOK || pass1 === "" || pass2 === "" ? (
-          <p></p>
-        ) : (
+        {!passOK && pass1 !== "" && pass2 !== "" ? (
           <p style={{ color: "red" }}>Error: passwords do not match</p>
+        ) : (
+          <p></p>
         )}
       </form>
     </div>

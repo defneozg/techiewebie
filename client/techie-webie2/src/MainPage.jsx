@@ -23,9 +23,9 @@ function MainPage({ onLogout, username }) {
     }
   };
 
-  // GET discussions périodiquement
+  // Affiche les discussions périodiquement (chaque 2 secondes)
   useEffect(() => {
-    const interval = setInterval(fetchDiscussions, 2000); // GET les discussions chaque 2s
+    const interval = setInterval(fetchDiscussions, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -37,19 +37,10 @@ function MainPage({ onLogout, username }) {
     }
   };
 
-  const handleSearch = (searchQuery) => {
-    // TODO search
-    console.log("Search query:", searchQuery);
-  };
-
   return (
     <div>
       <section className="header">
-        <NavPanel
-          className="NavPan"
-          onLogout={onLogout}
-          onSearch={handleSearch}
-        />
+        <NavPanel className="NavPan" onLogout={onLogout} />
       </section>
       <div className="forum">
         <section className="Information">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "./axiosConfig.js";
 
-function CreateAdminDiscussion({ onCreate }) {
+function CreateAdminDiscussion({ onCreate, username }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -12,7 +12,7 @@ function CreateAdminDiscussion({ onCreate }) {
         // POST discussion
         const response = await axios.post(
           "http://localhost:4000/api/admindiscussions",
-          { title, content }
+          { title, content, username }
         );
         onCreate(response.data);
         setTitle("");
