@@ -33,6 +33,18 @@ class Messages {
       throw error;
     }
   }
+
+  async findMessageByUsername(username) {
+    try {
+      const collection = db.collection("messages");
+      const user = username;
+      const message = await collection.find({ username: user }).toArray();
+      return message;
+    } catch (error) {
+      console.error("Error finding message by username:", error.message);
+      throw error;
+    }
+  }
 }
 
 exports.default = Messages;

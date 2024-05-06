@@ -12,6 +12,7 @@ import ProfilePage from "./ProfilePage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  //const [clickedUser, setClikedUser] = useState("");
 
   const handleLogin = (loggedIn, username) => {
     setIsLoggedIn(loggedIn);
@@ -54,7 +55,7 @@ function App() {
           }
         />
         <Route
-          path="/discussion/discussionId/:discussionId"
+          path="/discussions/discussionId/:discussionId"
           element={
             isLoggedIn && (
               <DiscussionPage onLogout={setLogout} username={username} />
@@ -62,17 +63,14 @@ function App() {
           }
         />
         <Route
-          path="/admindiscussion/discussionId/:discussionId"
+          path="/admindiscussions/discussionId/:discussionId"
           element={
             isLoggedIn && (
               <AdminDiscussionPage onLogout={setLogout} username={username} />
             )
           }
         />
-        <Route
-          path="/user/:username"
-          element={isLoggedIn && <ProfilePage username={username} />}
-        />
+        <Route path="/user" element={isLoggedIn && <ProfilePage />} />
       </Routes>
     </div>
   );

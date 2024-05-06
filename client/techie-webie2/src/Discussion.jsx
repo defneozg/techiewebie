@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CreateMessage from "./CreateMessage";
@@ -58,13 +59,21 @@ function Discussion() {
     return <div>Error fetching discussion data.</div>;
   }
 
+  /*const clickedUser = async () => {
+    onClickedUser(selectedDiscussion.username);
+  };*/
+
   return (
     <article className="discussion">
       <h2>{selectedDiscussion.title}</h2>
       <CreateMessage onCreate={addMessage} />
       <MessageList messages={discussionMessages} />
-      <small>By {selectedDiscussion.username}</small>
-      <br />
+      <p>
+        By{" "}
+        <Link to={`/user/username/${selectedDiscussion.username}`}>
+          {selectedDiscussion.username}
+        </Link>
+      </p>
       <small>{selectedDiscussion.date.toLocaleDateString()}</small>
       <hr />
       <p>{selectedDiscussion.text}</p>

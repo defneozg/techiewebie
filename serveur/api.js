@@ -156,6 +156,7 @@ function init(db) {
   // GET Discussion par id
   router.get("/discussions/discussionId/:discussionId", async (req, res) => {
     const { discussionId } = req.params;
+    console.log("hi");
     try {
       const discussion = await discussions.findDiscussionById(discussionId);
       if (!discussion) {
@@ -181,6 +182,22 @@ function init(db) {
       res.json(discussion);
     } catch (error) {
       console.error("Error fetching discussion:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // GET Message par username
+  router.get("/messages/username/:username", async (req, res) => {
+    const { username } = req.params;
+    try {
+      const message = await messages.findMessageByUsername(username);
+      if (!message) {
+        res.status(404).json({ error: "Message not found" });
+        return;
+      }
+      res.json(message);
+    } catch (error) {
+      console.error("Error fetching message:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -294,7 +311,7 @@ function init(db) {
   });
 
   // GET Discussions postées par un user
-  router.get("/user/:userId/discussions", async (req, res) => {
+  /*router.get("/user/:userId/discussions", async (req, res) => {
     try {
       const allDiscussions = await discussions.find({
         userId: req.params.userId,
@@ -315,7 +332,7 @@ function init(db) {
       console.error("Error fetching messages:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  });
+  });*/
 
   // A voir si on le garde
   router

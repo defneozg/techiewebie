@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "./axiosConfig.js";
 import DiscussionList from "./DiscussionList";
 import MessageList from "./MessageList";
+import { useLocation } from "react-router-dom";
 //import ProfilePicture from './ProfilePicture';
 
-function ProfilePage({ username }) {
+function ProfilePage() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const username = queryParams.get("username");
   const [userProfile, setUserProfile] = useState(null);
   const [discussions, setDiscussions] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -18,6 +22,7 @@ function ProfilePage({ username }) {
           `http://localhost:4000/api/user/username/${username}`
         );
         setUserProfile(userProfileResponse.data);
+        //console.log(userProfileResponse.data);
 
         const discussionsResponse = await axios.get(
           `http://localhost:4000/api/discussions/username/${username}`
@@ -25,7 +30,7 @@ function ProfilePage({ username }) {
         setDiscussions(discussionsResponse.data);
 
         const messagesResponse = await axios.get(
-          `http://localhost:4000/api/messages?username=${username}`
+          `http://localhost:4000/api/messages/username/${username}`
         );
         setMessages(messagesResponse.data);
 
@@ -61,7 +66,7 @@ function ProfilePage({ username }) {
       </div>
       <div className="profile-content">
         <div className="discussions">
-          <h3>Discussions Posted by {userProfile.firstName}</h3>
+          <h3>Discussions Posted by {userProfile.username}</h3>
           <DiscussionList discussions={discussions} />
         </div>
         <div className="messages">

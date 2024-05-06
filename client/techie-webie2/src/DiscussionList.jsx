@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function DiscussionList({ discussions }) {
   return (
@@ -9,8 +9,12 @@ function DiscussionList({ discussions }) {
           <li key={discussion._id || index}>
             <h3>{discussion.title}</h3>
             <p>{discussion.content}</p>
-            <Link to={`/user/${discussion.username}`}>{discussion.username}</Link>
-            <Link to={`/discussions/discussionId/${discussion._id}`}>View Discussion</Link>
+            <Link to={`/user?username=${discussion.username}`}>
+              {discussion.username}
+            </Link>
+            <Link to={`/discussions/discussionId/${discussion._id}`}>
+              View Discussion
+            </Link>
           </li>
         ))}
       </ul>
