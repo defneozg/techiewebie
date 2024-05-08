@@ -94,6 +94,39 @@ class Discussions {
       throw error;
     }
   }
+
+  async searchDiscussions(search) {
+    try {
+      const discussions = await db
+        .collection("discussions")
+        .find({
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { content: { $regex: search, $options: "i" } },
+            { username: { $regex: search, $options: "i" } },
+          ],
+        })
+        .toArray();
+      return discussions;
+    } catch (error) {
+      throw new Error("Error searching discussions");
+    }
+  }
+
+  async deleteDiscussionById(discussionId) {
+    try {
+      const collection = db.collection("discussions");
+      const id = new ObjectId(discussionId);
+      const result = await collection.deleteOne({ _id: id });
+      if (result.deletedCount === 0) {
+        throw new Error("Discussion not found");
+      }
+      return true;
+    } catch (error) {
+      console.error("Error deleting discussion:", error.message);
+      throw error;
+    }
+  }
 }
 
 exports.default = Discussions;

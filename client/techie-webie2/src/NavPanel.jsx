@@ -1,12 +1,8 @@
-import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SearchResultsPage from "./SearchResultsPage";
 
 function NavPanel({ onLogout }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibilite, setVisibilite] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
@@ -15,14 +11,8 @@ function NavPanel({ onLogout }) {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && searchQuery.trim()) {
-      setVisibilite(true);
-      navigate("/search");
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
-  };
-
-  const hideSearchResults = () => {
-    setVisibilite(false);
-    setSearchQuery("");
   };
 
   const handleLogout = () => {
@@ -33,13 +23,9 @@ function NavPanel({ onLogout }) {
     }
   };
 
-  const handleTogglePage = () => {
-    navigate("/admin");
-  };
-
   return (
     <div className="nav-panel">
-      <div className="logo"> Organiz Asso</div>
+      <div className="logo">Organiz Asso</div>
       <div className="search-bar">
         <input
           type="text"
@@ -47,16 +33,14 @@ function NavPanel({ onLogout }) {
           value={searchQuery}
           onChange={handleSearchChange}
           onKeyPress={handleKeyPress}
-          onClose={hideSearchResults}
         />
       </div>
       <div className="page-toggle">
-        <button onClick={handleTogglePage}>Switch to Admin Page</button>
+        <button onClick={() => navigate("/admin")}>Switch to Admin Page</button>
       </div>
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>
       </div>
-      {visibilite && <SearchResultsPage searchQuery={searchQuery} />}
     </div>
   );
 }

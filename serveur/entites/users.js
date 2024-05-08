@@ -72,6 +72,17 @@ class Users {
     }
   }
 
+  async isUserNameAdmin(userName) {
+    try {
+      const collection = db.collection("users");
+      const user = await collection.findOne({ username: userName });
+      return user.isAdmin === true;
+    } catch (error) {
+      console.error("Error checking admin status:", error);
+      throw error;
+    }
+  }
+
   async findByUsername(username) {
     try {
       const collection = db.collection("users");

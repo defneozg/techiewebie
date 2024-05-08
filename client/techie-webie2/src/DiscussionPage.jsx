@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "./axiosConfig.js";
 import CreateMessage from "./CreateMessage";
 import MessageList from "./MessageList";
@@ -13,6 +14,18 @@ function DiscussionPage({ onLogout, username }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+
+  // Voir si l'utilisateur est un administrateur
+  const checkAdminStatus = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/admin");
+      setIsAdmin(response.data.isAdmin);
+    } catch (error) {
+      console.error("Error checking admin status:", error);
+    }
+  };
 
   const createMessage = async (newMessage) => {
     try {
@@ -29,6 +42,19 @@ function DiscussionPage({ onLogout, username }) {
       setMessages(messagesResponse.data);
     } catch (error) {
       console.error("Error creating message:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      // DELETE discussion
+      await axios.delete(
+        `http://localhost:4000/api/discussions/discussionId/${discussionId}`
+      );
+      navigate("/main");
+      // Redirect or handle the deletion confirmation
+    } catch (error) {
+      console.error("Error deleting discussion:", error);
     }
   };
 
@@ -55,6 +81,7 @@ function DiscussionPage({ onLogout, username }) {
 
   useEffect(() => {
     fetchDiscussionAndMessages();
+    checkAdminStatus();
   }, [discussionId]);
 
   // Affiche les messages périodiquement (chaque 2 secondes)
@@ -105,6 +132,10 @@ function DiscussionPage({ onLogout, username }) {
               username={username}
             />
           </section>
+          {(isAdmin || username === discussion.username) && (
+            <button onClick={handleDelete}>Delete Discussion</button>
+          )}
+
           <article className="MessageList">
             <MessageList messages={messages} />
           </article>

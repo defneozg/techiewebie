@@ -87,7 +87,6 @@ function init(db) {
             });
           } else {
             req.session.userid = userId;
-            console.log(req.session.userid);
             res.status(200).json({
               status: 200,
               message: "Login and password accepted",
@@ -153,10 +152,63 @@ function init(db) {
     }
   });
 
+  // DELETE Discussion
+  router.delete("/discussions/discussionId/:discussionId", async (req, res) => {
+    const { discussionId } = req.params;
+
+    try {
+      const discussion = await discussions.findDiscussionById(discussionId);
+      if (!discussion) {
+        return res.status(404).json({ error: "Discussion not found" });
+      }
+
+      // Check if the user is the owner of the discussion or an admin
+      // console.log(req.session.username);
+      // console.log(discussion.username);
+      // if (
+      //   discussion.username !== req.session.username &&
+      //   !req.session.isAdmin
+      // ) {
+      //   return res.status(403).json({ error: "Unauthorized" });
+      // }
+
+      // Proceed with the deletion
+      await discussions.deleteDiscussionById(discussionId);
+      res.status(200).json({ message: "Discussion deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting discussion:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // DELETE Message
+  router.delete("/messages/:messageId", async (req, res) => {
+    try {
+      const { messageId } = req.params;
+      const userId = req.session.userid; // Assuming user ID is stored in the session
+
+      // Check if the user is an admin or the owner of the message
+      const isAdmin = await users.isAdmin(userId);
+      const message = await messages.findMessageById(messageId);
+      if (!message) {
+        return res.status(404).json({ error: "Message not found" });
+      }
+
+      if (isAdmin || message.userId === userId) {
+        await messages.deleteMessage(messageId);
+        res.status(200).json({ message: "Message deleted successfully" });
+      } else {
+        res.status(403).json({ error: "Unauthorized to delete message" });
+      }
+    } catch (error) {
+      console.error("Error deleting message:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   // GET Discussion par id
   router.get("/discussions/discussionId/:discussionId", async (req, res) => {
     const { discussionId } = req.params;
-    console.log("hi");
     try {
       const discussion = await discussions.findDiscussionById(discussionId);
       if (!discussion) {
@@ -275,6 +327,18 @@ function init(db) {
       res.json(msg);
     } catch (error) {
       console.error("Error fetching messages:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // GET Discussions by search query
+  router.get("/search/discussions", async (req, res) => {
+    const { search } = req.query;
+    try {
+      const discussionSearch = await discussions.searchDiscussions(search);
+      res.json(discussionSearch);
+    } catch (error) {
+      console.error("Error searching discussions:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });

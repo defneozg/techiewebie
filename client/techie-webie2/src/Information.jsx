@@ -1,11 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Information() {
   const [news, setNews] = useState([]);
 
-  useEffect(() => {
-    // TODO get les nouvelles informations de API
-  }, []);
+  /*useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/information"
+        );
+        setNews(response.data);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    fetchNews();
+  }, []);*/
 
   return (
     <div className="information">

@@ -15,13 +15,13 @@ function Discussion() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // GET discussion selon discussionId
+        // GET discussion according to discussionId
         const discussionResponse = await axios.get(
           `http://localhost:4000/api/discussions/discussionId/${discussionId}`
         );
         setSelectedDiscussion(discussionResponse.data);
 
-        // GET messages d'une discussion
+        // GET messages of a discussion
         const messagesResponse = await axios.get(
           `http://localhost:4000/api/messages?discussionId=${discussionId}`
         );
@@ -44,7 +44,7 @@ function Discussion() {
         "http://localhost:4000/api/messages",
         newMessage
       );
-      // ajout du nouveau message dans la liste
+      // Add the new message to the list
       setDiscussionMessages([...discussionMessages, response.data]);
     } catch (error) {
       console.error("Error adding message:", error);
@@ -59,24 +59,16 @@ function Discussion() {
     return <div>Error fetching discussion data.</div>;
   }
 
-  /*const clickedUser = async () => {
-    onClickedUser(selectedDiscussion.username);
-  };*/
-
   return (
     <article className="discussion">
       <h2>{selectedDiscussion.title}</h2>
-      <CreateMessage onCreate={addMessage} />
-      <MessageList messages={discussionMessages} />
-      <p>
-        By{" "}
-        <Link to={`/user/username/${selectedDiscussion.username}`}>
-          {selectedDiscussion.username}
-        </Link>
-      </p>
+
+      <p>By </p>
       <small>{selectedDiscussion.date.toLocaleDateString()}</small>
       <hr />
       <p>{selectedDiscussion.text}</p>
+      {/* Add delete button for admins or the user who posted the discussion */}
+      {/* Add conditional rendering based on user's role */}
     </article>
   );
 }

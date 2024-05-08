@@ -1,19 +1,40 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-function SearchResultsPage({ searchQuery }) {
+function SearchResultsPage() {
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("q");
+
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (searchQuery) {
+    const fetchDiscussions = async () => {
       setIsLoading(true);
-      // Filtrer les données basées sur le searchQuery
-      /*const filteredResults = data.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setResults(filteredResults);
-      setIsLoading(false);*/
+      try {
+        // Make an API request to fetch discussions filtered by the search query
+        const response = await axios.get(
+          `http://localhost:4000/api/search/discussions?search=${encodeURIComponent(
+            searchQuery
+          )}`
+        );
+        if (response.status === 200) {
+          setResults(response.data);
+        } else {
+          throw new Error("Failed to fetch discussions");
+        }
+      } catch (error) {
+        console.error("Error fetching discussions:", error);
+        setResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (searchQuery) {
+      fetchDiscussions();
     } else {
+      // If searchQuery is empty, clear the results
       setResults([]);
     }
   }, [searchQuery]);
@@ -27,7 +48,10 @@ function SearchResultsPage({ searchQuery }) {
         <ul>
           {results.map((result) => (
             <li key={result.id}>
-              {result.name} ({result.category})
+              {/* Display the discussion details */}
+              <p>Title: {result.title}</p>
+              <p>Content: {result.content}</p>
+              <p>Username: {result.username}</p>
             </li>
           ))}
         </ul>
