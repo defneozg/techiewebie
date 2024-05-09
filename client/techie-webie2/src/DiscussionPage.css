@@ -8,11 +8,21 @@ body {
   width: 100%;
 }
 
+.AdminForum {
+  display: flex;
+  width: 100%;
+  background-color: darkgrey;
+}
+
 .Disc {
   display: flex;
   flex-direction: column;
   width: 70%;
   margin-left: 1%;
+}
+
+.AdminDiscussionPage {
+  background-color: darkgrey;
 }
 
 .CreateDisc {
@@ -41,4 +51,17 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.listItem {
+  list-style-type: none;
+  border: 1px solid #070101;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.linkUsername {
+  margin-right: 10px;
 }

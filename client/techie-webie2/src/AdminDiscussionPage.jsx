@@ -56,7 +56,7 @@ function AdminDiscussionPage({ onLogout, username }) {
   };
 
   return (
-    <div className="discussion-page">
+    <div className="AdminDiscussionPage">
       <section className="header">
         <NavPanel
           className="NavPan"

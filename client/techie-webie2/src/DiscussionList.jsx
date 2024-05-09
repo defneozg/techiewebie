@@ -6,10 +6,13 @@ function DiscussionList({ discussions }) {
       <h2>Discussions</h2>
       <ul>
         {discussions.map((discussion, index) => (
-          <li key={discussion._id || index}>
+          <li className="listItem" key={discussion._id || index}>
             <h3>{discussion.title}</h3>
             <p>{discussion.content}</p>
-            <Link to={`/user?username=${discussion.username}`}>
+            <Link
+              className="linkUsername"
+              to={`/user?username=${discussion.username}`}
+            >
               {discussion.username}
             </Link>
             <Link to={`/discussions/discussionId/${discussion._id}`}>

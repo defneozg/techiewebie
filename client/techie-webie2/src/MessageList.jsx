@@ -4,7 +4,7 @@ function MessageList({ messages }) {
       <h2>Messages</h2>
       <ul>
         {messages.map((message, index) => (
-          <li key={index}>
+          <li className="listItem" key={index}>
             <p>{message.msg}</p>
             <p>{message.username}</p>
           </li>

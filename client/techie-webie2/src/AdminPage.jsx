@@ -66,14 +66,14 @@ function AdminPage({ onLogout, username }) {
 
   return (
     <div>
-      <section className="header">
+      <section className="AdminHeader">
         <NavPanel
           className="NavPan"
           onLogout={onLogout}
           onSearch={handleSearch}
         />
       </section>
-      <div className="forum">
+      <div className="AdminForum">
         <section className="Information">
           <Information />
         </section>
