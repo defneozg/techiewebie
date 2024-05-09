@@ -37,7 +37,9 @@ function CreateMessage({ onCreate, discussionId, username }) {
         onChange={handleMsg}
         placeholder="Sent Message"
       />
-      <button onClick={handleSubmit}>Send</button>
+      <button className="SendBtn" onClick={handleSubmit}>
+        Send
+      </button>
     </div>
   );
 }

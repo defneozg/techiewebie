@@ -27,6 +27,7 @@ input {
 .submitBtn,
 .cancelBtn,
 .createBtn,
+.DeleteBtn,
 .logout-button button,
 .page-toggle button {
   text-align: center;
@@ -36,7 +37,7 @@ input {
   margin-bottom: 15px;
   border: none;
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #fffbf5;
   background-color: #ea5399;
@@ -48,17 +49,15 @@ input {
   flex-direction: column;
 }
 
-.mainbody {
-  display: flex;
-  flex-direction: column;
-}
-
 .nav-panel {
+  width: 100%;
   display: flex;
+  padding: 10px 20px;
   background-color: #f96398;
 }
 
 .logo {
+  flex: 1;
   font-size: 25px;
   font-weight: bold;
   max-width: 15%;
@@ -68,9 +67,18 @@ input {
 }
 
 .search-bar {
+  flex: 1;
   width: 70%;
   height: 75px;
+  margin-right: 20px;
   align-content: center;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .page-toggle {
@@ -86,69 +94,9 @@ input {
   align-content: center;
 }
 
-.forum {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
 .Information {
-  height: 100vh;
   width: 20%;
-  display: flex;
-  flex-direction: column;
-  background-color: #f96398;
+  height: 100vh;
   padding: 10px;
-  overflow-y: auto;
-}
-
-.Disc {
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-  margin-left: 3%;
-}
-
-.CreateDisc {
-  width: 100%;
-  margin-bottom: 5%;
-  min-height: 100px;
-}
-
-.discCont {
-  display: flex;
-  flex-direction: column;
-}
-
-.discTitle {
-  margin-bottom: 1%;
-}
-.DiscussionList {
-  width: 100%;
-  height: 100vh;
-}
-
-.Msg {
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-  margin-left: 3%;
-}
-
-.CreateMsg {
-  width: 100%;
-  margin-bottom: 5%;
-  min-height: 100px;
-}
-
-.msgContenu {
-  display: flex;
-  flex-direction: column;
-}
-.discTitle {
-  margin-bottom: 1%;
-}
-.MessageList {
-  width: 100%;
-  height: 100vh;
+  background-color: #f96398;
 }

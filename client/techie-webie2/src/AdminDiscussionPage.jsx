@@ -68,10 +68,10 @@ function AdminDiscussionPage({ onLogout, username }) {
         <section className="Information">
           <Information />
         </section>
-        <h2>{discussion.title}</h2>
-        <p>{discussion.content}</p>
-        <p>{discussion.username}</p>
         <section className="Msg">
+          <h2>{discussion.title}</h2>
+          <p>{discussion.content}</p>
+          <p>{discussion.username}</p>
           <section className="CreateMsg">
             <CreateMessage
               onCreate={addMessages}

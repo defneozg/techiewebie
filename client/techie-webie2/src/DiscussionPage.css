@@ -1,82 +1,44 @@
 body {
-  display: flex;
-  flex-direction: column;
   background-color: pink;
   margin: 0;
-  padding: 0;
-}
-
-.nav-panel {
-  width: 100%;
-  display: flex;
-  flex: 0 0 auto; /* rendre dynamique */
-  padding: 10px 20px;
-  background-color: #f96398;
-  box-sizing: border-box;
-}
-
-.logo {
-  flex: 1;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.search-bar {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.search-bar input {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-.search-bar input::placeholder {
-  text-align: left;
-}
-
-.logout-button button:hover {
-  background-color: #ddd;
 }
 
 .forum {
   display: flex;
-  flex-direction: row;
   width: 100%;
 }
 
-.Information {
-  width: 20%;
-  background-color: #f96398;
-  padding: 10px;
+.Disc {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-left: 1%;
+}
+
+.CreateDisc {
+  width: 110%;
+  margin-bottom: 3%;
+}
+
+.discCont {
+  display: flex;
+  flex-direction: column;
 }
 
 .Msg {
   display: flex;
-  width: 70%;
   flex-direction: column;
-  margin-left: 3%;
+  width: 70%;
+  margin-left: 1%;
 }
 
 .CreateMsg {
-  width: 100%;
-  margin-bottom: 5%;
-  min-height: 100px;
+  width: 110%;
+  margin-bottom: 3%;
 }
 
 .msgContenu {
   display: flex;
   flex-direction: column;
-}
-
-.discTitle {
-  margin-bottom: 1%;
-}
-
-.MessageList {
   width: 100%;
-  height: 100vh;
 }

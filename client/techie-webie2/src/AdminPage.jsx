@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import NavPanel from "./NavPanel";
 import CreateAdminDiscussion from "./CreateAdminDiscussion";
 import AdminDiscussionList from "./AdminDiscussionList";
