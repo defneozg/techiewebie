@@ -1,82 +1,82 @@
 body {
-    display: flex;
-    flex-direction: column;
-    background-color: pink;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: pink;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-panel {
-    width: 100%;
-    display: flex;
-    flex: 0 0 auto; /* rendre dynamique */
-    padding: 10px 20px;
-    background-color: #f96398;
-    box-sizing: border-box; 
+  width: 100%;
+  display: flex;
+  flex: 0 0 auto; /* rendre dynamique */
+  padding: 10px 20px;
+  background-color: #f96398;
+  box-sizing: border-box;
 }
 
 .logo {
-    flex: 1; 
-    font-size: 18px; 
-    font-weight: bold; 
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .search-bar {
-    flex: 1;
-    margin-right: 20px; 
+  flex: 1;
+  margin-right: 20px;
 }
 
 .search-bar input {
-    width: 100%; 
-    padding: 5px; 
-    border: 1px solid #ccc; 
-    border-radius: 3px; 
-    font-size: 14px; 
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .search-bar input::placeholder {
-    text-align: left;
+  text-align: left;
 }
 
 .logout-button button:hover {
-    background-color: #ddd; 
+  background-color: #ddd;
 }
 
 .forum {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
-.Information { 
-    width: 20%;
-    background-color: #f96398; 
-    padding: 10px; 
+.Information {
+  width: 20%;
+  background-color: #f96398;
+  padding: 10px;
 }
 
 .Msg {
-    display: flex;
-    width: 70%;
-    flex-direction: column;
-    margin-left: 3%;
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  margin-left: 3%;
 }
 
 .CreateMsg {
-    width: 100%;
-    margin-bottom: 5%;
-    min-height: 100px;
+  width: 100%;
+  margin-bottom: 5%;
+  min-height: 100px;
 }
 
 .msgContenu {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .discTitle {
-    margin-bottom: 1%;
+  margin-bottom: 1%;
 }
 
 .MessageList {
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
 }

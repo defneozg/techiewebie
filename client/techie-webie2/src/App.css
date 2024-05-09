@@ -1,52 +1,14 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   font-family: "Space Grotesk", sans-serif;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
 }
 
 body {
   background-color: pink;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.container {
-  text-align: center;
-}
-
-input {
-  padding: 10px 20px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  margin-bottom: 15px;
-}
-a {
-  text-decoration: none;
-}
-.SignInForm,
-.LoginPage {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 30px;
 }
 
 .registerForm,
 .loginForm {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,8 +16,10 @@ a {
   height: 100vh;
 }
 
-.button-container {
-  display: flex;
+input {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
 }
 
 .SignUpBtn,
@@ -63,26 +27,128 @@ a {
 .submitBtn,
 .cancelBtn,
 .createBtn,
-.logout-button button {
-  display: flexbox;
+.logout-button button,
+.page-toggle button {
   text-align: center;
   width: 100px;
   padding: 12px;
   margin-right: 10px;
-  cursor: pointer;
-  outline: none;
+  margin-bottom: 15px;
   border: none;
   border-radius: 3px;
   font-size: 16px;
   font-weight: bold;
   color: #fffbf5;
   background-color: #ea5399;
-  margin-bottom: 15px;
 }
 
 .EspacesLogin,
 .EspacesSign {
   display: flex;
   flex-direction: column;
-  align-items: left;
+}
+
+.mainbody {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-panel {
+  display: flex;
+  background-color: #f96398;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  max-width: 15%;
+  height: 75px;
+  margin-right: 50px;
+  align-content: center;
+}
+
+.search-bar {
+  width: 70%;
+  height: 75px;
+  align-content: center;
+}
+
+.page-toggle {
+  width: 10%;
+  height: 75px;
+  margin-right: 10px;
+  align-content: center;
+}
+
+.logout-button {
+  width: 10%;
+  height: 75px;
+  align-content: center;
+}
+
+.forum {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.Information {
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f96398;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.Disc {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  margin-left: 3%;
+}
+
+.CreateDisc {
+  width: 100%;
+  margin-bottom: 5%;
+  min-height: 100px;
+}
+
+.discCont {
+  display: flex;
+  flex-direction: column;
+}
+
+.discTitle {
+  margin-bottom: 1%;
+}
+.DiscussionList {
+  width: 100%;
+  height: 100vh;
+}
+
+.Msg {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  margin-left: 3%;
+}
+
+.CreateMsg {
+  width: 100%;
+  margin-bottom: 5%;
+  min-height: 100px;
+}
+
+.msgContenu {
+  display: flex;
+  flex-direction: column;
+}
+.discTitle {
+  margin-bottom: 1%;
+}
+.MessageList {
+  width: 100%;
+  height: 100vh;
 }

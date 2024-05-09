@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./MainPage.css"; // A CHANGER !!!
+import "./App.css";
 import NavPanel from "./NavPanel";
 import CreateAdminDiscussion from "./CreateAdminDiscussion";
 import AdminDiscussionList from "./AdminDiscussionList";

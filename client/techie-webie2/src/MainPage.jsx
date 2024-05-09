@@ -9,7 +9,6 @@ import axios from "./axiosConfig.js";
 function MainPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
 
-  // GET discussions
   const fetchDiscussions = async () => {
     try {
       const response = await axios.get("http://localhost:4000/api/discussions");

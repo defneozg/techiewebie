@@ -36,7 +36,7 @@ function NavPanel({ onLogout }) {
         />
       </div>
       <div className="page-toggle">
-        <button onClick={() => navigate("/admin")}>Switch to Admin Page</button>
+        <button onClick={() => navigate("/admin")}>Admin Page</button>
       </div>
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>

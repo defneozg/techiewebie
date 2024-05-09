@@ -4,10 +4,11 @@ const { ObjectId } = require("mongodb");
 class Users {
   async createUser(username, password, firstName, lastName, isAdmin = false) {
     try {
+      const hashedPassword = await hashPassword(password);
       const collection = db.collection("users");
       const user = {
         username,
-        password,
+        password: hashedPassword,
         firstName,
         lastName,
         isAdmin,
@@ -104,8 +105,7 @@ async function hashPassword(password) {
 }
 
 async function comparePassword(password, hashedPassword) {
-  return password === hashedPassword;
-  //return await bcrypt.compare(password, hashedPassword);
+  return await bcrypt.compare(password, hashedPassword);
 }
 
 exports.default = Users;
