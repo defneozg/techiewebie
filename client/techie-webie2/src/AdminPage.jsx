@@ -70,6 +70,7 @@ function AdminPage({ onLogout, username }) {
         <NavPanel
           className="NavPan"
           onLogout={onLogout}
+          isAdmin={isAdmin}
           onSearch={handleSearch}
         />
       </section>

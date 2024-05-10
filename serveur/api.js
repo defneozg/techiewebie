@@ -46,12 +46,20 @@ function init(db) {
 
   // POST Inscription
   router.post("/user/register", (req, res) => {
-    const { username, password, firstName, lastName, isAdmin } = req.body;
+    const { username, password, firstName, lastName, isAdmin, isApproved } =
+      req.body;
     if (!username || !password || !lastName || !firstName) {
       res.status(400).send("Missing fields");
     } else {
       users
-        .createUser(username, password, firstName, lastName, isAdmin)
+        .createUser(
+          username,
+          password,
+          firstName,
+          lastName,
+          isAdmin,
+          isApproved
+        )
         .then((user_id) => res.status(201).send({ id: user_id }))
         .catch((err) => res.status(500).send(err));
     }

@@ -4,7 +4,7 @@ import DiscussionList from "./DiscussionList";
 import MessageList from "./MessageList";
 import { useLocation } from "react-router-dom";
 
-function ProfilePage() {
+function ProfilePage({ connectedUsername, isAdmin }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const username = queryParams.get("username");
@@ -61,6 +61,12 @@ function ProfilePage() {
     }
   };
 
+  const handleAdminButton = () => {
+    if (connectedUsername !== username) {
+      toggleAdminStatus();
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,7 +75,7 @@ function ProfilePage() {
     console.error("Error fetching user profile:", error);
     return <div>Error fetching user profile.</div>;
   }
-  console.log(userProfile.isAdmin);
+
   return (
     <div className="profile-page">
       <div className="profile-header">
@@ -77,11 +83,16 @@ function ProfilePage() {
           About {userProfile.firstName} {userProfile.lastName}
         </h2>
         <p>{userProfile.about}</p>
-        {userProfile.isAdmin ? (
-          <button onClick={toggleAdminStatus}>Remove Admin</button>
-        ) : (
-          <button onClick={toggleAdminStatus}>Make Admin</button>
-        )}
+        {isAdmin &&
+          (userProfile.isAdmin ? (
+            <button className="removeAdmin" onClick={handleAdminButton}>
+              Remove Admin
+            </button>
+          ) : (
+            <button className="makeAdmin" onClick={handleAdminButton}>
+              Make Admin
+            </button>
+          ))}
       </div>
       <div className="profile-content">
         <div className="discussions">

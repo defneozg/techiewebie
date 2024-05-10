@@ -34,7 +34,9 @@ input {
 .logout-button button,
 .page-toggle button,
 .approveButton,
-.backButton {
+.backButton,
+.makeAdmin,
+.removeAdmin {
   text-align: center;
   width: 100px;
   padding: 12px;

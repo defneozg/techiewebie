@@ -7,8 +7,8 @@ class Users {
     password,
     firstName,
     lastName,
-    isAdmin = false,
-    isApproved = false
+    isAdmin,
+    isApproved
   ) {
     try {
       const hashedPassword = await hashPassword(password);

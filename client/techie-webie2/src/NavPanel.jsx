@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function NavPanel({ onLogout }) {
+function NavPanel({ onLogout, isAdmin }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -23,6 +23,14 @@ function NavPanel({ onLogout }) {
     }
   };
 
+  const handleToggle = () => {
+    if (isAdmin) {
+      navigate("/main");
+    } else {
+      navigate("/admin");
+    }
+  };
+
   return (
     <div className="nav-panel">
       <div className="logo">Organiz Asso</div>
@@ -36,7 +44,9 @@ function NavPanel({ onLogout }) {
         />
       </div>
       <div className="page-toggle">
-        <button onClick={() => navigate("/admin")}>Admin Page</button>
+        <button onClick={handleToggle}>
+          {isAdmin ? "Main Page" : "Admin Page"}
+        </button>
       </div>
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "./axiosConfig.js";
 import "./App.css";
 import LoginPage from "./LoginPage";
 import SignUpForm from "./SignUpForm";
@@ -13,12 +14,15 @@ import PendingUsers from "./PendingUsers";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [username, setUsername] = useState("");
 
   const handleLogin = (loggedIn, username) => {
     setIsLoggedIn(loggedIn);
     setUsername(username);
+    checkAdminStatus();
     localStorage.setItem("isLoggedIn", loggedIn);
+    localStorage.setItem("isAdmin", isAdmin);
     localStorage.setItem("username", username);
   };
 
@@ -27,6 +31,19 @@ function App() {
     setUsername("");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
+  };
+
+  const checkAdminStatus = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/admin");
+      if (response.data.isAdmin) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    } catch (error) {
+      console.error("Error checking admin status:", error);
+    }
   };
 
   useEffect(() => {
@@ -71,7 +88,14 @@ function App() {
             )
           }
         />
-        <Route path="/user" element={isLoggedIn && <ProfilePage />} />
+        <Route
+          path="/user"
+          element={
+            isLoggedIn && (
+              <ProfilePage connectedUsername={username} isAdmin={isAdmin} />
+            )
+          }
+        />
         <Route path="/search" element={isLoggedIn && <SearchResultsPage />} />
         <Route path="/pending" element={isLoggedIn && <PendingUsers />} />
       </Routes>

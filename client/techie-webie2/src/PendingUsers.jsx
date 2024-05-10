@@ -44,9 +44,9 @@ const PendingUsers = () => {
       <ul>
         {pendingRegistrations.map((user) => (
           <li className="listItemAdmin" key={user.username}>
-            <div>{user.username}</div>
-            <div>{user.lastName}</div>
-            <div>{user.firstName}</div>
+            <div>Last name : {user.lastName}</div>
+            <div>First name : {user.firstName}</div>
+            <div>Username : {user.username}</div>
             <button
               className="approveButton"
               onClick={() => handleApprove(user.username)}
