@@ -64,7 +64,17 @@ function Discussion() {
       <h2>{selectedDiscussion.title}</h2>
 
       <p>By </p>
-      <small>{selectedDiscussion.date.toLocaleDateString()}</small>
+      <small>
+        {selectedDiscussion.date.toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true, // Set to true for 12-hour clock format, false for 24-hour format
+        })}
+      </small>
       <hr />
       <p>{selectedDiscussion.text}</p>
       {/* Add delete button for admins or the user who posted the discussion */}

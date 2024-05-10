@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import NavPanel from "./NavPanel";
 import CreateAdminDiscussion from "./CreateAdminDiscussion";
 import AdminDiscussionList from "./AdminDiscussionList";
@@ -7,7 +8,7 @@ import axios from "./axiosConfig.js";
 
 function AdminPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false); // admin status
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchDiscussions = async () => {
@@ -51,13 +52,12 @@ function AdminPage({ onLogout, username }) {
   };
 
   const handleSearch = (searchQuery) => {
-    // TODO search
     console.log("Search query:", searchQuery);
   };
 
   if (!isAdmin) {
     return (
-      <div>
+      <div className="adminDenial">
         <p>Access Denied. You must be an admin to view this page.</p>
         {/*TODO redirect button */}
       </div>
@@ -78,6 +78,9 @@ function AdminPage({ onLogout, username }) {
           <Information />
         </section>
         <section className="Disc">
+          <Link className="pendingLink" to="/pending">
+            Go to Pending Users
+          </Link>
           <section className="CreateDisc">
             <CreateAdminDiscussion
               onCreate={addDiscussion}

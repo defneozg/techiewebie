@@ -3,7 +3,6 @@ import axios from "./axiosConfig.js";
 import DiscussionList from "./DiscussionList";
 import MessageList from "./MessageList";
 import { useLocation } from "react-router-dom";
-//import ProfilePicture from './ProfilePicture';
 
 function ProfilePage() {
   const location = useLocation();
@@ -43,6 +42,25 @@ function ProfilePage() {
     fetchUserProfile();
   }, [username]);
 
+  const toggleAdminStatus = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/users/${userProfile.username}/toggle-admin`
+      );
+      if (response.status === 200) {
+        // Update the admin status in the local state
+        setUserProfile((prevProfile) => ({
+          ...prevProfile,
+          isAdmin: !prevProfile.isAdmin,
+        }));
+      } else {
+        throw new Error("Failed to toggle admin status");
+      }
+    } catch (error) {
+      console.error("Error toggling admin status:", error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -51,17 +69,19 @@ function ProfilePage() {
     console.error("Error fetching user profile:", error);
     return <div>Error fetching user profile.</div>;
   }
-
-  // <ProfilePicture imageUrl={userProfile.profilePictureUrl} />
-
+  console.log(userProfile.isAdmin);
   return (
     <div className="profile-page">
       <div className="profile-header">
         <h2>
           About {userProfile.firstName} {userProfile.lastName}
         </h2>
-
         <p>{userProfile.about}</p>
+        {userProfile.isAdmin ? (
+          <button onClick={toggleAdminStatus}>Remove Admin</button>
+        ) : (
+          <button onClick={toggleAdminStatus}>Make Admin</button>
+        )}
       </div>
       <div className="profile-content">
         <div className="discussions">

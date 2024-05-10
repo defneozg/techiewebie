@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "./axiosConfig.js";
 import CreateMessage from "./CreateMessage";
 import MessageList from "./MessageList";
@@ -71,7 +72,12 @@ function AdminDiscussionPage({ onLogout, username }) {
         <section className="Msg">
           <h2>{discussion.title}</h2>
           <p>{discussion.content}</p>
-          <p>{discussion.username}</p>
+          <Link
+            className="linkUsername"
+            to={`/user?username=${discussion.username}`}
+          >
+            {discussion.username}
+          </Link>
           <section className="CreateMsg">
             <CreateMessage
               onCreate={addMessages}

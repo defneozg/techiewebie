@@ -77,6 +77,18 @@ function init(db) {
         return;
       }
 
+      // Check if the user's account is approved
+      const isApproved = await users.checkIfUserIsApproved(username);
+      console.log("hey", isApproved);
+      if (!isApproved) {
+        res.status(403).json({
+          status: 403,
+          message:
+            "Your account has not been approved yet. Please wait for approval.",
+        });
+        return;
+      }
+
       let userId = await users.checkpassword(username, password);
       if (userId) {
         req.session.regenerate(function (err) {
@@ -90,6 +102,7 @@ function init(db) {
             res.status(200).json({
               status: 200,
               message: "Login and password accepted",
+              approve: isApproved,
             });
           }
         });
@@ -371,6 +384,57 @@ function init(db) {
     } catch (error) {
       console.error("Error fetching user profile:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // GET pending approvals
+  router.get("/user/pending", async (req, res) => {
+    try {
+      const pendingApprovals = await users.getPendingApprovals();
+      res.json(pendingApprovals);
+    } catch (error) {
+      console.error("Error fetching pending approvals:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // POST approve user
+  router.post("/user/approve/:username", async (req, res) => {
+    const { username } = req.params;
+    try {
+      await users.approveUser(username);
+      res.status(200).json({ message: "User approved successfully" });
+    } catch (error) {
+      console.error("Error approving user:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // POST endpoint to toggle admin status of a user
+  router.post("/users/:username/toggle-admin", async (req, res) => {
+    const { username } = req.params;
+
+    try {
+      // Retrieve the user from the database
+      const user = await users.findByUsername(username);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Toggle the admin status
+      if (!user.isAdmin) {
+        await users.makeAdmin(username);
+      } else {
+        await users.removeAdmin(username);
+      }
+
+      res.status(200).json({
+        message: "Admin status updated successfully",
+        isAdmin: user.isAdmin,
+      });
+    } catch (error) {
+      console.error("Error toggling admin status:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 

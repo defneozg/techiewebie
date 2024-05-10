@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+20&family=Rubik+Bubbles&family=Signika+Negative:wght@300..700&family=Silkscreen:wght@400;700&display=swap");
+
 * {
   box-sizing: border-box;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Signika Negative", sans-serif;
 }
 
 body {
@@ -29,7 +32,9 @@ input {
 .createBtn,
 .DeleteBtn,
 .logout-button button,
-.page-toggle button {
+.page-toggle button,
+.approveButton,
+.backButton {
   text-align: center;
   width: 100px;
   padding: 12px;
@@ -41,6 +46,11 @@ input {
   font-weight: bold;
   color: #fffbf5;
   background-color: #ea5399;
+}
+
+.DeleteBtn {
+  margin-top: 20px;
+  margin-left: 710px;
 }
 
 .EspacesLogin,
@@ -58,12 +68,38 @@ input {
 
 .logo {
   flex: 1;
-  font-size: 25px;
+  font-family: "Rubik Bubbles", system-ui;
+  color: #3e0318;
+  font-size: 40px;
   font-weight: bold;
   max-width: 15%;
   height: 75px;
   margin-right: 50px;
   align-content: center;
+}
+
+.rePage {
+  color: #3e0318;
+  margin-left: 40px;
+}
+
+.profile-content {
+  color: #3e0318;
+  margin-left: 40px;
+}
+
+.profile-header {
+  color: #3e0318;
+  margin-left: 40px;
+  font-size: 40px;
+}
+
+.adminDenial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 50px;
 }
 
 .search-bar {
@@ -99,9 +135,25 @@ input {
 
 .Information {
   width: 20%;
-  height: 100vh;
+  min-height: 100vh;
   padding: 10px;
   background-color: #f96398;
+}
+
+.information {
+  text-align: left;
+}
+
+.linkUsername,
+.linkView {
+  color: #3e0318;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.pendingLink {
+  color: black;
+  margin-top: 10px;
 }
 
 .AdminHeader .nav-panel,
@@ -123,6 +175,17 @@ input {
 .AdminForum .SendBtn,
 .AdminDiscussionPage .logout-button button,
 .AdminDiscussionPage .page-toggle button,
-.AdminDiscussionPage .SendBtn {
+.AdminDiscussionPage .SendBtn,
+.AdminDiscussionPage .listItem {
   background-color: rgb(69, 62, 62);
+}
+
+.approveButton {
+  background-color: grey;
+}
+
+.backButton {
+  background-color: grey;
+  margin-left: 70%;
+  margin-top: 10px;
 }

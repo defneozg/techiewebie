@@ -50,6 +50,7 @@ function SignUpForm() {
         firstName,
         lastName,
         isAdmin: false,
+        isApproved: false,
       };
 
       const response = await axios.post(

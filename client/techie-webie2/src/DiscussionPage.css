@@ -14,6 +14,19 @@ body {
   background-color: darkgrey;
 }
 
+.pendingPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: darkgrey;
+  height: 100vh;
+}
+
+.pendingTitle {
+  margin-left: 40px;
+  font-size: 30px;
+}
+
 .Disc {
   display: flex;
   flex-direction: column;
@@ -53,9 +66,26 @@ body {
   width: 100%;
 }
 
+.DiscTitleDel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .listItem {
   list-style-type: none;
   border: 1px solid #070101;
+  background-color: #fc80ac;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.listItemAdmin {
+  list-style-type: none;
+  border: 1px solid #070101;
+  background-color: rgb(69, 62, 62);
   border-radius: 8px;
   padding: 10px 15px;
   margin-bottom: 10px;
@@ -64,4 +94,10 @@ body {
 
 .linkUsername {
   margin-right: 10px;
+}
+
+.headerPending {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(64, 63, 63);
 }

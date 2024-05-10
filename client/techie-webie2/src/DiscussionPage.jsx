@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "./axiosConfig.js";
@@ -24,24 +25,6 @@ function DiscussionPage({ onLogout, username }) {
       setIsAdmin(response.data.isAdmin);
     } catch (error) {
       console.error("Error checking admin status:", error);
-    }
-  };
-
-  const createMessage = async (newMessage) => {
-    try {
-      // Send POST request to create a new message
-      await axios.post(`http://localhost:4000/api/messages`, {
-        discussionId,
-        msg: newMessage,
-      });
-
-      // After successfully creating the message, fetch the updated list of messages
-      const messagesResponse = await axios.get(
-        `http://localhost:4000/api/messages?discussionId=${discussionId}`
-      );
-      setMessages(messagesResponse.data);
-    } catch (error) {
-      console.error("Error creating message:", error);
     }
   };
 
@@ -122,9 +105,21 @@ function DiscussionPage({ onLogout, username }) {
           <Information />
         </section>
         <section className="Msg">
-          <h2>{discussion.title}</h2>
+          <section className="DiscTitleDel">
+            <h2>{discussion.title}</h2>
+            {(isAdmin || username === discussion.username) && (
+              <button className="DeleteBtn" onClick={handleDelete}>
+                Delete Discussion
+              </button>
+            )}
+          </section>
           <p>{discussion.content}</p>
-          <p>{discussion.username}</p>
+          <Link
+            className="linkUsername"
+            to={`/user?username=${discussion.username}`}
+          >
+            {discussion.username}
+          </Link>
           <section className="CreateMsg">
             <CreateMessage
               onCreate={addMessages}
@@ -132,11 +127,6 @@ function DiscussionPage({ onLogout, username }) {
               username={username}
             />
           </section>
-          {(isAdmin || username === discussion.username) && (
-            <button className="DeleteBtn" onClick={handleDelete}>
-              Delete Discussion
-            </button>
-          )}
 
           <article className="MessageList">
             <MessageList messages={messages} />

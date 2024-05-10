@@ -41,13 +41,13 @@ function SearchResultsPage() {
 
   return (
     <div>
-      <h2>Search Results</h2>
+      <h2 className="rePage">Search Results</h2>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <ul>
           {results.map((result) => (
-            <li key={result.id}>
+            <li className="listItem " key={result.id}>
               {/* Display the discussion details */}
               <p>Title: {result.title}</p>
               <p>Content: {result.content}</p>

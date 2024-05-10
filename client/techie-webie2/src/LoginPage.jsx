@@ -5,11 +5,10 @@ import axios from "./axiosConfig.js";
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const getUsername = (evt) => setUsername(evt.target.value);
   const getPassword = (evt) => setPassword(evt.target.value);
-
-  const navigate = useNavigate();
 
   const loginUser = async () => {
     try {
@@ -27,6 +26,9 @@ function LoginPage({ onLogin }) {
         alert(data.error_message);
       } else {
         if (response.status === 200) {
+          const isApproved = data.approve; // Extract isApproved status from response
+          console.log(isApproved);
+
           onLogin(true, username);
           navigate("/main");
         }

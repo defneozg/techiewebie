@@ -9,6 +9,7 @@ import DiscussionPage from "./DiscussionPage";
 import AdminDiscussionPage from "./AdminDiscussionPage";
 import ProfilePage from "./ProfilePage";
 import SearchResultsPage from "./SearchResultsPage";
+import PendingUsers from "./PendingUsers";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,6 +73,7 @@ function App() {
         />
         <Route path="/user" element={isLoggedIn && <ProfilePage />} />
         <Route path="/search" element={isLoggedIn && <SearchResultsPage />} />
+        <Route path="/pending" element={isLoggedIn && <PendingUsers />} />
       </Routes>
     </div>
   );
