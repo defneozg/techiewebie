@@ -27,8 +27,6 @@ function AdminPage({ onLogout, username }) {
     };
 
     fetchDiscussions();
-
-    // Voir si l'utilisateur est un administrateur
     const checkAdminStatus = async () => {
       try {
         const response = await axios.get(
@@ -59,7 +57,9 @@ function AdminPage({ onLogout, username }) {
     return (
       <div className="adminDenial">
         <p>Access Denied. You must be an admin to view this page.</p>
-        {/*TODO redirect button */}
+        <Link className="pendingLink" to="/main">
+          Back
+        </Link>
       </div>
     );
   }

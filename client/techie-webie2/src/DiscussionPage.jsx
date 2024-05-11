@@ -19,12 +19,10 @@ function DiscussionPage({ onLogout, username, isAdmin }) {
 
   const handleDelete = async () => {
     try {
-      // DELETE discussion
       await axios.delete(
         `http://localhost:4000/api/discussions/discussionId/${discussionId}`
       );
       navigate("/main");
-      // Redirect or handle the deletion confirmation
     } catch (error) {
       console.error("Error deleting discussion:", error);
     }
@@ -32,13 +30,10 @@ function DiscussionPage({ onLogout, username, isAdmin }) {
 
   const fetchDiscussionAndMessages = async () => {
     try {
-      // GET discussion selon discussionId
       const discussionResponse = await axios.get(
         `http://localhost:4000/api/discussions/discussionId/${discussionId}`
       );
       setDiscussion(discussionResponse.data);
-
-      // GET messages d'une discussion
       const messagesResponse = await axios.get(
         `http://localhost:4000/api/messages?discussionId=${discussionId}`
       );
@@ -75,7 +70,6 @@ function DiscussionPage({ onLogout, username, isAdmin }) {
   }
 
   const handleSearch = (searchQuery) => {
-    // TODO search
     console.log("Search query:", searchQuery);
   };
 
@@ -83,8 +77,9 @@ function DiscussionPage({ onLogout, username, isAdmin }) {
     <div>
       <section className="header">
         <NavPanel
-          className="NavPan"
+          className="nav-panel"
           onLogout={onLogout}
+          isAdmin={isAdmin}
           onSearch={handleSearch}
         />
       </section>

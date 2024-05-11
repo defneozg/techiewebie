@@ -12,7 +12,6 @@ const PendingUsers = () => {
         const response = await axios.get(
           "http://localhost:4000/api/user/pending"
         );
-        console.log(response.data);
         setPendingRegistrations(response.data);
       } catch (error) {
         console.error("Error fetching pending registrations:", error);

@@ -9,7 +9,6 @@ function CreateAdminDiscussion({ onCreate, username }) {
     e.preventDefault();
     if (title.trim() && content.trim()) {
       try {
-        // POST discussion
         const response = await axios.post(
           "http://localhost:4000/api/admindiscussions",
           { title, content, username }

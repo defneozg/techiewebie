@@ -25,14 +25,13 @@ function MessageList({ messages, username, isAdmin }) {
           await axios.delete(
             `http://localhost:4000/api/messages/${messageId}/${username}`
           );
-          // Redirect or handle the deletion confirmation
         }
       } catch (error) {
         console.error("Error deleting discussion:", error);
       }
     };
 
-    deleteMessage(); // Appel de la fonction deleteMessage après chaque mise à jour de messageId
+    deleteMessage();
   }, [messageId]);
 
   return (

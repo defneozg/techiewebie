@@ -26,10 +26,8 @@ function LoginPage({ onLogin }) {
         alert(data.error_message);
       } else {
         if (response.status === 200) {
-          const isApproved = data.approve; // Extract isApproved status from response
-          console.log(isApproved);
-
-          onLogin(true, username);
+          const isApproved = data.approve;
+          onLogin(isApproved, username);
           navigate("/main");
         }
       }

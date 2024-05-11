@@ -11,9 +11,7 @@ function CreateMessage({ onCreate, discussionId, username }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (msg.trim()) {
-      // Voir si msg est vide
       try {
-        // POST message
         const response = await axios.post(
           "http://localhost:4000/api/messages",
           {

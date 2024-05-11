@@ -13,7 +13,6 @@ function SearchResultsPage() {
     const fetchDiscussions = async () => {
       setIsLoading(true);
       try {
-        // Make an API request to fetch discussions filtered by the search query
         const response = await axios.get(
           `http://localhost:4000/api/search/discussions?search=${encodeURIComponent(
             searchQuery
@@ -34,7 +33,6 @@ function SearchResultsPage() {
     if (searchQuery) {
       fetchDiscussions();
     } else {
-      // If searchQuery is empty, clear the results
       setResults([]);
     }
   }, [searchQuery]);
@@ -46,9 +44,8 @@ function SearchResultsPage() {
         <p>Loading...</p>
       ) : (
         <ul>
-          {results.map((result) => (
-            <li className="listItem " key={result.id}>
-              {/* Display the discussion details */}
+          {results.map((result, index) => (
+            <li className="listItem " key={index}>
               <p>Title: {result.title}</p>
               <p>Content: {result.content}</p>
               <p>Username: {result.username}</p>

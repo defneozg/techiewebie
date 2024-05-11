@@ -20,7 +20,6 @@ class Discussions {
 
   async insertAdminDiscussion(discussion) {
     try {
-      //if (!discussion.title || !discussion.content || !discussion.username) {
       if (!discussion.title || !discussion.content) {
         throw new Error("Discussion title, content and username are required.");
       }
@@ -116,6 +115,21 @@ class Discussions {
   async deleteDiscussionById(discussionId) {
     try {
       const collection = db.collection("discussions");
+      const id = new ObjectId(discussionId);
+      const result = await collection.deleteOne({ _id: id });
+      if (result.deletedCount === 0) {
+        throw new Error("Discussion not found");
+      }
+      return true;
+    } catch (error) {
+      console.error("Error deleting discussion:", error.message);
+      throw error;
+    }
+  }
+
+  async deleteAdminDiscussionById(discussionId) {
+    try {
+      const collection = db.collection("discussionsAdmin");
       const id = new ObjectId(discussionId);
       const result = await collection.deleteOne({ _id: id });
       if (result.deletedCount === 0) {

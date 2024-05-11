@@ -85,7 +85,6 @@ function init(db) {
         return;
       }
 
-      // Check if the user's account is approved
       const isApproved = await users.checkIfUserIsApproved(username);
       console.log("hey", isApproved);
       if (!isApproved) {
@@ -176,24 +175,11 @@ function init(db) {
   // DELETE Discussion
   router.delete("/discussions/discussionId/:discussionId", async (req, res) => {
     const { discussionId } = req.params;
-
     try {
       const discussion = await discussions.findDiscussionById(discussionId);
       if (!discussion) {
         return res.status(404).json({ error: "Discussion not found" });
       }
-
-      // Check if the user is the owner of the discussion or an admin
-      // console.log(req.session.username);
-      // console.log(discussion.username);
-      // if (
-      //   discussion.username !== req.session.username &&
-      //   !req.session.isAdmin
-      // ) {
-      //   return res.status(403).json({ error: "Unauthorized" });
-      // }
-
-      // Proceed with the deletion
       await discussions.deleteDiscussionById(discussionId);
       res.status(200).json({ message: "Discussion deleted successfully" });
     } catch (error) {
@@ -202,14 +188,31 @@ function init(db) {
     }
   });
 
+  // DELETE Discussion - Admin
+  router.delete(
+    "/adminDiscussions/discussionId/:discussionId",
+    async (req, res) => {
+      const { discussionId } = req.params;
+      try {
+        const discussion = await discussions.findAdminDiscussionById(
+          discussionId
+        );
+        if (!discussion) {
+          return res.status(404).json({ error: "Discussion not found" });
+        }
+        await discussions.deleteAdminDiscussionById(discussionId);
+        res.status(200).json({ message: "Discussion deleted successfully" });
+      } catch (error) {
+        console.error("Error deleting discussion:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  );
+
   // DELETE Message
   router.delete("/messages/:messageId/:username", async (req, res) => {
     try {
       const { messageId, username } = req.params;
-      const userId = req.session.userid; // Assuming user ID is stored in the session
-
-      // Check if the user is an admin or the owner of the message
-      const isAdmin = await users.isAdmin(userId);
       const message = await messages.findMessageById(messageId);
       if (!message) {
         return res.status(404).json({ error: "Message not found" });
@@ -352,7 +355,7 @@ function init(db) {
     }
   });
 
-  // GET Discussions by search query
+  // GET Discussions par search query
   router.get("/search/discussions", async (req, res) => {
     const { search } = req.query;
     try {
@@ -363,21 +366,6 @@ function init(db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
-
-  // GET User par id
-  /*
-  router.get("/user/:userId", async (req, res) => {
-    try {
-      const user = await users.findById(req.params.userId);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      res.json(user);
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });*/
 
   // GET User par username
   router.get("/user/username/:username", async (req, res) => {
@@ -395,7 +383,7 @@ function init(db) {
     }
   });
 
-  // GET pending approvals
+  // GET Gestion des inscriptions
   router.get("/user/pending", async (req, res) => {
     try {
       const pendingApprovals = await users.getPendingApprovals();
@@ -406,7 +394,7 @@ function init(db) {
     }
   });
 
-  // POST approve user
+  // POST Gestion des inscriptions
   router.post("/user/approve/:username", async (req, res) => {
     const { username } = req.params;
     try {
@@ -418,24 +406,20 @@ function init(db) {
     }
   });
 
-  // POST endpoint to toggle admin status of a user
+  // POST Changement statut admin
   router.post("/users/:username/toggle-admin", async (req, res) => {
     const { username } = req.params;
 
     try {
-      // Retrieve the user from the database
       const user = await users.findByUsername(username);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-
-      // Toggle the admin status
       if (!user.isAdmin) {
         await users.makeAdmin(username);
       } else {
         await users.removeAdmin(username);
       }
-
       res.status(200).json({
         message: "Admin status updated successfully",
         isAdmin: user.isAdmin,
@@ -443,19 +427,6 @@ function init(db) {
     } catch (error) {
       console.error("Error toggling admin status:", error);
       res.status(500).json({ error: "Internal server error" });
-    }
-  });
-
-  // GET Discussions postées par un user
-  /*router.get("/user/:userId/discussions", async (req, res) => {
-    try {
-      const allDiscussions = await discussions.find({
-        userId: req.params.userId,
-      });
-      res.json(allDiscussions);
-    } catch (error) {
-      console.error("Error fetching discussions:", error);
-      res.status(500).json({ message: "Internal server error" });
     }
   });
 
@@ -468,21 +439,7 @@ function init(db) {
       console.error("Error fetching messages:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  });*/
-
-  // A voir si on le garde
-  router
-    .route("/user/:user_id(\\d+)")
-    .get(async (req, res) => {
-      try {
-        const user = await users.get(req.params.user_id);
-        if (!user) res.sendStatus(404);
-        else res.send(user);
-      } catch (e) {
-        res.status(500).send(e);
-      }
-    })
-    .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
+  });
 
   return router;
 }

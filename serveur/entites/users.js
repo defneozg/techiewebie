@@ -134,12 +134,10 @@ class Users {
     try {
       const collection = db.collection("users");
       const user = await collection.findOne({ username });
-
-      // Check if the user exists and if their account is approved
       if (user && user.isApproved) {
-        return true; // User is approved
+        return true;
       } else {
-        return false; // User is not approved
+        return false;
       }
     } catch (error) {
       console.error("Error checking user approval status:", error);

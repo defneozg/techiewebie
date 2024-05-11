@@ -10,7 +10,6 @@ function CreateDiscussion({ onCreate, username }) {
     console.log(username);
     if (title.trim() && content.trim()) {
       try {
-        // POST discussion
         const response = await axios.post(
           "http://localhost:4000/api/discussions",
           { title, content, username }
