@@ -203,9 +203,9 @@ function init(db) {
   });
 
   // DELETE Message
-  router.delete("/messages/:messageId", async (req, res) => {
+  router.delete("/messages/:messageId/:username", async (req, res) => {
     try {
-      const { messageId } = req.params;
+      const { messageId, username } = req.params;
       const userId = req.session.userid; // Assuming user ID is stored in the session
 
       // Check if the user is an admin or the owner of the message
@@ -215,8 +215,8 @@ function init(db) {
         return res.status(404).json({ error: "Message not found" });
       }
 
-      if (isAdmin || message.userId === userId) {
-        await messages.deleteMessage(messageId);
+      if (message[0].username === username || isAdmin) {
+        await messages.deleteMessageById(messageId);
         res.status(200).json({ message: "Message deleted successfully" });
       } else {
         res.status(403).json({ error: "Unauthorized to delete message" });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -9,24 +9,13 @@ import NavPanel from "./NavPanel";
 import Information from "./Information";
 import "./DiscussionPage.css";
 
-function DiscussionPage({ onLogout, username }) {
+function DiscussionPage({ onLogout, username, isAdmin }) {
   const { discussionId } = useParams();
   const [discussion, setDiscussion] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-
-  // Voir si l'utilisateur est un administrateur
-  const checkAdminStatus = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/api/user/admin");
-      setIsAdmin(response.data.isAdmin);
-    } catch (error) {
-      console.error("Error checking admin status:", error);
-    }
-  };
 
   const handleDelete = async () => {
     try {
@@ -64,7 +53,6 @@ function DiscussionPage({ onLogout, username }) {
 
   useEffect(() => {
     fetchDiscussionAndMessages();
-    checkAdminStatus();
   }, [discussionId]);
 
   // Affiche les messages périodiquement (chaque 2 secondes)
@@ -129,7 +117,11 @@ function DiscussionPage({ onLogout, username }) {
           </section>
 
           <article className="MessageList">
-            <MessageList messages={messages} />
+            <MessageList
+              messages={messages}
+              username={username}
+              isAdmin={isAdmin}
+            />
           </article>
         </section>
       </div>

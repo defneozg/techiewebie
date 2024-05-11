@@ -22,14 +22,15 @@ function App() {
     setUsername(username);
     checkAdminStatus();
     localStorage.setItem("isLoggedIn", loggedIn);
-    localStorage.setItem("isAdmin", isAdmin);
     localStorage.setItem("username", username);
   };
 
   const setLogout = () => {
     setIsLoggedIn(false);
+    setIsAdmin(false);
     setUsername("");
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("isAdmin");
     localStorage.removeItem("username");
   };
 
@@ -52,8 +53,15 @@ function App() {
     if (storedIsLoggedIn) {
       setIsLoggedIn(storedIsLoggedIn);
       setUsername(storedUsername || "");
+      checkAdminStatus();
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+    localStorage.setItem("username", username);
+    localStorage.setItem("isAdmin", isAdmin);
+  }, [isLoggedIn, username, isAdmin]);
 
   return (
     <div>
@@ -76,7 +84,11 @@ function App() {
           path="/discussions/discussionId/:discussionId"
           element={
             isLoggedIn && (
-              <DiscussionPage onLogout={setLogout} username={username} />
+              <DiscussionPage
+                onLogout={setLogout}
+                username={username}
+                isAdmin={isAdmin}
+              />
             )
           }
         />

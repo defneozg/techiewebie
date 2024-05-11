@@ -1,3 +1,5 @@
+const { ObjectId } = require("mongodb");
+
 class Messages {
   async insertMessage(message) {
     try {
@@ -42,6 +44,33 @@ class Messages {
       return message;
     } catch (error) {
       console.error("Error finding message by username:", error.message);
+      throw error;
+    }
+  }
+
+  async findMessageById(messageId) {
+    try {
+      const collection = db.collection("messages");
+      const id = new ObjectId(messageId);
+      const message = await collection.find({ _id: id }).toArray();
+      return message;
+    } catch (error) {
+      console.error("Error finding message by username:", error.message);
+      throw error;
+    }
+  }
+
+  async deleteMessageById(messageId) {
+    try {
+      const collection = db.collection("messages");
+      const id = new ObjectId(messageId);
+      const result = await collection.deleteOne({ _id: id });
+      if (result.deletedCount === 0) {
+        throw new Error("Message not found");
+      }
+      return true;
+    } catch (error) {
+      console.error("Error deleting message:", error.message);
       throw error;
     }
   }
