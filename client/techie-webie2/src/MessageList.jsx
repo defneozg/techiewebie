@@ -22,9 +22,8 @@ function MessageList({ messages, username, isAdmin }) {
     const deleteMessage = async () => {
       try {
         if (messageId) {
-          await axios.delete(
-            `http://localhost:4000/api/messages/${messageId}/${username}`
-          );
+          console.log(isAdmin);
+          await axios.delete(`http://localhost:4000/api/messages/${messageId}`);
         }
       } catch (error) {
         console.error("Error deleting discussion:", error);

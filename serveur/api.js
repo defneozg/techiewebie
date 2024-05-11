@@ -209,7 +209,7 @@ function init(db) {
   );
 
   // DELETE Message
-  router.delete("/messages/:messageId/:username", async (req, res) => {
+  router.delete("/messages/:messageId", async (req, res) => {
     try {
       const { messageId, username } = req.params;
       const message = await messages.findMessageById(messageId);
@@ -217,12 +217,8 @@ function init(db) {
         return res.status(404).json({ error: "Message not found" });
       }
 
-      if (message[0].username === username || isAdmin) {
-        await messages.deleteMessageById(messageId);
-        res.status(200).json({ message: "Message deleted successfully" });
-      } else {
-        res.status(403).json({ error: "Unauthorized to delete message" });
-      }
+      await messages.deleteMessageById(messageId);
+      res.status(200).json({ message: "Message deleted successfully" });
     } catch (error) {
       console.error("Error deleting message:", error);
       res.status(500).json({ error: "Internal server error" });
