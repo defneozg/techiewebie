@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 const db = connectionDB();
 
-// Middlewares (JSON et Cors)
+// Middlewares (express et Cors)
 app.use(express.json());
 
 app.use(

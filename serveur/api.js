@@ -86,7 +86,6 @@ function init(db) {
       }
 
       const isApproved = await users.checkIfUserIsApproved(username);
-      console.log("hey", isApproved);
       if (!isApproved) {
         res.status(403).json({
           status: 403,

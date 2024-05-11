@@ -59,7 +59,6 @@ class Discussions {
 
   async findDiscussionById(discussionId) {
     try {
-      console.log("sup");
       const collection = db.collection("discussions");
       const id = new ObjectId(discussionId);
       const discussion = await collection.findOne({ _id: id });
