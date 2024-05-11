@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function NavPanel({ onLogout, isAdmin }) {
+function NavPanel({ onLogout, isAdmin, username }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -43,6 +43,12 @@ function NavPanel({ onLogout, isAdmin }) {
           onKeyPress={handleKeyPress}
         />
       </div>
+      <button
+        className="ProfileButton"
+        onClick={() => navigate(`/user?username=${username}`)}
+      >
+        Me !
+      </button>
       <div className="page-toggle">
         <button onClick={handleToggle}>
           {isAdmin ? "Main Page" : "Admin Page"}

@@ -37,7 +37,8 @@ input {
 .approveButton,
 .backButton,
 .makeAdmin,
-.removeAdmin {
+.removeAdmin,
+.ProfileButton {
   text-align: center;
   width: 100px;
   padding: 12px;
@@ -127,7 +128,14 @@ input {
 .page-toggle {
   width: 10%;
   height: 75px;
+  align-content: center;
+}
+
+.ProfileButton {
+  width: 5%;
+  height: 40px;
   margin-right: 10px;
+  margin-top: 10px;
   align-content: center;
 }
 
@@ -175,11 +183,13 @@ input {
 }
 
 .AdminHeader .logout-button button,
+.AdminHeader .ProfileButton,
 .AdminHeader .page-toggle button,
 .AdminForum .SendBtn,
 .AdminDiscussionPage .logout-button button,
 .AdminDiscussionPage .page-toggle button,
 .AdminDiscussionPage .SendBtn,
+.AdminDiscussionPage .ProfileButton,
 .AdminDiscussionPage .listItem,
 .AdminDiscussionPage .DeleteBtn {
   background-color: rgb(69, 62, 62);

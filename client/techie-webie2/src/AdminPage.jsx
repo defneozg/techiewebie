@@ -10,40 +10,40 @@ function AdminPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const fetchDiscussions = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/admindiscussions"
+      );
+      if (response.status === 200) {
+        setDiscussions(response.data);
+      } else {
+        throw new Error("Failed to fetch discussions");
+      }
+    } catch (error) {
+      console.error("Error fetching discussions:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchDiscussions = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/api/admindiscussions"
-        );
-        if (response.status === 200) {
-          setDiscussions(response.data);
-        } else {
-          throw new Error("Failed to fetch discussions");
-        }
-      } catch (error) {
-        console.error("Error fetching discussions:", error);
-      }
-    };
-
-    fetchDiscussions();
-    const checkAdminStatus = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/api/user/admin"
-        );
-        if (response.data.isAdmin) {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-      }
-    };
-
-    checkAdminStatus();
+    const interval = setInterval(fetchDiscussions, 2000);
+    return () => clearInterval(interval);
   }, []);
+
+  const checkAdminStatus = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/admin");
+      if (response.data.isAdmin) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    } catch (error) {
+      console.error("Error checking admin status:", error);
+    }
+  };
+
+  checkAdminStatus();
 
   const addDiscussion = (newDiscussion) => {
     setDiscussions([...discussions, newDiscussion]);
@@ -72,6 +72,7 @@ function AdminPage({ onLogout, username }) {
           onLogout={onLogout}
           isAdmin={isAdmin}
           onSearch={handleSearch}
+          username={username}
         />
       </section>
       <div className="AdminForum">

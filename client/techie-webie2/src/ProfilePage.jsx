@@ -101,7 +101,11 @@ function ProfilePage({ connectedUsername, isAdmin }) {
         </div>
         <div className="messages">
           <h3>Messages Posted by {userProfile.firstName}</h3>
-          <MessageList messages={messages} />
+          <MessageList
+            messages={messages}
+            username={connectedUsername}
+            isAdmin={isAdmin}
+          />
         </div>
       </div>
     </div>

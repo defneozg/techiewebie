@@ -82,6 +82,7 @@ function AdminDiscussionPage({ onLogout, username, isAdmin }) {
           onLogout={onLogout}
           isAdmin={isAdmin}
           onSearch={handleSearch}
+          username={username}
         />
       </section>
       <div className="forum">

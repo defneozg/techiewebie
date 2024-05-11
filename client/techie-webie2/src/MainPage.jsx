@@ -38,7 +38,7 @@ function MainPage({ onLogout, username }) {
   return (
     <div>
       <section className="header">
-        <NavPanel className="NavPan" onLogout={onLogout} />
+        <NavPanel className="NavPan" onLogout={onLogout} username={username} />
       </section>
       <div className="forum">
         <section className="Information">

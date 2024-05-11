@@ -430,17 +430,6 @@ function init(db) {
     }
   });
 
-  // GET Messages postés par un user
-  router.get("/user/:userId/messages", async (req, res) => {
-    try {
-      const messages = await messages.find({ userId: req.params.userId });
-      res.json(messages);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
-
   return router;
 }
 
