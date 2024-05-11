@@ -179,12 +179,14 @@ input {
 .AdminDiscussionPage .logout-button button,
 .AdminDiscussionPage .page-toggle button,
 .AdminDiscussionPage .SendBtn,
+.AdminDiscussionPage .DeleteMsg,
 .AdminDiscussionPage .listItem {
   background-color: rgb(69, 62, 62);
 }
 
 .approveButton {
   background-color: grey;
+  margin-top: 10px;
 }
 
 .backButton {

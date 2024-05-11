@@ -68,7 +68,7 @@ function AdminPage({ onLogout, username }) {
     <div>
       <section className="AdminHeader">
         <NavPanel
-          className="NavPan"
+          className="nav-panel"
           onLogout={onLogout}
           isAdmin={isAdmin}
           onSearch={handleSearch}

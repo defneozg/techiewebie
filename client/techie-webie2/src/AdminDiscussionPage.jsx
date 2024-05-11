@@ -8,7 +8,7 @@ import NavPanel from "./NavPanel";
 import Information from "./Information";
 import "./DiscussionPage.css";
 
-function AdminDiscussionPage({ onLogout, username }) {
+function AdminDiscussionPage({ onLogout, username, isAdmin }) {
   const { discussionId } = useParams();
   const [discussion, setDiscussion] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -60,8 +60,9 @@ function AdminDiscussionPage({ onLogout, username }) {
     <div className="AdminDiscussionPage">
       <section className="header">
         <NavPanel
-          className="NavPan"
+          className="nav-panel"
           onLogout={onLogout}
+          isAdmin={isAdmin}
           onSearch={handleSearch}
         />
       </section>

@@ -96,7 +96,11 @@ function App() {
           path="/admindiscussions/discussionId/:discussionId"
           element={
             isLoggedIn && (
-              <AdminDiscussionPage onLogout={setLogout} username={username} />
+              <AdminDiscussionPage
+                onLogout={setLogout}
+                username={username}
+                isAdmin={isAdmin}
+              />
             )
           }
         />
