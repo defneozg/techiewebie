@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "username": "Elisouboubou",
+      "password": "pass",
+      "firstName": "Elise",
+      "lastName": "MaChere",
+      "isAdmin": false,
+      "isApproved": true
+    },
+    {
+      "username": "defnemachere",
+      "password": "hichristine",
+      "firstName": "Defne",
+      "lastName": "MaChere",
+      "isAdmin": true,
+      "isApproved": true
+    },
+    {
+      "username": "christinemachere",
+      "password": "hidefne",
+      "firstName": "Christine",
+      "lastName": "MaChere",
+      "isAdmin": false,
+      "isApproved": false
+    },
+    {
+      "username": "pjmie",
+      "password": "pass",
+      "firstName": "Jimin",
+      "lastName": "Park",
+      "isAdmin": true,
+      "isApproved": true
+    },
+    {
+      "username": "jesuislennemi",
+      "password": "pass",
+      "firstName": "Ennemi",
+      "lastName": "No1",
+      "isAdmin": false,
+      "isApproved": true
+    }
+  ],
+
+  "discussions": [
+    {
+      "title": "J'adore Techno Web !! Meilleur cours du monde ?",
+      "content": "J'ai une idée, je pense que notre prochaine événement doit avoir comme thème \"Technologie du Web\" ! Vous en pensez quoi ?",
+      "username": "defnemachere"
+    },
+    {
+      "title": "Je vous propose de créer une organisation pour Bio Vég",
+      "content": "Je préfère les cours de Bio Veg à Techno Web donc je veux organiser des événements dans ce contexte.",
+      "username": "Elisouboubou"
+    },
+    {
+      "title": "Hi",
+      "content": "new disc !!",
+      "username": "defnemachere"
+    }
+  ],
+
+  "discussionsAdmin": [
+    {
+      "title": "On a décidé quel étudiant on va sacrifier dans le prochain event ?",
+      "content": "Je recommande l'utilisateur \"christinemachere\" mais si vous avez d'autres idées je vous écoute.",
+      "username": "defnemachere"
+    }
+  ]
+}
