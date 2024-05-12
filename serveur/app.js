@@ -21,69 +21,6 @@ app.use(
 // Routage
 app.use("/api", api.default(db));
 
-// CODE QUI DÉFINIT LE SERVEUR
-
-/*const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-
-app.use(bodyParser.json());
-
-const init_disc = require("./data/discussions");
-const init_usrs = require("./data/users");
-const init_admindisc = require("./data/admindiscussions");
-
-const users = db.collection("users");
-const discussions = db.collection("discussions");
-const admindiscussions = db.collection("discussionsAdmin");
-
-async function init() {
-  try {
-    await client.connect();
-
-    // populate database
-
-    if ((await discussions.countDocuments()) !== 0) return;
-
-    var usr_id_dict = {};
-    for (const element of init_usrs) {
-      const res = await users.insertOne({
-        username: element.username,
-        password: await bcrypt.hash(element.password, 10),
-        firstName: element.firstName,
-        lastName: element.lastName,
-        isAdmin: element.isAdmin,
-        isApproved: element.isApproved,
-      });
-      usr_id_dict[element.id] = res.insertedId;
-    }
-
-    const disc_id_dict = {};
-    for (const disc of init_disc) {
-      const res = await forums.insertOne({
-        title: disc.title,
-        content: disc.content,
-        username: disc.username,
-      });
-      disc_id_dict[disc.id] = res.insertedId;
-    }
-
-    const admindisc_id_dict = {};
-    for (const admindisc of init_admindisc) {
-      const res = await forums.insertOne({
-        title: admindisc.title,
-        content: admindisc.content,
-        username: admindisc.username,
-      });
-      admindisc_id_dict[admindisc.id] = res.insertedId;
-    }
-    console.log("Populated Database");
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-init();*/
-
 // Gestion d'erreurs
 app.use((err, req, res, next) => {
   console.error(err.stack);
