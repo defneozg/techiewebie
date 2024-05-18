@@ -1,32 +1,37 @@
-import { useParams } from 'react-router-dom';
-import MessageList from './MessageList';
+import { useState } from "react";
 
-function Discussion({ discussions, messages }){
+function Discussion() {
+  const [selectedDiscussion, setSelectedDiscussion] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const { discussionId } = useParams();
-    
-    const selectedDiscussion = discussions.find(
-        (discussion) => discussion.id === parseInt(discussionId)
-    );
-    
-    if (!selectedDiscussion) {
-        return <div>Discussion not found.</div>;
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    const discussionMessages = messages.filter(
-        (message) => message.discussionId === selectedDiscussion.id
-    );
-    
-    return (
-        <article className="discussion">
-            <h2>{selectedDiscussion.title}</h2>
-            <MessageList messages={discussionMessages} />
-            <small>By {selectedDiscussion.author}</small><br />
-            <small>{selectedDiscussion.date.toLocaleDateString()}</small>
-            <hr />
-            <p>{selectedDiscussion.text}</p>
-        </article>
-    );
+  if (error || !selectedDiscussion) {
+    return <div>Error fetching discussion data.</div>;
+  }
+
+  return (
+    <article className="discussion">
+      <h2>{selectedDiscussion.title}</h2>
+      <p>By </p>
+      <small>
+        {selectedDiscussion.date.toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true,
+        })}
+      </small>
+      <hr />
+      <p>{selectedDiscussion.text}</p>
+    </article>
+  );
 }
 
 export default Discussion;

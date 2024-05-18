@@ -1,64 +1,28 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	font-family: "Space Grotesk", sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+20&family=Rubik+Bubbles&family=Signika+Negative:wght@300..700&family=Silkscreen:wght@400;700&display=swap");
 
-.grid {
-    display: grid;
-    grid-template-columns: 20% 80%;
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+* {
+  box-sizing: border-box;
+  font-family: "Signika Negative", sans-serif;
 }
 
 body {
-	background-color: pink;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-}
-  
-.container {
-    text-align: center;
-}
-
-input {
-	padding: 10px 20px;
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	margin-bottom: 15px;
-}
-a {
-	text-decoration: none;
-}
-.SignInForm,
-.LoginPage
-{
-	display: flex;
-	width: 100%;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	padding: 30px;
+  background-color: pink;
 }
 
 .registerForm,
-.loginForm
-{
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center; 
-    align-items: center; 
-	height: 100vh;
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.button-container {
-	display: flex;
+input {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
 }
 
 .SignUpBtn,
@@ -66,26 +30,179 @@ a {
 .submitBtn,
 .cancelBtn,
 .createBtn,
-.logout-button button
-{
-	display: flexbox;
-	width: 100px;
-	padding: 12px;
-	margin-right: 10px;
-	cursor: pointer;
-	outline: none;
-	border: none;
-	border-radius: 3px;
-	font-size: 16px;
-	font-weight: bold;
-	color: #fffbf5;
-	background-color: #ea5399;
-	margin-bottom: 15px;
+.DeleteBtn,
+.DeleteMsg,
+.logout-button button,
+.page-toggle button,
+.approveButton,
+.backButton,
+.makeAdmin,
+.removeAdmin,
+.ProfileButton {
+  text-align: center;
+  width: 100px;
+  padding: 12px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fffbf5;
+  background-color: #ea5399;
+}
+
+.DeleteBtn {
+  margin-top: 20px;
+  margin-left: 710px;
 }
 
 .EspacesLogin,
 .EspacesSign {
-	display: flex;
-	flex-direction: column;
-	align-items: left; 
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-panel {
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+  background-color: #f96398;
+}
+
+.logo {
+  flex: 1;
+  font-family: "Rubik Bubbles", system-ui;
+  color: #3e0318;
+  font-size: 40px;
+  font-weight: bold;
+  max-width: 15%;
+  height: 75px;
+  margin-right: 50px;
+  align-content: center;
+}
+
+.rePage {
+  color: #3e0318;
+  margin-left: 40px;
+}
+
+.profile-content {
+  color: #3e0318;
+  margin-left: 40px;
+}
+
+.profile-header {
+  color: #3e0318;
+  margin-left: 40px;
+  font-size: 40px;
+}
+
+.adminDenial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 40px;
+}
+
+.search-bar {
+  flex: 1;
+  width: 70%;
+  height: 75px;
+  margin-right: 20px;
+  align-content: center;
+}
+
+.search-bar input,
+.discCont input,
+.discCont textarea,
+.CreateMsg textarea {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.page-toggle {
+  width: 10%;
+  height: 75px;
+  align-content: center;
+}
+
+.ProfileButton {
+  width: 5%;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 10px;
+  align-content: center;
+}
+
+.logout-button {
+  width: 10%;
+  height: 75px;
+  align-content: center;
+}
+
+.Information {
+  width: 20%;
+  min-height: 100vh;
+  padding: 10px;
+  background-color: #f96398;
+}
+
+.information {
+  text-align: left;
+}
+
+.linkUsername,
+.linkView {
+  color: #3e0318;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.pendingLink {
+  color: black;
+  margin-top: 10px;
+}
+
+.AdminHeader .nav-panel,
+.AdminForum .Information,
+.AdminDiscussionPage .nav-panel,
+.AdminDiscussionPage .Information {
+  background-color: black;
+}
+
+.AdminHeader .logo,
+.AdminForum .information,
+.AdminDiscussionPage .logo,
+.AdminDiscussionPage .information {
+  color: #ddd;
+}
+
+.AdminHeader .logout-button button,
+.AdminHeader .ProfileButton,
+.AdminHeader .page-toggle button,
+.AdminForum .SendBtn,
+.AdminDiscussionPage .logout-button button,
+.AdminDiscussionPage .page-toggle button,
+.AdminDiscussionPage .SendBtn,
+.AdminDiscussionPage .ProfileButton,
+.AdminDiscussionPage .listItem,
+.AdminDiscussionPage .DeleteBtn {
+  background-color: rgb(69, 62, 62);
+}
+
+.approveButton,
+.AdminDiscussionPage .DeleteMsg {
+  background-color: grey;
+  margin-top: 10px;
+}
+
+.backButton {
+  background-color: grey;
+  margin-left: 70%;
+  margin-top: 10px;
 }

@@ -1,18 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const PORT = 4000;
+const app = require("./app.js");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-
-app.get("/api", (req, res) => {
-    res.json({
-        message: "Hello world",
-    });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+const port = 4000;
+app.listen(port, () => {
+  console.log(`Serveur actif sur le port ${port}`);
 });

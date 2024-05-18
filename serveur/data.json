@@ -1,0 +1,108 @@
+{
+  "passwordDecrypted": [
+    { "defnemachere": "pass" },
+    { "pjmie": "pass" },
+    { "christinemachere": "hidefne" },
+    { "ferdimoncher": "gutentag" },
+    { "jesuislennemi": "pass" },
+    { "Elisouboubou": "pass" },
+    { "tonystark": "pass" }
+  ],
+
+  "users": [
+    {
+      "username": "defnemachere",
+      "password": "$2b$10$Kqhv7vg.RGc9v0AVsRM75ehO8Fb9usbbIoy7Q4UsqEw6HOzyTPqAy",
+      "firstName": "Defne",
+      "lastName": "MaChere",
+      "isAdmin": true,
+      "isApproved": true
+    },
+    {
+      "username": "pjmie",
+      "password": "$2b$10$VaV0m/x.MCDVFqfc0lsDM.7vC9pAe1OKzacsv7Au8KoeGEjMO0s9m",
+      "firstName": "Jimin",
+      "lastName": "Park",
+      "isAdmin": true,
+      "isApproved": true
+    },
+    {
+      "username": "christinemachere",
+      "password": "$2b$10$JO7C2LosyeH7JrYrFtJ.BOHE9BfHnUlDIj7H977ug8bYQQlDDFzpe",
+      "firstName": "Christine",
+      "lastName": "MaChere",
+      "isAdmin": false,
+      "isApproved": false
+    },
+    {
+      "username": "ferdimoncher",
+      "password": "$2b$10$Q9vTbPZAVHyDs47LBmpaK.43bHyN1jXJAub5GvDxw6Gr6FkIBW.Ve",
+      "firstName": "Ferdi",
+      "lastName": "MonCher",
+      "isAdmin": false,
+      "isApproved": false
+    },
+    {
+      "username": "jesuislennemi",
+      "password": "$2b$10$VTactb1vG5YdUl2m4AAtMePh3hArgEt4qOk9HNo8GCXHOn7iqRe9i",
+      "firstName": "Ennemi",
+      "lastName": "No1",
+      "isAdmin": false,
+      "isApproved": true
+    },
+    {
+      "username": "Elisouboubou",
+      "password": "$2b$10$wy2UR1IFBP4hGRIZ/egP.e04QPPTLc7VaapvGg2N4FnIM3tK44HZG",
+      "firstName": "Elise",
+      "lastName": "MaChere",
+      "isAdmin": false,
+      "isApproved": true
+    },
+    {
+      "username": "tonystark",
+      "password": "$2b$10$6NEuN6w5UyZsDqOkEb9xdeAS4CubzjCIGFLvhSpW6KPbvlDjmUZ5.",
+      "firstName": "Tony",
+      "lastName": "Stark",
+      "isAdmin": true,
+      "isApproved": true
+    }
+  ],
+
+  "discussions": [
+    {
+      "title": "J'adore Techno Web !! Meilleur cours du monde ?",
+      "content": "J'ai une idée, je pense que notre prochaine événement doit avoir comme thème \"Technologie du Web\" ! Vous en pensez quoi ?",
+      "username": "defnemachere",
+      "createdAt": {
+        "$date": "2024-05-11T18:12:22.899Z"
+      }
+    },
+    {
+      "title": "Je vous propose de créer une organisation pour Bio Vég",
+      "content": "Je préfère les cours de Bio Veg à Techno Web donc je veux organiser des événements dans ce contexte.",
+      "username": "Elisouboubou",
+      "createdAt": {
+        "$date": "2024-05-11T18:26:12.399Z"
+      }
+    },
+    {
+      "title": "Hi",
+      "content": "new disc !!",
+      "username": "defnemachere",
+      "createdAt": {
+        "$date": "2024-05-11T19:59:33.617Z"
+      }
+    }
+  ],
+
+  "discussionsAdmin": [
+    {
+      "title": "On a décidé quel étudiant on va sacrifier dans le prochain event ?",
+      "content": "Je recommande l'utilisateur \"christinemachere\" mais si vous avez d'autres idées je vous écoute.",
+      "username": "defnemachere",
+      "createdAt": {
+        "$date": "2024-05-11T18:19:30.251Z"
+      }
+    }
+  ]
+}

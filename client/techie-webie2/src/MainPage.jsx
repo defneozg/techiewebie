@@ -1,44 +1,60 @@
-import { useState } from 'react';
-import './MainPage.css';
+import { useState, useEffect } from "react";
 import NavPanel from "./NavPanel";
-import CreateDiscussion from "./CreateDiscussion"
-import DiscussionList from "./DiscussionList"
-import Information from './Information';
+import CreateDiscussion from "./CreateDiscussion";
+import DiscussionList from "./DiscussionList";
+import Information from "./Information";
+import axios from "./axiosConfig.js";
 
-function MainPage ({ onLogout }) {
-
+function MainPage({ onLogout, username }) {
   const [discussions, setDiscussions] = useState([]);
 
-  const addDiscussion = (newDiscussion) => {
-    setDiscussions([...discussions, newDiscussion]);
+  const fetchDiscussions = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/discussions");
+      if (response.status === 200) {
+        setDiscussions(response.data);
+      } else {
+        throw new Error("Failed to fetch discussions");
+      }
+    } catch (error) {
+      console.error("Error fetching discussions:", error);
+    }
   };
 
-  const handleSearch = (searchQuery) => {
-    // Implement search functionality here
-    console.log('Search query:', searchQuery);
+  // Affiche les discussions périodiquement (chaque 2 secondes)
+  useEffect(() => {
+    const interval = setInterval(fetchDiscussions, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const addDiscussion = async (newDiscussion) => {
+    try {
+      setDiscussions([...discussions, newDiscussion]);
+    } catch (error) {
+      console.error("Error adding discussion:", error);
+    }
   };
 
-
-    return (
+  return (
     <div>
-      <div className="header">
-        <NavPanel  className='NavPan' onLogout={onLogout} onSearch={handleSearch}/>
-      </div>
+      <section className="header">
+        <NavPanel className="NavPan" onLogout={onLogout} username={username} />
+      </section>
       <div className="forum">
-        <aside className='Information'>
-          <Information /> {/* Add the Information component here */}
-        </aside>
-        <section  className='Disc'>
-          <div className="CreateDisc">
-            <CreateDiscussion onCreate={addDiscussion}/>
-          </div>
-          <article  className='DiscussionList'>
+        <section className="Information">
+          <Information />
+        </section>
+        <section className="Disc">
+          <section className="CreateDisc">
+            <CreateDiscussion onCreate={addDiscussion} username={username} />
+          </section>
+          <article className="DiscussionList">
             <DiscussionList discussions={discussions} />
           </article>
         </section>
       </div>
     </div>
-    );
+  );
 }
 
 export default MainPage;
